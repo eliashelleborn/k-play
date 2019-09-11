@@ -1,9 +1,9 @@
 {
-	"auth": {
-		"kplay1c5afdc5": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
-		}
-	}
+  "auth": {
+    "kplay85b90de8": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  }
 }

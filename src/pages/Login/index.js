@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 
 const Login = () => {
@@ -6,6 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [toVerify, setToVerify] = useState(false);
 
   const signIn = async e => {
     e.preventDefault();
@@ -15,10 +17,15 @@ const Login = () => {
       await Auth.signIn({ username: email, password });
     } catch (err) {
       setError(err);
+      if (err.code === 'UserNotConfirmedException') {
+        setToVerify(true);
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  if (toVerify && !loading) return <Redirect to={`/verify/${email}`} />;
 
   return (
     <div>

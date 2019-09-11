@@ -12,6 +12,7 @@ import Play from '../../pages/Play';
 import Search1 from '../../pages/Search1';
 import Search2 from '../../pages/Search2';
 import SignUp from '../../pages/SignUp';
+import Verify from '../../pages/Verify';
 
 import Error from '../../pages/Error';
 
@@ -24,19 +25,20 @@ const App = () => {
     const user = await Auth.currentAuthenticatedUser();
     setAuthenticatedUser(user);
   };
+
+  const handleAuthEvent = event => {
+    if (event.payload.event === 'signIn') {
+      setAuthenticatedUser(event.payload.data);
+    }
+    if (event.payload.event === 'signOut') {
+      setAuthenticatedUser(null);
+    }
+  };
+
   useEffect(() => {
     getCurrentAuthenticatedUser();
-    Hub.listen('auth', e => {
-      if (e.payload.event === 'signIn') {
-        setAuthenticatedUser(e.payload.data);
-      }
-      if (e.payload.event === 'signOut') {
-        setAuthenticatedUser(null);
-      }
-    });
+    Hub.listen('auth', handleAuthEvent);
   }, []);
-
-  console.log(authenticatedUser);
 
   return (
     <BrowserRouter>
@@ -50,6 +52,7 @@ const App = () => {
           <Route path="/sök" component={Search1} />
           <Route path="/sök2" component={Search2} />
           <Route path="/skapa-konto" component={SignUp} />
+          <Route path="/verify/:email" component={Verify} />
           <Route component={Error} />
         </Switch>
       </div>
