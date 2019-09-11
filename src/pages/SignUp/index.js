@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 const SignUp = () => {
   return (
     <div>
-      <p> Skapa konto </p>
+      <p>Skapa konto</p>
     </div>
   );
 };
