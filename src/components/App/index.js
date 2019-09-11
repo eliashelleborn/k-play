@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Amplify from 'aws-amplify';
+import Amplify, { Hub, Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 
 import Navigation from '../Navigation';
@@ -18,10 +18,30 @@ import Error from '../../pages/Error';
 Amplify.configure(awsconfig);
 
 const App = () => {
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
+
+  const getCurrentAuthenticatedUser = async () => {
+    const user = await Auth.currentAuthenticatedUser();
+    setAuthenticatedUser(user);
+  };
+  useEffect(() => {
+    getCurrentAuthenticatedUser();
+    Hub.listen('auth', e => {
+      if (e.payload.event === 'signIn') {
+        setAuthenticatedUser(e.payload.data);
+      }
+      if (e.payload.event === 'signOut') {
+        setAuthenticatedUser(null);
+      }
+    });
+  }, []);
+
+  console.log(authenticatedUser);
+
   return (
     <BrowserRouter>
       <div>
-        <Navigation />
+        <Navigation authUser={authenticatedUser} />
         <Switch>
           <Route path="/k-play" component={Home} />
           <Route path="/bibliotek" component={Library} />
