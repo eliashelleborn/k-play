@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"kplay1c5afdc5": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}
