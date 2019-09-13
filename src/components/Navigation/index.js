@@ -21,7 +21,7 @@ const Navigation = ({ authUser }) => {
   return (
     <StyledNavigation>
       <div>
-        <NavLink to="/k-play">
+        <NavLink to="/">
           <TextMenu>K-play</TextMenu>
         </NavLink>
 
