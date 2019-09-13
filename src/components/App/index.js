@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import Amplify, { Hub, Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 
@@ -15,6 +16,8 @@ import SignUp from '../../pages/SignUp';
 import Verify from '../../pages/Verify';
 
 import Error from '../../pages/Error';
+import theme from '../../style/theme';
+import Global from '../../style/global';
 
 Amplify.configure(awsconfig);
 
@@ -41,22 +44,27 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <div>
-        <Navigation authUser={authenticatedUser} />
-        <Switch>
-          <Route path="/k-play" component={Home} />
-          <Route path="/bibliotek" component={Library} />
-          <Route path="/logga-in" component={Login} />
-          <Route path="/spela-upp" component={Play} />
-          <Route path="/sök" component={Search1} />
-          <Route path="/sök2" component={Search2} />
-          <Route path="/skapa-konto" component={SignUp} />
-          <Route path="/verify/:email" component={Verify} />
-          <Route component={Error} />
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <>
+      <Global />
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <div>
+            <Navigation authUser={authenticatedUser} />
+            <Switch>
+              <Route path="/k-play" component={Home} />
+              <Route path="/bibliotek" component={Library} />
+              <Route path="/logga-in" component={Login} />
+              <Route path="/spela-upp" component={Play} />
+              <Route path="/sök" component={Search1} />
+              <Route path="/sök2" component={Search2} />
+              <Route path="/skapa-konto" component={SignUp} />
+              <Route path="/verify/:email" component={Verify} />
+              <Route component={Error} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+    </>
   );
 };
 
