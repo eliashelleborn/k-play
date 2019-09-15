@@ -7,14 +7,18 @@ const StyledButton = styled.button`
   ${space}
   ${typography}
   ${layout}
+  width: 100%;
   height: 44px;
   border-radius: 3px;
+  font-weight: 500;
   border: none;
   box-shadow: 0 4px 8px 0px rgba(43, 43, 43, 0.08);
   display: flex;
   align-items: center;
   justify-content: ${props => (props.withIcon ? 'flex-start' : 'center')};
   cursor: pointer;
+  padding-right: ${({ theme }) => theme.space[3]}px;
+  padding-left: ${({ theme }) => theme.space[3]}px;
 `;
 
 const Icon = styled.div`
@@ -35,10 +39,7 @@ const Button = ({ children, icon, ...rest }) => {
 
 Button.defaultProps = {
   bg: 'orange',
-  color: 'white',
-  fontWeight: '500',
-  px: '3',
-  width: '100%'
+  color: 'white'
 };
 
 export default Button;

@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { space, color } from 'styled-system';
+import { space, color, flexbox } from 'styled-system';
 
 const StyledBanner = styled.div`
   ${space}
   ${color}
+  ${flexbox}
+  display: flex;
   position: relative;
   width: 100%;
 `;
@@ -40,7 +42,8 @@ const Banner = ({ image, tint, children, ...rest }) => {
 };
 
 Banner.defaultProps = {
-  py: 6
+  py: 6,
+  justifyContent: 'center'
 };
 
 export default Banner;

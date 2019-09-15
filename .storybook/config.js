@@ -1,9 +1,18 @@
 import React from 'react';
-import { configure, addDecorator } from '@storybook/react';
-import { ThemeProvider } from 'styled-components';
-import { Flex } from 'rebass/styled-components';
+import { configure, addDecorator, setAddon } from '@storybook/react';
+import JSXAddon from 'storybook-addon-jsx';
+import styled, { ThemeProvider } from 'styled-components';
 import Global from '../src/style/global';
 import theme from '../src/style/theme';
+
+const CenterContent = styled.div`
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+`;
+
+setAddon(JSXAddon);
 
 // automatically import all files ending in *.stories.js
 const req = require.context('../stories', true, /\.stories\.js$/);
@@ -15,11 +24,7 @@ addDecorator(storyFn => (
   <>
     <Global />
     <ThemeProvider theme={theme}>
-      <Flex
-        sx={{ height: '100vh', alignItems: 'center', justifyContent: 'center' }}
-      >
-        {storyFn()}
-      </Flex>
+      <CenterContent>{storyFn()}</CenterContent>
     </ThemeProvider>
   </>
 ));
