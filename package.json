@@ -41,6 +41,7 @@
     "@babel/core": "^7.6.0",
     "@storybook/addon-actions": "^5.1.11",
     "@storybook/addon-links": "^5.1.11",
+    "@storybook/addon-viewport": "^5.2.0",
     "@storybook/addons": "^5.1.11",
     "@storybook/react": "^5.1.11",
     "babel-loader": "^8.0.6",
@@ -51,7 +52,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "husky": ">=1",
     "lint-staged": ">=8",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "storybook-addon-jsx": "^7.1.6"
   },
   "husky": {
     "hooks": {

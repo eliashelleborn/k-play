@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { space, flexbox, color } from 'styled-system';
+import { space, color } from 'styled-system';
 
 const StyledBanner = styled.div`
   ${space}
-  ${flexbox}
   ${color}
   position: relative;
   width: 100%;
-
 `;
 
 const Image = styled.img`
@@ -33,12 +31,16 @@ const Tint = styled.div`
 
 const Banner = ({ image, tint, children, ...rest }) => {
   return (
-    <StyledBanner py="6" {...rest}>
+    <StyledBanner {...rest}>
       {children}
       <Tint tint={tint} />
       {image && <Image src={image} alt="Banner image" />}
     </StyledBanner>
   );
+};
+
+Banner.defaultProps = {
+  py: 6
 };
 
 export default Banner;

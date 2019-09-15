@@ -15,7 +15,9 @@ addDecorator(storyFn => (
   <>
     <Global />
     <ThemeProvider theme={theme}>
-      <Flex height="100vh" alignItems="center" justifyContent="center">
+      <Flex
+        sx={{ height: '100vh', alignItems: 'center', justifyContent: 'center' }}
+      >
         {storyFn()}
       </Flex>
     </ThemeProvider>
