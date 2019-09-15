@@ -1,31 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
-import { color, space, typography, flexbox } from 'styled-system';
-import { Flex } from 'rebass/styled-components';
+import { color, space, typography, layout } from 'styled-system';
 
 const StyledButton = styled.button`
   ${color}
   ${space}
   ${typography}
-  ${flexbox}
+  ${layout}
+  width: 100%;
   height: 44px;
   border-radius: 3px;
-  border: none;
   font-weight: 500;
-  width: 100%;
+  border: none;
   box-shadow: 0 4px 8px 0px rgba(43, 43, 43, 0.08);
   display: flex;
+  align-items: center;
+  justify-content: ${props => (props.withIcon ? 'flex-start' : 'center')};
+  cursor: pointer;
+  padding-right: ${({ theme }) => theme.space[3]}px;
+  padding-left: ${({ theme }) => theme.space[3]}px;
+`;
+
+const Icon = styled.div`
+  width: 20px;
+  margin-right: ${({ theme }) => theme.space[4]}px;
+  justify-content: center;
   align-items: center;
 `;
 
 const Button = ({ children, icon, ...rest }) => {
   return (
-    <StyledButton justifyContent={icon ? 'flex-start' : 'center'} {...rest}>
-      {icon && (
-        <Flex width="20px" mr="4" justifyContent="center" alignItems="center">
-          {icon}
-        </Flex>
-      )}
+    <StyledButton withIcon={!!icon} {...rest}>
+      {icon && <Icon>{icon}</Icon>}
       {children}
     </StyledButton>
   );
@@ -33,8 +39,7 @@ const Button = ({ children, icon, ...rest }) => {
 
 Button.defaultProps = {
   bg: 'orange',
-  color: 'white',
-  px: 3
+  color: 'white'
 };
 
 export default Button;

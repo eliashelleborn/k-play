@@ -51,7 +51,7 @@ const App = () => {
           <div>
             <Navigation authUser={authenticatedUser} />
             <Switch>
-              <Route path="/" component={Home} />
+              <Route exact path="/" component={Home} />
               <Route path="/bibliotek" component={Library} />
               <Route path="/logga-in" component={Login} />
               <Route path="/spela-upp" component={Play} />

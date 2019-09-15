@@ -7,7 +7,12 @@ const theme = {
   },
 
   space: [0, 4, 8, 16, 24, 32, 48, 64], // margin & padding
-  breakpoints: ['480px', '768px', '992px', '1200px'] // Just took these to start with: https://ricostacruz.com/til/css-media-query-breakpoints
+  breakpoints: ['480px', '768px', '992px', '1200px'], // Just took these to start with: https://ricostacruz.com/til/css-media-query-breakpoints
+
+  fonts: {
+    body: '"Barlow", sans-serif',
+    heading: '"Barlow", sans-serif'
+  }
 };
 
 theme.mediaQueries = {
