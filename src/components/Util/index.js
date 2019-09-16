@@ -6,7 +6,11 @@ export const Box = styled.div`
   ${space}
 `;
 
+Box.displayName = 'Box';
+
 export const Grid = styled(Box)`
   display: grid;
   ${grid}
 `;
+
+Grid.displayName = 'Grid';

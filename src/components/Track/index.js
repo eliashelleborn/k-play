@@ -1,0 +1,94 @@
+import React from 'react';
+import styled from 'styled-components';
+import { Heading, Text } from '../Typography';
+import { Play, Video, More as MoreIcon, Podcast } from '../Icons';
+
+const StyledTrack = styled.div`
+  width: 100%;
+  padding: ${({ theme }) => theme.space[2]}px;
+  display: flex;
+`;
+
+const Cover = styled.div`
+  position: relative;
+  height: 65px;
+  width: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: ${({ theme }) => theme.space[2]}px;
+  white-space: nowrap
+
+  > div:first-child {
+    font-weight: bold;
+    font-size: 12px;
+  }
+`;
+
+const More = styled.div`
+  padding: 0 ${({ theme }) => theme.space[3]}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Track = ({
+  type,
+  image,
+  title,
+  description /* , duration, episode */
+}) => {
+  return (
+    <StyledTrack>
+      <Cover>
+        <Play />
+        <img src={image} alt="" />
+      </Cover>
+      <Info>
+        <div>
+          <Text mr="1" as="span">
+            22 min
+          </Text>
+          {type === 'video' && <Video />}
+          {type === 'podcast' && <Podcast />}
+          <Text ml="1" as="span">
+            1/3 Avsnitt
+          </Text>
+        </div>
+
+        <Heading as="h5" m="0" mt="1" fontSize="20px" fontWeight="400">
+          {title}
+        </Heading>
+        {description && (
+          <Text fontSize="12px" m="0" mt="1">
+            {description.length > 20
+              ? `${description.substring(0, 20)}...`
+              : description}
+          </Text>
+        )}
+      </Info>
+      <More>
+        <MoreIcon />
+      </More>
+    </StyledTrack>
+  );
+};
+
+export default Track;

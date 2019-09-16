@@ -61,6 +61,7 @@ const App = () => {
               <Route path="/skapa-konto" component={SignUp} />
               <Route path="/verify/:email" component={Verify} />
               <Route path="/mina-listor" component={MyPlaylists} />
+              <Route path="/spellista" component={MyPlaylists} />
               <Route component={Error} />
             </Switch>
           </div>
