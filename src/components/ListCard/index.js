@@ -5,15 +5,7 @@ import { Heading } from '../Typography';
 const StyledListCard = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  h3 {
-    position: relative;
-    color: ${({ theme }) => theme.colors.white};
-  }
+  padding-top: 100%;
 
   img {
     position: absolute;
@@ -23,6 +15,21 @@ const StyledListCard = styled.div`
     left: 0;
     object-fit: cover;
     z-index: -2;
+  }
+`;
+
+const Content = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    position: relative;
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 
@@ -39,7 +46,10 @@ const Tint = styled.div`
 const ListCard = ({ image, title }) => {
   return (
     <StyledListCard>
-      <Heading as="h3">{title}</Heading>
+      <Content>
+        <Heading as="h3">{title}</Heading>
+      </Content>
+
       <Tint />
       {image && <img src={image} alt="" />}
     </StyledListCard>
