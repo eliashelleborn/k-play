@@ -18,6 +18,7 @@ import Verify from '../../pages/Verify';
 import Error from '../../pages/Error';
 import theme from '../../style/theme';
 import Global from '../../style/global';
+import MyPlaylists from '../../pages/MyPlaylists';
 
 Amplify.configure(awsconfig);
 
@@ -59,6 +60,7 @@ const App = () => {
               <Route path="/sök2" component={Search2} />
               <Route path="/skapa-konto" component={SignUp} />
               <Route path="/verify/:email" component={Verify} />
+              <Route path="/mina-listor" component={MyPlaylists} />
               <Route component={Error} />
             </Switch>
           </div>
