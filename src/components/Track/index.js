@@ -16,7 +16,7 @@ const Cover = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  flex-shrink: 0;
   img {
     position: absolute;
     top: 0;
@@ -34,11 +34,19 @@ const Info = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: ${({ theme }) => theme.space[2]}px;
-  white-space: nowrap
+  min-width: 0;
+
+  ${Text} {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
   > div:first-child {
     font-weight: bold;
     font-size: 12px;
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -53,7 +61,7 @@ const Track = ({
   type,
   image,
   title,
-  description /* , duration, episode */
+  description /* , duration, episode  */
 }) => {
   return (
     <StyledTrack>
@@ -63,12 +71,12 @@ const Track = ({
       </Cover>
       <Info>
         <div>
-          <Text mr="1" as="span">
-            22 min
-          </Text>
           {type === 'video' && <Video />}
           {type === 'podcast' && <Podcast />}
-          <Text ml="1" as="span">
+          <Text ml="2" as="span">
+            22 min
+          </Text>
+          <Text ml="2" as="span">
             1/3 Avsnitt
           </Text>
         </div>
@@ -78,9 +86,7 @@ const Track = ({
         </Heading>
         {description && (
           <Text fontSize="12px" m="0" mt="1">
-            {description.length > 20
-              ? `${description.substring(0, 20)}...`
-              : description}
+            {description}
           </Text>
         )}
       </Info>
