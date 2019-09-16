@@ -57,12 +57,7 @@ const More = styled.div`
   align-items: center;
 `;
 
-const Track = ({
-  type,
-  image,
-  title,
-  description /* , duration, episode  */
-}) => {
+const Track = ({ type, image, title, description, duration, episode }) => {
   return (
     <StyledTrack>
       <Cover>
@@ -74,21 +69,19 @@ const Track = ({
           {type === 'video' && <Video />}
           {type === 'podcast' && <Podcast />}
           <Text ml="2" as="span">
-            22 min
+            {duration}
           </Text>
           <Text ml="2" as="span">
-            1/3 Avsnitt
+            {episode} Avsnitt
           </Text>
         </div>
 
         <Heading as="h5" m="0" mt="1" fontSize="20px" fontWeight="400">
           {title}
         </Heading>
-        {description && (
-          <Text fontSize="12px" m="0" mt="1">
-            {description}
-          </Text>
-        )}
+        <Text fontSize="12px" m="0" mt="1">
+          {description}
+        </Text>
       </Info>
       <More>
         <MoreIcon />
