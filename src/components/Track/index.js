@@ -5,7 +5,7 @@ import { Play, Video, More as MoreIcon, Podcast } from '../Icons';
 
 const StyledTrack = styled.div`
   width: 100%;
-  padding: ${({ theme }) => theme.space[2]}px;
+  padding: 12px 16px;
   display: flex;
 `;
 
