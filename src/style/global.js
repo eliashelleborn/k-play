@@ -9,6 +9,11 @@ const Global = createGlobalStyle`
   body {
     font-family: 'Barlow', sans-serif;
   }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+  }
 `;
 
 export default Global;
