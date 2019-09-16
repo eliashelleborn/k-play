@@ -13,6 +13,13 @@ const Global = createGlobalStyle`
   h3 {
     font-size: 24px;
     font-weight: 500;
+
+  }
+
+  h5 {
+    font-weight: normal;
+    font-size: 12px;
+
   }
 `;
 
