@@ -20,6 +20,7 @@ import theme from '../../style/theme';
 import Global from '../../style/global';
 import MyPlaylists from '../../pages/MyPlaylists';
 import Playlist from '../../pages/Playlist';
+import Player from '../Player';
 
 Amplify.configure(awsconfig);
 
@@ -65,6 +66,8 @@ const App = () => {
               <Route path="/spellista" component={Playlist} />
               <Route component={Error} />
             </Switch>
+
+            <Player />
           </div>
         </BrowserRouter>
       </ThemeProvider>
