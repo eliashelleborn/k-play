@@ -4,14 +4,26 @@ import { Heading, Text } from '../Typography';
 import { Box } from '../Util';
 import MediaBox from './MediaBox';
 import Controls from './Controls';
+import MiscControls from './MiscControls';
+import Progress from './Progress';
 
 const StyledPlayer = styled.div`
   position: fixed;
-  top: 0;
+  top: 65px;
   left: 0;
-  height: 100%;
+  height: calc(100vh - 65px);
   width: 100%;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ControlsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-around;
+  /*   flex: 1; */
 `;
 
 const media = [
@@ -33,18 +45,24 @@ const Player = () => {
   const next = () => {
     let nextIndex = 0;
     const currentIndex = media.indexOf(mediaUrl);
-
     if (currentIndex < media.length - 1) nextIndex = currentIndex + 1;
+    setMediaUrl(media[nextIndex]);
+  };
+
+  const previous = () => {
+    let nextIndex = media.length - 1;
+    const currentIndex = media.indexOf(mediaUrl);
+    if (currentIndex > 0) nextIndex = currentIndex - 1;
     setMediaUrl(media[nextIndex]);
   };
 
   return (
     <StyledPlayer>
-      <Box px="3">
-        <Heading fontSize="24px" fontWeight="400">
+      <Box px="3" my="3">
+        <Heading fontSize="24px" fontWeight="400" m="0" mb="3">
           Dansare - oavsett vilkor?
         </Heading>
-        <Text fontSize="12px" m="0" color="#AEAEAE">
+        <Text fontSize="12px" m="0" mb="1" color="#AEAEAE">
           Inspelad 2019-05-15
         </Text>
         <Text fontSize="12px" m="0" color="#AEAEAE">
@@ -53,7 +71,17 @@ const Player = () => {
       </Box>
 
       <MediaBox url={mediaUrl} playing={playing} type={mediaType} />
-      <Controls next={next} togglePlaying={() => setPlaying(!playing)} />
+
+      <ControlsContainer>
+        <MiscControls />
+        <Progress />
+        <Controls
+          next={next}
+          previous={previous}
+          playing={playing}
+          togglePlaying={() => setPlaying(!playing)}
+        />
+      </ControlsContainer>
     </StyledPlayer>
   );
 };

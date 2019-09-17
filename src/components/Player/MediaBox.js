@@ -4,13 +4,18 @@ import ReactPlayer from 'react-player';
 
 const StyledMediaBox = styled.div`
   width: 100%;
-  height: 250px;
+flex: 1;
   position: relative;
-  padding: 0 ${props => (props.type === 'video' ? 0 : '16px')};
+/*   padding-right: ${props => (props.type === 'video' ? 0 : '16px')};
+  padding-left: ${props => (props.type === 'video' ? 0 : '16px')}; */
+/*   height: 40%; */
 
   > div {
+    top: 0;
+    left:  ${props => (props.type === 'video' ? 0 : '16px')};
+    width: calc(100% - ${props => (props.type === 'video' ? '0px' : '32px')});
     height: 100%;
-    position: relative;
+    position: absolute;
   }
 
   img {
