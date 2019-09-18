@@ -11,3 +11,5 @@ export { default as Skip } from './Skip';
 export { default as SkipTen } from './SkipTen';
 export { default as Caption } from './Caption';
 export { default as Crop } from './Crop';
+export { default as Devices } from './Devices';
+export { default as Share } from './Share';

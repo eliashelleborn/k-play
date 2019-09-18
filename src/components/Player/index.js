@@ -6,6 +6,7 @@ import MediaBox from './MediaBox';
 import Controls from './Controls';
 import MiscControls from './MiscControls';
 import Progress from './Progress';
+import Footer from './Footer';
 
 const StyledPlayer = styled.div`
   position: fixed;
@@ -115,6 +116,7 @@ const Player = () => {
           jump={jumpTenSeconds}
           togglePlaying={() => setPlaying(!playing)}
         />
+        <Footer />
       </ControlsContainer>
     </StyledPlayer>
   );
