@@ -34,6 +34,7 @@ const Player = () => {
   const [mediaUrl, setMediaUrl] = useState(media[0]);
   const [mediaType, setMediaType] = useState(null);
   const [mediaDuration, setMediaDuration] = useState(null);
+  const [mediaCurrentTime, setMediaCurrentTime] = useState(0);
   const playerRef = useRef(null);
   const [playing, setPlaying] = useState(true);
 
@@ -46,6 +47,15 @@ const Player = () => {
 
   const handleReady = () => {
     setMediaDuration(playerRef.current.getDuration());
+  };
+
+  const handleProgress = e => {
+    setMediaCurrentTime(e.playedSeconds);
+  };
+
+  const handleSliderInteraction = e => {
+    playerRef.current.seekTo(e, 'seconds');
+    setMediaCurrentTime(e);
   };
 
   const next = () => {
@@ -64,6 +74,7 @@ const Player = () => {
 
   const jumpTenSeconds = direction => {
     const currentTime = playerRef.current.getCurrentTime();
+    setMediaCurrentTime(currentTime + 10 * direction);
     playerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
   };
 
@@ -84,14 +95,19 @@ const Player = () => {
       <MediaBox
         ref={playerRef}
         url={mediaUrl}
+        type={mediaType}
         playing={playing}
         onReady={handleReady}
-        type={mediaType}
+        onProgress={handleProgress}
       />
 
       <ControlsContainer>
         <MiscControls />
-        <Progress duration={mediaDuration} />
+        <Progress
+          duration={mediaDuration}
+          current={mediaCurrentTime}
+          onChange={handleSliderInteraction}
+        />
         <Controls
           next={next}
           previous={previous}

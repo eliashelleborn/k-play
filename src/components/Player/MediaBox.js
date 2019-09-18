@@ -26,32 +26,35 @@ const StyledMediaBox = styled.div`
   }
 `;
 
-const MediaBox = forwardRef(({ playing, url, type, onReady }, ref) => {
-  return (
-    <StyledMediaBox type={type}>
-      <div>
-        <ReactPlayer
-          ref={ref}
-          width="100%"
-          height="100%"
-          url={url}
-          playing={playing}
-          config={{
-            youtube: {
-              playerVars: { modestbranding: 1 }
-            }
-          }}
-          onReady={onReady}
-        />
-        {type === 'podcast' && (
-          <img
-            src="https://images.unsplash.com/photo-1562887106-0ba63ac82e02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80"
-            alt=""
+const MediaBox = forwardRef(
+  ({ playing, url, type, onReady, onProgress }, ref) => {
+    return (
+      <StyledMediaBox type={type}>
+        <div>
+          <ReactPlayer
+            ref={ref}
+            width="100%"
+            height="100%"
+            url={url}
+            playing={playing}
+            config={{
+              youtube: {
+                playerVars: { modestbranding: 1 }
+              }
+            }}
+            onReady={onReady}
+            onProgress={onProgress}
           />
-        )}
-      </div>
-    </StyledMediaBox>
-  );
-});
+          {type === 'podcast' && (
+            <img
+              src="https://images.unsplash.com/photo-1562887106-0ba63ac82e02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80"
+              alt=""
+            />
+          )}
+        </div>
+      </StyledMediaBox>
+    );
+  }
+);
 
 export default MediaBox;

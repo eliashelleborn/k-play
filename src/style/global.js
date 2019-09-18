@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import modernNormalize from 'styled-modern-normalize';
+import 'rc-slider/assets/index.css';
 
 const Global = createGlobalStyle`
   ${modernNormalize}
