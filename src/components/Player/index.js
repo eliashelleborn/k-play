@@ -32,7 +32,7 @@ const media = [
 ];
 
 const Player = () => {
-  const [mediaUrl, setMediaUrl] = useState(media[0]);
+  const [mediaUrl, setMediaUrl] = useState(media[1]);
   const [mediaType, setMediaType] = useState(null);
   const [mediaDuration, setMediaDuration] = useState(null);
   const [mediaCurrentTime, setMediaCurrentTime] = useState(0);
