@@ -1,3 +1,16 @@
 export { default as Google } from './Google';
 export { default as Facebook } from './Facebook';
 export { default as LinkedIn } from './LinkedIn';
+export { default as Kplay } from './Kplay';
+export { default as Search } from './Search';
+export { default as Hamburger } from './Hamburger';
+export { default as ArrowBack } from './ArrowBack';
+export { default as CreateAccount } from './CreateAccount';
+export { default as Instagram } from './Instagram';
+export { default as Lists } from './Lists';
+export { default as Night } from './Night';
+export { default as Settings } from './Settings';
+export { default as Home } from './Home';
+export { default as NightMode } from './NightMode';
+export { default as FacebookMenu } from './FacebookMenu';
+export { default as LinkedInMenu } from './LinkedInMenu';

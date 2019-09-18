@@ -49,18 +49,18 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <div>
-            <Navigation authUser={authenticatedUser} />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/bibliotek" component={Library} />
-              <Route path="/logga-in" component={Login} />
-              <Route path="/spela-upp" component={Play} />
-              <Route path="/sök" component={Search1} />
-              <Route path="/sök2" component={Search2} />
-              <Route path="/skapa-konto" component={SignUp} />
-              <Route path="/verify/:email" component={Verify} />
-              <Route component={Error} />
-            </Switch>
+          <Navigation authUser={authenticatedUser} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/bibliotek" component={Library} />
+            <Route path="/logga-in" component={Login} />
+            <Route path="/spela-upp" component={Play} />
+            <Route path="/sök" component={Search1} />
+            <Route path="/sök2" component={Search2} />
+            <Route path="/skapa-konto" component={SignUp} />
+            <Route path="/verify/:email" component={Verify} />
+            <Route component={Error} />
+          </Switch>
           </div>
         </BrowserRouter>
       </ThemeProvider>
