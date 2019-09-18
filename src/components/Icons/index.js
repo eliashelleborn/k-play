@@ -9,3 +9,5 @@ export { default as Video } from './Video';
 export { default as More } from './More';
 export { default as Skip } from './Skip';
 export { default as SkipTen } from './SkipTen';
+export { default as Caption } from './Caption';
+export { default as Crop } from './Crop';

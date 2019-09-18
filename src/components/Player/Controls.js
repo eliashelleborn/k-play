@@ -24,6 +24,7 @@ const PlayPauseButton = styled.button`
   height: 70px;
   border-radius: 70px;
   outline: 0;
+  border: none;
   -webkit-tap-highlight-color: transparent;
   background-color: ${({ theme }) => theme.colors.grey};
   display: flex;
@@ -32,10 +33,10 @@ const PlayPauseButton = styled.button`
   padding: 0;
 `;
 
-const Controls = ({ playing, togglePlaying, next }) => {
+const Controls = ({ playing, togglePlaying, next, jump }) => {
   return (
     <StyledControls>
-      <Button onClick={next} type="button">
+      <Button onClick={() => jump(-1)} type="button">
         <SkipTen />
       </Button>
       <Button onClick={next} type="button">
@@ -49,7 +50,7 @@ const Controls = ({ playing, togglePlaying, next }) => {
       <Button onClick={next} type="button">
         <Skip forward />
       </Button>
-      <Button onClick={next} type="button">
+      <Button onClick={() => jump(1)} type="button">
         <SkipTen forward />
       </Button>
     </StyledControls>

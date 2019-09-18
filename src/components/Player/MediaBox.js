@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player';
 
 const StyledMediaBox = styled.div`
   width: 100%;
-flex: 1;
+  flex: 1;
+  max-height: 300px;
   position: relative;
-/*   padding-right: ${props => (props.type === 'video' ? 0 : '16px')};
-  padding-left: ${props => (props.type === 'video' ? 0 : '16px')}; */
-/*   height: 40%; */
 
   > div {
     top: 0;
-    left:  ${props => (props.type === 'video' ? 0 : '16px')};
+    left: ${props => (props.type === 'video' ? 0 : '16px')};
     width: calc(100% - ${props => (props.type === 'video' ? '0px' : '32px')});
     height: 100%;
     position: absolute;
@@ -28,11 +26,12 @@ flex: 1;
   }
 `;
 
-const MediaBox = ({ playing, url, type }) => {
+const MediaBox = forwardRef(({ playing, url, type, onReady }, ref) => {
   return (
     <StyledMediaBox type={type}>
       <div>
         <ReactPlayer
+          ref={ref}
           width="100%"
           height="100%"
           url={url}
@@ -42,6 +41,7 @@ const MediaBox = ({ playing, url, type }) => {
               playerVars: { modestbranding: 1 }
             }
           }}
+          onReady={onReady}
         />
         {type === 'podcast' && (
           <img
@@ -52,6 +52,6 @@ const MediaBox = ({ playing, url, type }) => {
       </div>
     </StyledMediaBox>
   );
-};
+});
 
 export default MediaBox;

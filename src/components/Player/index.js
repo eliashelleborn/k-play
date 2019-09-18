@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { Box } from '../Util';
@@ -21,9 +21,8 @@ const StyledPlayer = styled.div`
 const ControlsContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  justify-content: space-around;
-  /*   flex: 1; */
+  justify-content: space-between;
+  flex: 1;
 `;
 
 const media = [
@@ -34,13 +33,20 @@ const media = [
 const Player = () => {
   const [mediaUrl, setMediaUrl] = useState(media[0]);
   const [mediaType, setMediaType] = useState(null);
+  const [mediaDuration, setMediaDuration] = useState(null);
+  const playerRef = useRef(null);
   const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
+    // Determine media type
     const { hostname } = new URL(mediaUrl);
     if (hostname.includes('youtube')) setMediaType('video');
     if (hostname.includes('soundcloud')) setMediaType('podcast');
   }, [mediaUrl]);
+
+  const handleReady = () => {
+    setMediaDuration(playerRef.current.getDuration());
+  };
 
   const next = () => {
     let nextIndex = 0;
@@ -54,6 +60,11 @@ const Player = () => {
     const currentIndex = media.indexOf(mediaUrl);
     if (currentIndex > 0) nextIndex = currentIndex - 1;
     setMediaUrl(media[nextIndex]);
+  };
+
+  const jumpTenSeconds = direction => {
+    const currentTime = playerRef.current.getCurrentTime();
+    playerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
   };
 
   return (
@@ -70,15 +81,22 @@ const Player = () => {
         </Text>
       </Box>
 
-      <MediaBox url={mediaUrl} playing={playing} type={mediaType} />
+      <MediaBox
+        ref={playerRef}
+        url={mediaUrl}
+        playing={playing}
+        onReady={handleReady}
+        type={mediaType}
+      />
 
       <ControlsContainer>
         <MiscControls />
-        <Progress />
+        <Progress duration={mediaDuration} />
         <Controls
           next={next}
           previous={previous}
           playing={playing}
+          jump={jumpTenSeconds}
           togglePlaying={() => setPlaying(!playing)}
         />
       </ControlsContainer>
