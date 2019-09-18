@@ -12,13 +12,14 @@ const StyledButton = styled.button`
   border-radius: 3px;
   font-weight: 500;
   border: none;
-  box-shadow: 0 4px 8px 0px rgba(43, 43, 43, 0.08);
+  box-shadow: 0 4px 8px 0px rgba(54, 54, 54, 0.08);
   display: flex;
   align-items: center;
   justify-content: ${props => (props.withIcon ? 'flex-start' : 'center')};
   cursor: pointer;
   padding-right: ${({ theme }) => theme.space[3]}px;
   padding-left: ${({ theme }) => theme.space[3]}px;
+  text-decoration: none;
 `;
 
 const Icon = styled.div`

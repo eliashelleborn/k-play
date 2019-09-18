@@ -8,19 +8,16 @@ import Navigation from '../Navigation';
 
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
-import Login from '../../pages/Login';
 import Play from '../../pages/Play';
 import Search1 from '../../pages/Search1';
 import Search2 from '../../pages/Search2';
-import SignUp from '../../pages/SignUp';
-import Verify from '../../pages/Verify';
-
+import AuthPage from '../../pages/Auth';
 import Error from '../../pages/Error';
 import theme from '../../style/theme';
 import Global from '../../style/global';
 import MyPlaylists from '../../pages/MyPlaylists';
 import Playlist from '../../pages/Playlist';
-import Player from '../Player';
+/* import Player from '../Player'; */
 
 Amplify.configure(awsconfig);
 
@@ -56,18 +53,16 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/bibliotek" component={Library} />
-              <Route path="/logga-in" component={Login} />
               <Route path="/spela-upp" component={Play} />
               <Route path="/sök" component={Search1} />
               <Route path="/sök2" component={Search2} />
-              <Route path="/skapa-konto" component={SignUp} />
-              <Route path="/verify/:email" component={Verify} />
+              <Route path="/auth" component={AuthPage} />
               <Route path="/mina-listor" component={MyPlaylists} />
               <Route path="/spellista" component={Playlist} />
               <Route component={Error} />
             </Switch>
 
-            <Player />
+            {/* <Player /> */}
           </div>
         </BrowserRouter>
       </ThemeProvider>
