@@ -10,6 +10,7 @@ import Menu from '../Menu';
 
 const StyledNavigation = styled.nav`
   box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.08);
+  background-color: #fff;
   height: 65px;
   padding: 0 24px 0 16px;
   display: flex;
