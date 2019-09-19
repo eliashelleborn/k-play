@@ -9,10 +9,11 @@ import Verify from './Verify';
 import Start from './Start';
 
 const AuthContainer = styled.div`
-  height: calc(100vh - 65px);
+  min-height: 100vh;
   padding: 0 ${({ theme }) => theme.space[3]}px;
   display: flex;
   align-items: center;
+  padding-top: 65px;
 
   > div {
     margin-top: -65px;

@@ -30,3 +30,5 @@ export { default as Email } from './Email';
 export { default as Password } from './Password';
 export { default as Show } from './Show';
 export { default as Lock } from './Lock';
+export { default as Heart } from './Heart';
+export { default as Filter } from './Filter';

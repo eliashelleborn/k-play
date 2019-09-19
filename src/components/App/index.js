@@ -9,8 +9,7 @@ import Navigation from '../Navigation';
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
 import Play from '../../pages/Play';
-import Search1 from '../../pages/Search1';
-import Search2 from '../../pages/Search2';
+import Search from '../../pages/Search';
 import AuthPage from '../../pages/Auth';
 import Error from '../../pages/Error';
 import theme from '../../style/theme';
@@ -53,6 +52,7 @@ const App = () => {
     getCurrentAuthenticatedUser();
     Hub.listen('auth', handleAuthEvent);
   }, []);
+  console.log(authenticatedUser);
 
   return (
     <>
@@ -67,8 +67,7 @@ const App = () => {
               <Route exact path="/" component={Home} />
               <Route path="/bibliotek" component={Library} />
               <Route path="/spela-upp" component={Play} />
-              <Route path="/sök" component={Search1} />
-              <Route path="/sök2" component={Search2} />
+              <Route path="/sök" component={Search} />
               <Route path="/auth" component={AuthPage} />
               <Route path="/mina-listor" component={MyPlaylists} />
               <Route path="/spellista" component={Playlist} />
