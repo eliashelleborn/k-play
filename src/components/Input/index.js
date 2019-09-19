@@ -65,7 +65,7 @@ const Input = ({ type, placeholder, icon, onChange, value, ...rest }) => {
 
 Input.defaultProps = {
   borderBottom: '1px solid',
-  borderBottomColor: 'hideGrey'
+  borderBottomColor: 'lineGrey'
 };
 
 export default Input;

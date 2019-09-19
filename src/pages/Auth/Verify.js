@@ -22,7 +22,7 @@ const Verify = ({ match }) => {
     }
   };
 
-  if (toLogin && !loading) return <Redirect to="/logga-in" />;
+  if (toLogin && !loading) return <Redirect to="/auth/logga-in" />;
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { Heading } from '../../components/Typography';
+import { Heading, Text } from '../../components/Typography';
 import {
   Facebook,
   Google,
@@ -12,10 +12,12 @@ import {
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { Box } from '../../components/Util';
+import RememberMe from '../../components/RememberMe';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [toVerify, setToVerify] = useState(false);
@@ -37,7 +39,7 @@ const SignUp = () => {
     }
   };
 
-  if (toVerify && !loading) return <Redirect to={`/verify/${email}`} />;
+  if (toVerify && !loading) return <Redirect to={`/auth/verifiera/${email}`} />;
 
   return (
     <div>
@@ -70,7 +72,7 @@ const SignUp = () => {
         <form onSubmit={signIn}>
           <Input
             borderTop="1px solid"
-            borderTopColor="hideGrey"
+            borderTopColor="lineGrey"
             type="email"
             icon={<Email />}
             placeholder="Email"
@@ -84,30 +86,24 @@ const SignUp = () => {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
+          <RememberMe
+            value={remember}
+            onChange={() => setRemember(!remember)}
+          />
           <Button type="submit">Skapa konto</Button>
+          <Text textAlign="center">
+            Har du redan ett konto?{' '}
+            <Link
+              to="/auth/logga-in"
+              style={{ color: '#363636', fontWeight: '500' }}
+            >
+              Logga in
+            </Link>
+          </Text>
           {loading && <p>Skapar konto...</p>}
           {error && <p>{error.message}</p>}
         </form>
       </Box>
-
-      {/*  <form onSubmit={signIn}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button type="submit">Skapa konto</button>
-  
-      </form> */}
     </div>
   );
 };

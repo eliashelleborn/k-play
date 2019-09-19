@@ -11,6 +11,13 @@ import Start from './Start';
 const AuthContainer = styled.div`
   height: calc(100vh - 65px);
   padding: 0 ${({ theme }) => theme.space[3]}px;
+  display: flex;
+  align-items: center;
+
+  > div {
+    margin-top: -65px;
+    width: 100%;
+  }
 `;
 
 const Auth = () => {
@@ -20,7 +27,7 @@ const Auth = () => {
         <Route exact path="/auth" component={Start} />
         <Route path="/auth/logga-in" component={Login} />
         <Route path="/auth/skapa-konto" component={SignUp} />
-        <Route path="/auth/verify/:email" component={Verify} />
+        <Route path="/auth/verifiera/:email" component={Verify} />
       </Switch>
     </AuthContainer>
   );
