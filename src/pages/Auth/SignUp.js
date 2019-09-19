@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
+import { Heading } from '../../components/Typography';
+import {
+  Facebook,
+  Google,
+  LinkedIn,
+  Email,
+  Password
+} from '../../components/Icons';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import { Box } from '../../components/Util';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -30,8 +41,56 @@ const SignUp = () => {
 
   return (
     <div>
-      <p>Skapa konto</p>
-      <form onSubmit={signIn}>
+      <Heading as="h2" fontWeight="500">
+        Skapa konto
+      </Heading>
+      <Button
+        icon={<Facebook />}
+        color="white"
+        bg="#2553B4"
+        fontSize="14px"
+        mb="3"
+      >
+        Sign in with Facebook
+      </Button>
+      <Button
+        icon={<Google />}
+        color="rgba(0, 0, 0, 0.54)"
+        bg="white"
+        fontSize="14px"
+        mb="3"
+      >
+        Sign in with Google
+      </Button>
+      <Button icon={<LinkedIn />} color="white" bg="#0077B5" fontSize="14px">
+        Sign in with LinkedIn
+      </Button>
+
+      <Box mt="5">
+        <form onSubmit={signIn}>
+          <Input
+            borderTop="1px solid"
+            borderTopColor="hideGrey"
+            type="email"
+            icon={<Email />}
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            icon={<Password />}
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Button type="submit">Skapa konto</Button>
+          {loading && <p>Skapar konto...</p>}
+          {error && <p>{error.message}</p>}
+        </form>
+      </Box>
+
+      {/*  <form onSubmit={signIn}>
         <input
           type="email"
           name="email"
@@ -47,9 +106,8 @@ const SignUp = () => {
           onChange={e => setPassword(e.target.value)}
         />
         <button type="submit">Skapa konto</button>
-        {loading && <p>Skapar konto...</p>}
-        {error && <p>{error.message}</p>}
-      </form>
+  
+      </form> */}
     </div>
   );
 };

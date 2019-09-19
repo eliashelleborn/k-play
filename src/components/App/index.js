@@ -28,6 +28,8 @@ const Background = styled.img`
   top: 32px;
   left: 0;
   width: 100%;
+  pointer-events: none;
+  z-index: -10;
 `;
 
 const App = () => {
