@@ -15,6 +15,10 @@ const StyledNavigation = styled.nav`
   padding: 0 24px 0 16px;
   display: flex;
   align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 0;
 
   > div {
     width: 100%;

@@ -18,10 +18,10 @@ import {
 
 const StyledMenu = styled.div`
   ${color}
-
-  background-color:  ${({ theme }) => theme.colors.grey};
+  top: 0;
+  background-color: ${({ theme }) => theme.colors.grey};
   position: fixed;
-  z-index: 3;
+  z-index: 110;
   width: 100%;
   height: 100vh;
   /* transition: 0.3s; */
@@ -31,8 +31,6 @@ const StyledMenu = styled.div`
     flex-direction: row;
     margin-top: 92px;
   }
-
-
 
   > div div p {
     color: ${({ theme }) => theme.colors.white};
