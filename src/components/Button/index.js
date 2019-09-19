@@ -20,6 +20,8 @@ const StyledButton = styled.button`
   padding-right: ${({ theme }) => theme.space[3]}px;
   padding-left: ${({ theme }) => theme.space[3]}px;
   text-decoration: none;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
 `;
 
 const Icon = styled.div`

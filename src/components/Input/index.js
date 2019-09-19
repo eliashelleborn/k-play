@@ -41,12 +41,21 @@ const ToggleVisible = styled.div`
   cursor: pointer;
 `;
 
-const Input = ({ type, placeholder, icon, onChange, value, ...rest }) => {
+const Input = ({
+  type,
+  placeholder,
+  icon,
+  onChange,
+  value,
+  autoComplete,
+  ...rest
+}) => {
   const [visible, setVisible] = useState(false);
   return (
     <StyledInput {...rest}>
       <Icon>{icon}</Icon>
       <input
+        autoComplete={autoComplete || type}
         type={
           type === 'password' ? (visible ? 'text' : 'password') : type || 'text'
         }

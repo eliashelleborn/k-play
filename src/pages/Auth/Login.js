@@ -13,6 +13,7 @@ import {
 } from '../../components/Icons';
 import RememberMe from '../../components/RememberMe';
 import { Text, Heading } from '../../components/Typography';
+import Loading from '../../components/Loading';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -89,14 +90,14 @@ const Login = () => {
             value={remember}
             onChange={() => setRemember(!remember)}
           />
-          <Button type="submit">Logga in</Button>
+          <Button type="submit">{loading ? <Loading /> : 'Logga in'}</Button>
           <Text textAlign="center">
             Glömt lösenord?{' '}
             <Link to="/auth" style={{ color: '#363636', fontWeight: '500' }}>
               Klicka här
             </Link>
           </Text>
-          {loading && <p>Loggar in...</p>}
+
           {error && <p>{error.message}</p>}
         </form>
       </Box>

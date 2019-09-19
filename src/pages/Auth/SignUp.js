@@ -13,6 +13,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { Box } from '../../components/Util';
 import RememberMe from '../../components/RememberMe';
+import Loading from '../../components/Loading';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -90,7 +91,7 @@ const SignUp = () => {
             value={remember}
             onChange={() => setRemember(!remember)}
           />
-          <Button type="submit">Skapa konto</Button>
+          <Button type="submit">{loading ? <Loading /> : 'Skapa konto'}</Button>
           <Text textAlign="center">
             Har du redan ett konto?{' '}
             <Link
@@ -100,7 +101,6 @@ const SignUp = () => {
               Logga in
             </Link>
           </Text>
-          {loading && <p>Skapar konto...</p>}
           {error && <p>{error.message}</p>}
         </form>
       </Box>
