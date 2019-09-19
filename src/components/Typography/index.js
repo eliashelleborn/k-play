@@ -12,6 +12,10 @@ export const Heading = styled.h1`
   ${base}
 `;
 
+Heading.displayName = 'Heading';
+
 export const Text = styled.p`
   ${base}
 `;
+
+Text.displayName = 'Text';

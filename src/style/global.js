@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import modernNormalize from 'styled-modern-normalize';
+import 'rc-slider/assets/index.css';
 
 const Global = createGlobalStyle`
   ${modernNormalize}
@@ -8,6 +9,18 @@ const Global = createGlobalStyle`
 
   body {
     font-family: 'Barlow', sans-serif;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+
+  }
+
+  h5 {
+    font-weight: normal;
+    font-size: 12px;
+
   }
 `;
 
