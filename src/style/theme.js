@@ -2,7 +2,9 @@ const theme = {
   colors: {
     orange: '#EC733F',
     grey: '#363636',
-    lightGrey: '#D3D3D3',
+    lightGrey: '#474747',
+    hideGrey: '#AEAEAE',
+    lineGrey: '#F3F3F3',
     white: '#FFFFFF'
   },
 

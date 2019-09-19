@@ -1,13 +1,16 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { Auth } from 'aws-amplify';
 import { Hamburger, ArrowBack, Kplay, Search } from '../Icons';
 
 import Menu from '../Menu';
 
 const StyledNavigation = styled.nav`
   box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.08);
+  background-color: #fff;
   height: 65px;
   padding: 0 24px 0 16px;
   display: flex;
@@ -43,53 +46,60 @@ const StyledHamburger = styled(Hamburger)`
 
 class Navigation extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      showMenu: true,
-    }
+      showMenu: true
+    };
   }
 
   showMenu() {
     this.setState({
-      showMenu: !this.state.showMenu,
-    })
+      showMenu: !this.state.showMenu
+    });
   }
+
   render() {
     // console.log(this.props.authUser)
 
-    let ShowMenu = !this.state.showMenu ? (
-      <Menu authUser={this.props.authUser}/>
-    ) : '';
+    const ShowMenu = !this.state.showMenu ? (
+      <Menu authUser={this.props.authUser} />
+    ) : (
+      ''
+    );
 
     // console.log(this.state.color)
 
-    return(
+    return (
       <div>
         {ShowMenu}
         <StyledNavigation>
           <div>
             <div>
-            <NavLink to="/">
-              <ArrowBack/>
-            </NavLink>
+              <NavLink to="/">
+                <ArrowBack />
+              </NavLink>
             </div>
 
             <div>
-            <NavLink to="/bibliotek">
-              <Kplay/>
-            </NavLink>
+              <NavLink to="/bibliotek">
+                <Kplay />
+              </NavLink>
             </div>
 
             <div>
               <NavLink to="/sök">
-                <Search/>
+                <Search />
               </NavLink>
-              <StyledHamburger onClick={this.showMenu.bind(this)} transform={!this.state.showMenu ? 'rotate(45)' : 'rotate(0)'} color={!this.state.showMenu ? '#ffffff' : '#363636'}/>
+              <StyledHamburger
+                onClick={this.showMenu.bind(this)}
+                transform={!this.state.showMenu ? 'rotate(45)' : 'rotate(0)'}
+                color={!this.state.showMenu ? '#ffffff' : '#363636'}
+              />
             </div>
           </div>
         </StyledNavigation>
       </div>
-    )
+    );
   }
 }
 

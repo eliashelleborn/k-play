@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Search = ({ fill }) => {
-  return(
+  return (
     <svg width={24} height={25} viewBox="0 0 24 25" fill="none">
       <path
         fillRule="evenodd"
@@ -10,7 +10,7 @@ const Search = ({ fill }) => {
         fill={fill || '#363636'}
       />
     </svg>
-  )
+  );
 };
 
 export default Search;

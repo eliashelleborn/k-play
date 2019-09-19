@@ -23,7 +23,6 @@ const Instagram = props => (
       fill="white"
     />
   </svg>
-
 );
 
 export default Instagram;

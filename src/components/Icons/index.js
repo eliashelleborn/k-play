@@ -26,3 +26,7 @@ export { default as Caption } from './Caption';
 export { default as Crop } from './Crop';
 export { default as Devices } from './Devices';
 export { default as Share } from './Share';
+export { default as Email } from './Email';
+export { default as Password } from './Password';
+export { default as Show } from './Show';
+export { default as Lock } from './Lock';

@@ -11,6 +11,11 @@ const Global = createGlobalStyle`
     font-family: 'Barlow', sans-serif;
   }
 
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   h3 {
     font-size: 24px;
     font-weight: 500;

@@ -9,7 +9,6 @@ const CreateAccount = props => (
       fill="white"
     />
   </svg>
-
 );
 
 export default CreateAccount;

@@ -2,8 +2,19 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 // import { Auth } from 'aws-amplify';
-import { CreateAccount, Search, Settings, Home, Lists, Night, NightMode, FacebookMenu, Instagram, LinkedInMenu } from '../Icons';
 import { color } from 'styled-system';
+import {
+  CreateAccount,
+  Search,
+  Settings,
+  Home,
+  Lists,
+  Night,
+  NightMode,
+  FacebookMenu,
+  Instagram,
+  LinkedInMenu
+} from '../Icons';
 
 const StyledMenu = styled.div`
   ${color}
@@ -57,13 +68,13 @@ const StyledNightMode = styled(NightMode)`
 `;
 
 const SocialIconWrapper = styled.div`
-width: 100%;
-position: absolute;
-bottom: 36px;
-display: flex;
-justify-content: flex-end;
-align-items: center;
-flex-direction: column;
+  width: 100%;
+  position: absolute;
+  bottom: 36px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
 
   > p {
     color: ${({ theme }) => theme.colors.white};
@@ -72,29 +83,27 @@ flex-direction: column;
 `;
 
 const SocialIcons = styled.div`
-
-
   > svg {
     margin: 0 11px 0 11px;
   }
 `;
 
-const Menu = (props) => {
-  return(
+const Menu = ({ authUser }) => {
+  return (
     <StyledMenu>
       <div>
         <MenuIcons>
           <Home />
-          {props.authUser ? ( <Lists /> ) : ( <CreateAccount /> )}
-          <Search fill='#ffffff'/>
+          {authUser ? <Lists /> : <CreateAccount />}
+          <Search fill="#ffffff" />
           <Settings />
-          {props.authUser && ( <Night /> )}
+          {authUser && <Night />}
         </MenuIcons>
 
         <MenuIcons>
           <StyledNavLink to="/k-play"> Start </StyledNavLink>
 
-          {props.authUser ? (
+          {authUser ? (
             <StyledNavLink to="/mina-listor"> Mina listor </StyledNavLink>
           ) : (
             <StyledNavLink to="/skapa-konto"> Skapa konto </StyledNavLink>
@@ -103,9 +112,9 @@ const Menu = (props) => {
           <StyledNavLink to="/sök1"> Sök </StyledNavLink>
           <StyledNavLink to="/inställningar"> Inställningar </StyledNavLink>
 
-          {props.authUser && ( <p> Mörkt tema </p> )}
+          {authUser && <p> Mörkt tema </p>}
         </MenuIcons>
-        {props.authUser && ( <StyledNightMode /> )}
+        {authUser && <StyledNightMode />}
       </div>
       <SocialIconWrapper>
         <p> Besök oss på sociala medier </p>
@@ -116,7 +125,7 @@ const Menu = (props) => {
         </SocialIcons>
       </SocialIconWrapper>
     </StyledMenu>
-  )
-}
+  );
+};
 
 export default Menu;

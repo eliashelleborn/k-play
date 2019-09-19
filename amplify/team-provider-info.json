@@ -1,19 +1,19 @@
 {
-    "kplay": {
-        "awscloudformation": {
-            "AuthRoleName": "k-play-kplay-20190910215836-authRole",
-            "UnauthRoleArn": "arn:aws:iam::031898492800:role/k-play-kplay-20190910215836-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::031898492800:role/k-play-kplay-20190910215836-authRole",
-            "Region": "eu-central-1",
-            "DeploymentBucketName": "k-play-kplay-20190910215836-deployment",
-            "UnauthRoleName": "k-play-kplay-20190910215836-unauthRole",
-            "StackName": "k-play-kplay-20190910215836",
-            "StackId": "arn:aws:cloudformation:eu-central-1:031898492800:stack/k-play-kplay-20190910215836/60a853c0-d405-11e9-af00-06a005f7522e"
-        },
-        "categories": {
-            "auth": {
-                "kplay85b90de8": {}
-            }
-        }
+  "kplay": {
+    "awscloudformation": {
+      "AuthRoleName": "k-play-kplay-20190910215836-authRole",
+      "UnauthRoleArn": "arn:aws:iam::031898492800:role/k-play-kplay-20190910215836-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::031898492800:role/k-play-kplay-20190910215836-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "k-play-kplay-20190910215836-deployment",
+      "UnauthRoleName": "k-play-kplay-20190910215836-unauthRole",
+      "StackName": "k-play-kplay-20190910215836",
+      "StackId": "arn:aws:cloudformation:eu-central-1:031898492800:stack/k-play-kplay-20190910215836/60a853c0-d405-11e9-af00-06a005f7522e"
+    },
+    "categories": {
+      "auth": {
+        "kplay85b90de8": {}
+      }
     }
+  }
 }

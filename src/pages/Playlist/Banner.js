@@ -35,11 +35,11 @@ const PlaylistBanner = ({ name, context, image }) => {
     >
       <Info>
         <div>
-          <Heading as="h5" m="0">
+          <Heading as="h5" color="white" m="0">
             {context}
           </Heading>
         </div>
-        <Heading as="h3" m="0">
+        <Heading as="h3" color="white" m="0">
           {name}
         </Heading>
         <div />

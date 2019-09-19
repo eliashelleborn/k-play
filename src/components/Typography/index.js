@@ -13,9 +13,15 @@ export const Heading = styled.h1`
 `;
 
 Heading.displayName = 'Heading';
+Heading.defaultProps = {
+  color: 'grey'
+};
 
 export const Text = styled.p`
   ${base}
 `;
 
 Text.displayName = 'Text';
+Text.defaultProps = {
+  color: 'grey'
+};
