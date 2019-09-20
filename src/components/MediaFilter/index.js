@@ -12,6 +12,8 @@ const StyledMediaFilter = styled.div`
     outline: 0;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
+    background: none;
+    border: none;
 
     p {
       margin: 0;

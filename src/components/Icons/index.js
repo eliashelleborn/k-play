@@ -32,3 +32,4 @@ export { default as Show } from './Show';
 export { default as Lock } from './Lock';
 export { default as Heart } from './Heart';
 export { default as Filter } from './Filter';
+export { default as Close } from './Close';
