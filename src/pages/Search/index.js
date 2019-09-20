@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import { Box, Grid } from '../../components/Util';
 import SearchInput from '../../components/SearchInput';
 import MediaFilter from '../../components/MediaFilter';
 import ListCard from '../../components/ListCard';
 import { Heading } from '../../components/Typography';
 import Track from '../../components/Track';
-import { listMedias } from '../../graphql/queries';
 import SortDropdown from '../../components/SortDropdown';
 
 const Search = () => {
-  const [mediaFilter, setMediaFilter] = useState('all');
+  const [mediaFilter, setMediaFilter] = useState('ALL');
   const [input, setInput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState(null);
-  const { loading, error, data } = useQuery(gql(listMedias));
-
-  console.log(loading, error, data);
 
   return (
     <Box pt="81px">

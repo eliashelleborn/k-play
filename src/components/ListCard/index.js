@@ -50,9 +50,9 @@ const Tint = styled.div`
   z-index: -1;
 `;
 
-const ListCard = ({ image, title }) => {
+const ListCard = ({ image, title, ...rest }) => {
   return (
-    <StyledListCard>
+    <StyledListCard {...rest}>
       <Heart />
 
       <Content>

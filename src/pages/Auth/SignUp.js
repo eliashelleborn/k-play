@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { withRouter, Link } from 'react-router-dom';
 import { Heading, Text } from '../../components/Typography';
 import {
   Facebook,
@@ -14,33 +13,28 @@ import Input from '../../components/Input';
 import { Box } from '../../components/Util';
 import RememberMe from '../../components/RememberMe';
 import Loading from '../../components/Loading';
+import firebase from '../../firebase';
 
-const SignUp = () => {
+const SignUp = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [toVerify, setToVerify] = useState(false);
 
   const signIn = async e => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
-      await Auth.signUp({
-        username: email,
-        password
-      });
-      setToVerify(true);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      history.push('/');
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
   };
-
-  if (toVerify && !loading) return <Redirect to={`/auth/verifiera/${email}`} />;
 
   return (
     <div>
@@ -108,4 +102,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);
