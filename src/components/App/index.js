@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import AppProvider from '../../context';
 import Navigation from '../Navigation';
 import Home from '../../pages/Home';
-import Library from '../../pages/Library';
 import Play from '../../pages/Play';
 import Search from '../../pages/Search';
 import AuthPage from '../../pages/Auth';
@@ -14,7 +13,8 @@ import Playlist from '../../pages/Playlist';
 import Global from '../../style/global';
 import Settings from '../../pages/Settings';
 
-/* import Player from '../Player'; */
+import Player from '../Player';
+import PlayerText from '../PlayerText';
 
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
@@ -54,8 +54,11 @@ const Layout = () => {
         )}
 
         {!authLoading && (
-          <Switch>
-            <Route exact path="/" component={Home} />
+            <Switch>
+              <Route
+                exact path="/"
+                render={(props) => <Home {...props} authUser={authenticatedUser} />}
+              />
             <Route path="/bibliotek" component={Library} />
             <Route path="/spela-upp" component={Play} />
             <Route path="/sök" component={Search} />

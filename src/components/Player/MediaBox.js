@@ -37,6 +37,7 @@ const Overlay = styled.div`
   left: 0;
   z-index: 3;
   overflow: hidden;
+  box-shadow: 0px 2px 8px rgba(54, 54, 54, 0.1);
 `;
 
 const Drawer = styled(motion.div)`
@@ -44,10 +45,11 @@ const Drawer = styled(motion.div)`
   height: 100%;
   background-color: #fff;
   padding: ${({ theme }) => theme.space[3]}px;
-  padding-top: ${({ theme }) => theme.space[5]}px;
+  padding-top: ${({ theme }) => theme.space[3]}px;
   padding-right: ${({ theme }) => theme.space[6]}px;
   font-size: 16px;
   position: relative;
+  line-height: 27px;
 
   button {
     position: absolute;
@@ -70,6 +72,7 @@ const TypeIndicator = styled.div`
   position: absolute;
   background-color: #fff;
   border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 `;
 
 const drawerVariants = {

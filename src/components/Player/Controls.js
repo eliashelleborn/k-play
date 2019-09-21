@@ -31,7 +31,13 @@ const PlayPauseButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 0;
+
+  /* > svg {
+    margin-left: 5px;
+  } */
 `;
+
+
 
 const Controls = ({ playing, togglePlaying, next, jump }) => {
   return (
