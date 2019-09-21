@@ -7,7 +7,7 @@ const useCategories = () => {
   const [categories, setCategories] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = firebase
+    firebase
       .firestore()
       .collection('categories')
       .get()
@@ -24,8 +24,6 @@ const useCategories = () => {
           setError(err);
         }
       );
-
-    return () => unsubscribe();
   }, []);
 
   return {
