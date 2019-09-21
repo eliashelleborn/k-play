@@ -1,11 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Heading } from '../Typography';
+import Heart from '../Icons/Heart';
 
 const StyledListCard = styled.div`
   position: relative;
   width: 100%;
   padding-top: 100%;
+  cursor: pointer;
+
+  svg {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 
   img {
     position: absolute;
@@ -43,9 +51,11 @@ const Tint = styled.div`
   z-index: -1;
 `;
 
-const ListCard = ({ image, title }) => {
+const ListCard = ({ image, title, ...rest }) => {
   return (
-    <StyledListCard>
+    <StyledListCard {...rest}>
+      <Heart />
+
       <Content>
         <Heading as="h3">{title}</Heading>
       </Content>

@@ -66,8 +66,8 @@ const Track = ({ type, image, title, description, duration, episode }) => {
       </Cover>
       <Info>
         <div>
-          {type === 'video' && <Video />}
-          {type === 'podcast' && <Podcast />}
+          {type === 'VIDEO' && <Video />}
+          {type === 'PODCAST' && <Podcast />}
           <Text ml="2" as="span">
             {duration}
           </Text>

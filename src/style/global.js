@@ -27,6 +27,7 @@ const Global = createGlobalStyle`
     font-size: 12px;
 
   }
+
 `;
 
 export default Global;

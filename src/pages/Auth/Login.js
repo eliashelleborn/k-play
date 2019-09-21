@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { Link, withRouter } from 'react-router-dom';
 import Input from '../../components/Input';
 import { Box } from '../../components/Util';
 import Button from '../../components/Button';
@@ -14,32 +13,28 @@ import {
 import RememberMe from '../../components/RememberMe';
 import { Text, Heading } from '../../components/Typography';
 import Loading from '../../components/Loading';
+import firebase from '../../firebase';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [toVerify, setToVerify] = useState(false);
 
   const signIn = async e => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
-      await Auth.signIn({ username: email, password });
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      history.push('/');
     } catch (err) {
       setError(err);
-      if (err.code === 'UserNotConfirmedException') {
-        setToVerify(true);
-      }
     } finally {
       setLoading(false);
     }
   };
-
-  if (toVerify && !loading) return <Redirect to={`/verify/${email}`} />;
 
   return (
     <div>
@@ -105,4 +100,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
