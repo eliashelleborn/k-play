@@ -15,6 +15,9 @@ const StyledNavigation = styled.nav`
   padding: 0 24px 0 16px;
   display: flex;
   align-items: center;
+  z-index: 2;
+  position: fixed;
+  width: 100%;
 
   > div {
     width: 100%;
@@ -34,14 +37,22 @@ const StyledNavigation = styled.nav`
   }
 
   > div div:nth-child(3) {
-    justify-content: flex-end;
+    justify-content: center;
   }
 `;
 
+const HamburgerWrapper = styled.div`
+  display: flex;
+  width: calc(100% - 24px);
+  height: 65px;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 const StyledHamburger = styled(Hamburger)`
-  margin-left: 16px;
-  z-index: 4;
+  z-index: 10;
   transition: 0.3s;
+  position: fixed;
 `;
 
 class Navigation extends Component {
@@ -59,15 +70,13 @@ class Navigation extends Component {
   }
 
   render() {
-    // console.log(this.props.authUser)
-
     const ShowMenu = !this.state.showMenu ? (
       <Menu authUser={this.props.authUser} />
     ) : (
       ''
     );
 
-    // console.log(this.state.color)
+    // transform={!this.state.showMenu ? 'rotate(45)' : 'rotate(0)'}
 
     return (
       <div>
@@ -79,25 +88,24 @@ class Navigation extends Component {
                 <ArrowBack />
               </NavLink>
             </div>
-
             <div>
-              <NavLink to="/bibliotek">
+              <NavLink to="/k-play">
                 <Kplay />
               </NavLink>
             </div>
-
             <div>
               <NavLink to="/sök">
                 <Search />
               </NavLink>
-              <StyledHamburger
-                onClick={this.showMenu.bind(this)}
-                transform={!this.state.showMenu ? 'rotate(45)' : 'rotate(0)'}
-                color={!this.state.showMenu ? '#ffffff' : '#363636'}
-              />
             </div>
           </div>
         </StyledNavigation>
+        <HamburgerWrapper>
+          <StyledHamburger
+            onClick={this.showMenu.bind(this)}
+            color={!this.state.showMenu ? '#ffffff' : '#363636'}
+          />
+        </HamburgerWrapper>
       </div>
     );
   }

@@ -17,6 +17,8 @@ import theme from '../../style/theme';
 import Global from '../../style/global';
 import MyPlaylists from '../../pages/MyPlaylists';
 import Playlist from '../../pages/Playlist';
+import Settings from '../../pages/Settings';
+
 /* import Player from '../Player'; */
 
 import bglogo from '../../images/k-play-logo-02.png';
@@ -54,6 +56,7 @@ const App = () => {
     Hub.listen('auth', handleAuthEvent);
   }, []);
 
+
   return (
     <>
       <Global />
@@ -64,14 +67,18 @@ const App = () => {
 
             <Navigation authUser={authenticatedUser} />
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route
+                exact path="/k-play"
+                render={(props) => <Home {...props} authUser={authenticatedUser} />}
+              />
               <Route path="/bibliotek" component={Library} />
               <Route path="/spela-upp" component={Play} />
-              <Route path="/sök" component={Search1} />
+              <Route path="/sök1" component={Search1} />
               <Route path="/sök2" component={Search2} />
               <Route path="/auth" component={AuthPage} />
               <Route path="/mina-listor" component={MyPlaylists} />
               <Route path="/spellista" component={Playlist} />
+              <Route path="/inställningar" component={Settings} />
               <Route component={Error} />
             </Switch>
 
