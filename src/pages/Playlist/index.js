@@ -1,7 +1,6 @@
 import React from 'react';
 import Banner from './Banner';
 import Track from '../../components/Track';
-import { Box } from '../../components/Util';
 
 const tracks = [
   {
@@ -68,7 +67,7 @@ const tracks = [
 
 const Playlist = () => {
   return (
-    <Box pt="65px">
+    <>
       <Banner
         name="Favoriter"
         context="Mina Listor"
@@ -87,7 +86,7 @@ const Playlist = () => {
           />
         ))}
       </div>
-    </Box>
+    </>
   );
 };
 

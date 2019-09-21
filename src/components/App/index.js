@@ -13,8 +13,8 @@ import Playlist from '../../pages/Playlist';
 import Global from '../../style/global';
 import Settings from '../../pages/Settings';
 
-import Player from '../Player';
-import PlayerText from '../PlayerText';
+/* import Player from '../Player';
+import PlayerText from '../PlayerText'; */
 
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
@@ -31,7 +31,10 @@ const Background = styled.img`
 
 const LoadingContainer = styled.div`
   height: 100vh;
-  padding-top: 65px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,12 +57,8 @@ const Layout = () => {
         )}
 
         {!authLoading && (
-            <Switch>
-              <Route
-                exact path="/"
-                render={(props) => <Home {...props} authUser={authenticatedUser} />}
-              />
-            <Route path="/bibliotek" component={Library} />
+          <Switch>
+            <Route exact path="/" component={Home} />
             <Route path="/spela-upp" component={Play} />
             <Route path="/sök" component={Search} />
             <Route path="/auth" component={AuthPage} />

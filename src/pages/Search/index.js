@@ -53,8 +53,8 @@ const Search = () => {
   }, [selectedCategory]);
 
   return (
-    <Box pt="81px">
-      <Box px="3">
+    <>
+      <Box px="3" mt="3">
         <SearchInput
           category={selectedCategory && selectedCategory.name}
           removeCategory={() => setSelectedCategory(null)}
@@ -133,7 +133,7 @@ const Search = () => {
           </Grid>
         </Box>
       )}
-    </Box>
+    </>
   );
 };
 
