@@ -2,27 +2,30 @@ import { useEffect, useState } from 'react';
 import firebase from '../firebase';
 import useDebounce from './useDebounce';
 
-const useSearch = (query, sort, filter /* , category */) => {
+const useSearch = (input, sort, type /* , category */) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [media, setMedia] = useState([]);
 
-  const debouncedQuery = useDebounce(query, 300);
+  const debouncedInput = useDebounce(input, 300);
 
   const performQuery = data => {
     return data.filter(
-      m => m.title.toLowerCase().indexOf(query.toLowerCase()) >= 0
+      m => m.title.toLowerCase().indexOf(input.toLowerCase()) >= 0
     );
   };
 
   useEffect(() => {
-    if (debouncedQuery !== '') {
+    if (debouncedInput !== '') {
       setLoading(true);
 
-      firebase
-        .firestore()
-        .collection('media')
-        .orderBy(sort || 'createdAt')
+      let query = firebase.firestore().collection('media');
+
+      if (type !== 'ALL') {
+        query = query.where('type', '==', type);
+      }
+
+      query
         .get()
         .then(snap => {
           const data = [];
@@ -40,7 +43,7 @@ const useSearch = (query, sort, filter /* , category */) => {
       setMedia([]);
       setLoading(true);
     }
-  }, [debouncedQuery, sort, filter]);
+  }, [debouncedInput, sort, type]);
 
   return { error, loading, media };
 };

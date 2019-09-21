@@ -20,6 +20,8 @@ const Item = styled.button`
   display: block;
   color: ${props => (props.selected ? '#000' : 'grey')};
   padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  background: none;
+  border: none;
 `;
 
 const Background = styled.div`

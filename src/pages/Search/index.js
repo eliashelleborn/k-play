@@ -32,7 +32,7 @@ const Search = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState(null);
-  const { loading, media } = useSearch(input, sortBy);
+  const { loading, media } = useSearch(input, sortBy, typeFilter);
 
   return (
     <Box pt="81px">

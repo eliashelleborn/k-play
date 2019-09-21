@@ -25,13 +25,13 @@ const MediaFilter = ({ current, setCurrent }) => {
   return (
     <StyledMediaFilter>
       <button type="button" onClick={() => setCurrent('ALL')}>
-        <Text fontWeight={current === 'all' ? 600 : 'normal'}>Alla</Text>
+        <Text fontWeight={current === 'ALL' ? 600 : 'normal'}>Alla</Text>
       </button>
       <button type="button" onClick={() => setCurrent('PODCAST')}>
-        <Text fontWeight={current === 'podcast' ? 600 : 'normal'}>Podd</Text>
+        <Text fontWeight={current === 'PODCAST' ? 600 : 'normal'}>Podd</Text>
       </button>
       <button type="button" onClick={() => setCurrent('VIDEO')}>
-        <Text fontWeight={current === 'video' ? 600 : 'normal'}>Video</Text>
+        <Text fontWeight={current === 'VIDEO' ? 600 : 'normal'}>Video</Text>
       </button>
     </StyledMediaFilter>
   );
