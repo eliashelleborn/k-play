@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import firebase from '../firebase';
 import useDebounce from './useDebounce';
 
-const useSearch = (input, sort, type /* , category */) => {
+const useSearch = (input, sort, type, category) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [media, setMedia] = useState([]);
+  const [previousCategory, setPreviousCategory] = useState(null);
 
   const debouncedInput = useDebounce(input, 300);
 
@@ -16,13 +17,27 @@ const useSearch = (input, sort, type /* , category */) => {
   };
 
   useEffect(() => {
-    if (debouncedInput !== '') {
+    const debouncedInputNotEmpty = debouncedInput !== '';
+
+    if (previousCategory !== category) {
+      setMedia([]);
+    }
+
+    if (debouncedInputNotEmpty || category) {
       setLoading(true);
+      setPreviousCategory(category);
 
       let query = firebase.firestore().collection('media');
 
       if (type !== 'ALL') {
         query = query.where('type', '==', type);
+      }
+      if (category) {
+        const categoryDocRef = firebase
+          .firestore()
+          .collection('categories')
+          .doc(category);
+        query = query.where('category', '==', categoryDocRef);
       }
 
       query
@@ -32,7 +47,7 @@ const useSearch = (input, sort, type /* , category */) => {
           snap.forEach(doc => {
             data.push(doc.data());
           });
-          setMedia(performQuery(data));
+          setMedia(debouncedInputNotEmpty ? performQuery(data) : data);
           setLoading(false);
         })
         .catch(err => {
@@ -43,7 +58,7 @@ const useSearch = (input, sort, type /* , category */) => {
       setMedia([]);
       setLoading(true);
     }
-  }, [debouncedInput, sort, type]);
+  }, [debouncedInput, sort, type, category]);
 
   return { error, loading, media };
 };

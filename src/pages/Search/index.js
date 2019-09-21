@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Box, Grid } from '../../components/Util';
 import SearchInput from '../../components/SearchInput';
@@ -7,8 +7,10 @@ import ListCard from '../../components/ListCard';
 import { Heading, Text } from '../../components/Typography';
 import Track from '../../components/Track';
 import SortDropdown from '../../components/SortDropdown';
-import useSearch from '../../hooks/useSearch';
 import Loading from '../../components/Loading';
+
+import useSearch from '../../hooks/useSearch';
+import useCategories from '../../hooks/useCategories';
 
 const LoadingOverlay = styled.div`
   position: absolute;
@@ -32,13 +34,29 @@ const Search = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState(null);
-  const { loading, media } = useSearch(input, sortBy, typeFilter);
+  const [otherCategories, setOtherCategories] = useState([]);
+
+  const { loading: categoriesLoading, categories } = useCategories();
+  const { loading: searchLoading, media } = useSearch(
+    input,
+    sortBy,
+    typeFilter,
+    selectedCategory && selectedCategory.id
+  );
+
+  useEffect(() => {
+    if (selectedCategory && categories) {
+      setOtherCategories(
+        categories.filter(c => c.name !== selectedCategory.name)
+      );
+    }
+  }, [selectedCategory]);
 
   return (
     <Box pt="81px">
       <Box px="3">
         <SearchInput
-          category={selectedCategory}
+          category={selectedCategory && selectedCategory.name}
           removeCategory={() => setSelectedCategory(null)}
           value={input}
           onChange={e => setInput(e.target.value)}
@@ -52,13 +70,18 @@ const Search = () => {
         />
         <MediaFilter current={typeFilter} setCurrent={setTypeFilter} />
       </Box>
-      <Box mt="2">
-        {selectedCategory || input !== '' ? (
-          <Box minHeight="calc(100vw - 32px)" position="relative">
-            <LoadingOverlay show={loading}>
-              <Loading color="#363636" />
-            </LoadingOverlay>
 
+      <Box mt="2" position="relative" minHeight="calc(100vw - 32px)">
+        <LoadingOverlay
+          show={
+            (searchLoading && (selectedCategory || input !== '')) ||
+            categoriesLoading
+          }
+        >
+          <Loading color="#363636" />
+        </LoadingOverlay>
+        {selectedCategory || input !== '' ? (
+          <Box>
             {media.length > 0
               ? media.map(m => (
                   <Track
@@ -71,7 +94,7 @@ const Search = () => {
                     image={m.image}
                   />
                 ))
-              : !loading && (
+              : !searchLoading && (
                   <Box px="3" pt="5">
                     <Text textAlign="center" m="0">
                       0 resultat
@@ -81,52 +104,35 @@ const Search = () => {
           </Box>
         ) : (
           <Grid px="3" gridGap="2" gridTemplateColumns="1fr 1fr">
-            <ListCard
-              onClick={() => setSelectedCategory('Ljus')}
-              title="Ljus"
-              image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-            />
-            <ListCard
-              onClick={() => setSelectedCategory('Scenografi')}
-              title="Scenografi"
-              image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-            />
-            <ListCard
-              onClick={() => setSelectedCategory('Teater')}
-              title="Teater"
-              image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-            />
-            <ListCard
-              onClick={() => setSelectedCategory('Dans')}
-              title="Dans"
-              image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-            />
+            {categories &&
+              categories.map(c => (
+                <ListCard
+                  key={c.id}
+                  onClick={() => setSelectedCategory(c)}
+                  title={c.name}
+                  image={c.image}
+                />
+              ))}
           </Grid>
         )}
       </Box>
-      <Box mt="5" px="3">
-        <Heading as="h2" fontWeight="500" m="0">
-          Utforska fler kategorier
-        </Heading>
-        <Grid mt="3" gridGap="2" gridTemplateColumns="1fr 1fr">
-          <ListCard
-            title="Ljus"
-            image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-          />
-          <ListCard
-            title="Scenografi"
-            image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-          />
-          <ListCard
-            title="Teater"
-            image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-          />
-          <ListCard
-            title="Dans"
-            image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-          />
-        </Grid>
-      </Box>
+      {selectedCategory && otherCategories.length > 0 && (
+        <Box mt="5" px="3">
+          <Heading as="h2" fontWeight="500" m="0">
+            Utforska fler kategorier
+          </Heading>
+          <Grid mt="3" gridGap="2" gridTemplateColumns="1fr 1fr">
+            {otherCategories.map(c => (
+              <ListCard
+                key={c.id}
+                onClick={() => setSelectedCategory(c)}
+                title={c.name}
+                image={c.image}
+              />
+            ))}
+          </Grid>
+        </Box>
+      )}
     </Box>
   );
 };

@@ -7,6 +7,7 @@ const StyledListCard = styled.div`
   position: relative;
   width: 100%;
   padding-top: 100%;
+  cursor: pointer;
 
   svg {
     position: absolute;
