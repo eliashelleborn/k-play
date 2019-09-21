@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import AppProvider from '../../context';
 import Navigation from '../Navigation';
-/* import Player from '../Player'; */
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
 import Play from '../../pages/Play';
@@ -13,6 +12,10 @@ import Error from '../../pages/Error';
 import MyPlaylists from '../../pages/MyPlaylists';
 import Playlist from '../../pages/Playlist';
 import Global from '../../style/global';
+import Settings from '../../pages/Settings';
+
+/* import Player from '../Player'; */
+
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
 import Loading from '../Loading';
@@ -35,8 +38,7 @@ const LoadingContainer = styled.div`
 `;
 
 const Layout = () => {
-  const { authUser, authLoading } = useAuth();
-  console.log(authUser);
+  const { authLoading } = useAuth();
 
   return (
     <BrowserRouter>
@@ -60,6 +62,7 @@ const Layout = () => {
             <Route path="/auth" component={AuthPage} />
             <Route path="/mina-listor" component={MyPlaylists} />
             <Route path="/spellista" component={Playlist} />
+            <Route path="/inställningar" component={Settings} />
             <Route component={Error} />
           </Switch>
         )}
