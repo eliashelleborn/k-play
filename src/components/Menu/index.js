@@ -98,12 +98,12 @@ const Menu = ({ authUser }) => {
         </MenuIcons>
 
         <MenuIcons>
-          <StyledNavLink to="/k-play"> Start </StyledNavLink>
+          <StyledNavLink to="/"> Start </StyledNavLink>
 
           {authUser ? (
             <StyledNavLink to="/mina-listor"> Mina listor </StyledNavLink>
           ) : (
-            <StyledNavLink to="/auth/skapa-konto"> Skapa konto </StyledNavLink>
+            <StyledNavLink to="/auth"> Skapa konto </StyledNavLink>
           )}
 
           <StyledNavLink to="/sök1"> Sök </StyledNavLink>

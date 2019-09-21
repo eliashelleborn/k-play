@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Caption, Crop, Plus, More } from '../Icons';
+import { NavLink } from 'react-router-dom';
 
 const StyledMiscControls = styled.div`
   margin: ${({ theme }) => theme.space[3]}px 0;
@@ -30,7 +31,9 @@ const MiscControls = () => {
     <StyledMiscControls>
       <div>
         <button type="button">
-          <Caption />
+          <NavLink to='/player-text'>
+            <Caption />
+          </NavLink>
         </button>
         <button type="button">
           <Crop />

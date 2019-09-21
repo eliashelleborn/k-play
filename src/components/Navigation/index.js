@@ -89,7 +89,7 @@ class Navigation extends Component {
               </NavLink>
             </div>
             <div>
-              <NavLink to="/k-play">
+              <NavLink to="/">
                 <Kplay />
               </NavLink>
             </div>

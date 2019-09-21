@@ -7,7 +7,6 @@ import awsconfig from '../../aws-exports';
 import Navigation from '../Navigation';
 
 import Home from '../../pages/Home';
-import Library from '../../pages/Library';
 import Play from '../../pages/Play';
 import Search1 from '../../pages/Search1';
 import Search2 from '../../pages/Search2';
@@ -19,7 +18,8 @@ import MyPlaylists from '../../pages/MyPlaylists';
 import Playlist from '../../pages/Playlist';
 import Settings from '../../pages/Settings';
 
-/* import Player from '../Player'; */
+import Player from '../Player';
+import PlayerText from '../PlayerText';
 
 import bglogo from '../../images/k-play-logo-02.png';
 
@@ -68,10 +68,9 @@ const App = () => {
             <Navigation authUser={authenticatedUser} />
             <Switch>
               <Route
-                exact path="/k-play"
+                exact path="/"
                 render={(props) => <Home {...props} authUser={authenticatedUser} />}
               />
-              <Route path="/bibliotek" component={Library} />
               <Route path="/spela-upp" component={Play} />
               <Route path="/sök1" component={Search1} />
               <Route path="/sök2" component={Search2} />
@@ -79,10 +78,10 @@ const App = () => {
               <Route path="/mina-listor" component={MyPlaylists} />
               <Route path="/spellista" component={Playlist} />
               <Route path="/inställningar" component={Settings} />
+              <Route path="/player" component={Player} />
+              <Route path="/player-text" component={PlayerText} />
               <Route component={Error} />
             </Switch>
-
-            {/* <Player /> */}
           </div>
         </BrowserRouter>
       </ThemeProvider>
