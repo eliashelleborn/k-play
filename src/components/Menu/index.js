@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-// import { Auth } from 'aws-amplify';
 import { color } from 'styled-system';
 import {
   CreateAccount,
@@ -19,7 +18,7 @@ import {
 const StyledMenu = styled.div`
   ${color}
 
-  background-color:  ${({ theme }) => theme.colors.grey};
+  background-color: ${({ theme }) => theme.colors.grey};
   position: fixed;
   z-index: 3;
   width: 100%;
@@ -31,8 +30,6 @@ const StyledMenu = styled.div`
     flex-direction: row;
     margin-top: 92px;
   }
-
-
 
   > div div p {
     color: ${({ theme }) => theme.colors.white};
@@ -106,7 +103,7 @@ const Menu = ({ authUser }) => {
           {authUser ? (
             <StyledNavLink to="/mina-listor"> Mina listor </StyledNavLink>
           ) : (
-            <StyledNavLink to="/skapa-konto"> Skapa konto </StyledNavLink>
+            <StyledNavLink to="/auth/skapa-konto"> Skapa konto </StyledNavLink>
           )}
 
           <StyledNavLink to="/sök1"> Sök </StyledNavLink>
