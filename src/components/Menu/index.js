@@ -17,10 +17,11 @@ import {
 
 const StyledMenu = styled.div`
   ${color}
-
-  background-color: ${({ theme }) => theme.colors.grey};
+  <<<<<<< HEAD
+  top: 0;
+  =======>>>>>>>masterbackground-color: ${({ theme }) => theme.colors.grey};
   position: fixed;
-  z-index: 3;
+  z-index: 110;
   width: 100%;
   height: 100vh;
   /* transition: 0.3s; */

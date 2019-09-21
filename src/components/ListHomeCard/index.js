@@ -61,8 +61,10 @@ const MainContent = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  > div:nth-child(1), div:nth-child(2), div:nth-child(3) {
-    border-right: 1px solid #F3F3F3;
+  > div:nth-child(1),
+  div:nth-child(2),
+  div:nth-child(3) {
+    border-right: 1px solid #f3f3f3;
     height: 30px;
     width: 18%;
     display: flex;
@@ -80,17 +82,21 @@ const CornerContent = styled.div`
   }
 `;
 
-const ListHomeCard = ({ image, title, subtitle, description, contentType, subject, episodes }) => {
-  const CategoryIcon = (contentType === 'video') ? (
-    <Podcast />
-  ) : (
-    <Video/>
-  );
+const ListHomeCard = ({
+  image,
+  title,
+  subtitle,
+  description,
+  contentType,
+  subject,
+  episodes
+}) => {
+  const CategoryIcon = contentType === 'video' ? <Podcast /> : <Video />;
 
   return (
     <StyledHomeCard>
       <Tint>
-      <Play color={'#ffffff'}/>
+        <Play color="#ffffff" />
         {image && <img src={image} alt="" />}
       </Tint>
 
@@ -107,13 +113,13 @@ const ListHomeCard = ({ image, title, subtitle, description, contentType, subjec
 
       <MainContent>
         <div>
-          <Plus color={'#363636'}/>
+          <Plus color="#363636" />
         </div>
         <div>
-          <More/>
+          <More />
         </div>
         <div>
-          <Play color={'#363636'}/>
+          <Play color="#363636" />
         </div>
         <CornerContent>
           <p>{subject}</p>

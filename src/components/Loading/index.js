@@ -8,7 +8,7 @@ const StyledLoading = styled.div`
   > div {
     width: 10px;
     height: 10px;
-    background-color: #fff;
+    background-color: ${props => props.color || '#fff'};
     margin-right: 3px;
 
     border-radius: 100%;
@@ -52,9 +52,9 @@ const StyledLoading = styled.div`
   }
 `;
 
-const Loading = () => {
+const Loading = ({ color }) => {
   return (
-    <StyledLoading>
+    <StyledLoading color={color}>
       <div className="bounce1" />
       <div className="bounce2" />
       <div className="bounce3" />

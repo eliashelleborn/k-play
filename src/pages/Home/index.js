@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import BannerImage from '../../images/banner-1-home.png'
-import BannerImage2 from '../../images/banner-2-home.png'
-import BannerImage3 from '../../images/banner-2-home2.png'
 import { color } from 'styled-system';
+import BannerImage from '../../images/banner-1-home.png';
+import BannerImage2 from '../../images/banner-2-home.png';
+import BannerImage3 from '../../images/banner-2-home2.png';
 import ListHomeCard from '../../components/ListHomeCard';
 import Banner from '../../components/Banner';
 import Button from '../../components/Button';
@@ -171,132 +171,126 @@ const homelists = [
   }
 ];
 
-
-class Home extends Component {
-  render() {
-    return (
+const Home = ({ authUser }) => (
+  <div>
+    <div>
       <div>
-        <div>
-          <div>
-            <StyledBanner
-              tint="rgba(4, 4, 4, 0.3)"
-              image={BannerImage}
-              justifyContent="space-between"
-              px="3">
-              <BannerText> Podd- och webcasts om scenkonst, media och musik </BannerText>
-            </StyledBanner>
-          </div>
-        </div>
-
-        {this.props.authUser ? (
-          <Category> Senaste avsnitten </Category>
-        ) : (
-          <Category> Fortsätt lyssna/titta </Category> )}
-
-        <Box>
-          {homelists.map(p => (
-            <ListHomeCard
-              key={p.key}
-              title={p.title}
-              image={p.image}
-              subtitle={p.subtitle}
-              description={p.description}
-              contentType={p.contentType}
-              subject={p.subject}
-              episodes={p.episodes}
-            />
-          ))}
-        </Box>
-
-        {this.props.authUser ? (
-          <Category> Populärt på K-play </Category>
-        ) : (
-          <Category> Rekommenderas för dig </Category> )}
-
-        <Box>
-          {homelists.map(p => (
-            <ListHomeCard
-              key={p.key}
-              title={p.title}
-              image={p.image}
-              subtitle={p.subtitle}
-              description={p.description}
-              contentType={p.contentType}
-              subject={p.subject}
-              episodes={p.episodes}
-            />
-          ))}
-        </Box>
-
-        {this.props.authUser ? (
-          <div>
-            <StyledBanner2
-              tint="rgba(0, 0, 0, 0.7)"
-              image={BannerImage2}
-              px="3">
-              <BannerText2> Upplev mer via <em> ditt </em> <span> K-play </span> </BannerText2>
-              <BannerText3> Skapa, spara, tyck till och dela! </BannerText3>
-              <StyledButton m="10px auto 0px">
-                <NavLink to="/auth/skapa-konto"> Skapa konto </NavLink>
-              </StyledButton>
-            </StyledBanner2>
-          </div>
-        ) : (
-          <div>
-            <StyledBanner2
-              tint="rgba(0, 0, 0, 0.1)"
-              image={BannerImage3}
-              px="3">
-              <BannerText2>Tipsa om kurser på KA Klippverktyget (funktioner)</BannerText2>
-              <BannerText3> Dela till kollegor/studenter </BannerText3>
-            </StyledBanner2>
-          </div> )}
-
-        {this.props.authUser ? (
-          <Category> Ljus </Category>
-        ) : (
-          <Category> Nytt inom Scenkonst </Category> )}
-
-        <Box>
-          {homelists.map(p => (
-            <ListHomeCard
-              key={p.key}
-              title={p.title}
-              image={p.image}
-              subtitle={p.subtitle}
-              description={p.description}
-              contentType={p.contentType}
-              subject={p.subject}
-              episodes={p.episodes}
-            />
-          ))}
-        </Box>
-
-        {this.props.authUser ? (
-          <Category> Dans </Category>
-        ) : (
-          <Category> Nytt inom Dans </Category> )}
-
-        <Box>
-          {homelists.map(p => (
-            <ListHomeCard
-              key={p.key}
-              title={p.title}
-              image={p.image}
-              subtitle={p.subtitle}
-              description={p.description}
-              contentType={p.contentType}
-              subject={p.subject}
-              episodes={p.episodes}
-            />
-          ))}
-        </Box>
+        <StyledBanner
+          tint="rgba(4, 4, 4, 0.3)"
+          image={BannerImage}
+          justifyContent="space-between"
+          px="3"
+        >
+          <BannerText>
+            Podd- och webcasts om scenkonst, media och musik
+          </BannerText>
+        </StyledBanner>
       </div>
-    );
-  }
-};
+    </div>
 
+    {authUser ? (
+      <Category>Senaste avsnitten </Category>
+    ) : (
+      <Category>Fortsätt lyssna/titta</Category>
+    )}
 
+    <Box>
+      {homelists.map(p => (
+        <ListHomeCard
+          key={p.key}
+          title={p.title}
+          image={p.image}
+          subtitle={p.subtitle}
+          description={p.description}
+          contentType={p.contentType}
+          subject={p.subject}
+          episodes={p.episodes}
+        />
+      ))}
+    </Box>
 
+    {authUser ? (
+      <Category>Populärt på K-play</Category>
+    ) : (
+      <Category>Rekommenderas för dig</Category>
+    )}
+
+    <Box>
+      {homelists.map(p => (
+        <ListHomeCard
+          key={p.key}
+          title={p.title}
+          image={p.image}
+          subtitle={p.subtitle}
+          description={p.description}
+          contentType={p.contentType}
+          subject={p.subject}
+          episodes={p.episodes}
+        />
+      ))}
+    </Box>
+
+    {authUser ? (
+      <div>
+        <StyledBanner2 tint="rgba(0, 0, 0, 0.7)" image={BannerImage2} px="3">
+          <BannerText2>
+            Upplev mer via <em> ditt </em> <span> K-play </span>
+          </BannerText2>
+          <BannerText3> Skapa, spara, tyck till och dela! </BannerText3>
+          <StyledButton m="10px auto 0px">
+            <NavLink to="/auth/skapa-konto"> Skapa konto </NavLink>
+          </StyledButton>
+        </StyledBanner2>
+      </div>
+    ) : (
+      <div>
+        <StyledBanner2 tint="rgba(0, 0, 0, 0.1)" image={BannerImage3} px="3">
+          <BannerText2>
+            Tipsa om kurser på KA Klippverktyget (funktioner)
+          </BannerText2>
+          <BannerText3>Dela till kollegor/studenter</BannerText3>
+        </StyledBanner2>
+      </div>
+    )}
+
+    {authUser ? (
+      <Category>Ljus</Category>
+    ) : (
+      <Category>Nytt inom Scenkonst</Category>
+    )}
+
+    <Box>
+      {homelists.map(p => (
+        <ListHomeCard
+          key={p.key}
+          title={p.title}
+          image={p.image}
+          subtitle={p.subtitle}
+          description={p.description}
+          contentType={p.contentType}
+          subject={p.subject}
+          episodes={p.episodes}
+        />
+      ))}
+    </Box>
+
+    {authUser ? <Category>Dans</Category> : <Category>Nytt inom Dans</Category>}
+
+    <Box>
+      {homelists.map(p => (
+        <ListHomeCard
+          key={p.key}
+          title={p.title}
+          image={p.image}
+          subtitle={p.subtitle}
+          description={p.description}
+          contentType={p.contentType}
+          subject={p.subject}
+          episodes={p.episodes}
+        />
+      ))}
+    </Box>
+  </div>
+);
 
 export default Home;
