@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import AppProvider from '../../context';
 import Navigation from '../Navigation';
@@ -19,6 +19,7 @@ import PlayerText from '../PlayerText';
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
 import Loading from '../Loading';
+import CustomRouter from '../CustomRouter';
 
 const Background = styled.img`
   position: fixed;
@@ -31,7 +32,10 @@ const Background = styled.img`
 
 const LoadingContainer = styled.div`
   height: 100vh;
-  padding-top: 65px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +45,7 @@ const Layout = () => {
   const { authLoading } = useAuth();
 
   return (
-    <BrowserRouter>
+    <CustomRouter>
       <>
         <Background src={bglogo} />
         <Navigation />
@@ -52,7 +56,7 @@ const Layout = () => {
         )}
 
         {!authLoading && (
-            <Switch>
+          <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/spela-upp" component={Play} />
             <Route path="/sök" component={Search} />
@@ -69,9 +73,9 @@ const Layout = () => {
           </Switch>
         )}
 
-        {/* <Player /> */}
+        <Player />
       </>
-    </BrowserRouter>
+    </CustomRouter>
   );
 };
 

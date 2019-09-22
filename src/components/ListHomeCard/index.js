@@ -89,13 +89,14 @@ const ListHomeCard = ({
   description,
   contentType,
   subject,
-  episodes
+  episodes,
+  play
 }) => {
   const CategoryIcon = contentType === 'video' ? <Podcast /> : <Video />;
 
   return (
     <StyledHomeCard>
-      <Tint>
+      <Tint onClick={play}>
         <Play color="#ffffff" />
         {image && <img src={image} alt="" />}
       </Tint>

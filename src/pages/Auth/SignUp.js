@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Heading, Text } from '../../components/Typography';
 import {
   Facebook,
@@ -15,12 +15,14 @@ import { Box } from '../../components/Util';
 import RememberMe from '../../components/RememberMe';
 import Loading from '../../components/Loading';
 import firebase from '../../firebase';
+import useRouter from '../../hooks/useRouter';
 
 const StyledBox = styled(Box)`
   background-color: white;
 `;
 
-const SignUp = ({ history }) => {
+const SignUp = () => {
+  const { history } = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
@@ -107,4 +109,4 @@ const SignUp = ({ history }) => {
   );
 };
 
-export default withRouter(SignUp);
+export default SignUp;

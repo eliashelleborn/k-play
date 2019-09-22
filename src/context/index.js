@@ -2,11 +2,14 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { AuthProvider } from './auth';
 import theme from '../style/theme';
+import { PlayerProvider } from './player';
 
 const AppProvider = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <PlayerProvider>{children}</PlayerProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 };
