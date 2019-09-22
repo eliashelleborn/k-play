@@ -7,12 +7,7 @@ import Controls from './Controls';
 import MiscControls from './MiscControls';
 import Progress from './Progress';
 import Footer from './Footer';
-import {
-  usePlayer,
-  PLAYER_TOGGLE_PLAYING,
-  PLAYER_TOGGLE_MINIMIZED,
-  PLAYER_TOGGLE_OPEN
-} from '../../context/player';
+import { usePlayer, PLAYER_TOGGLE_PLAYING } from '../../context/player';
 
 const StyledPlayer = styled.div`
   position: fixed;
@@ -78,12 +73,6 @@ const Player = () => {
   return (
     <StyledPlayer open={open} minimized={minimized}>
       <Box px="3" my="3">
-        <button type="button" onClick={() => dispatch(PLAYER_TOGGLE_MINIMIZED)}>
-          Minimize
-        </button>
-        <button type="button" onClick={() => dispatch(PLAYER_TOGGLE_OPEN)}>
-          Close
-        </button>
         <Heading fontSize="24px" fontWeight="400" m="0" mb="3">
           {currentMedia.title}
         </Heading>

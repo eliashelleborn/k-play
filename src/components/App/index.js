@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import AppProvider from '../../context';
 import Navigation from '../Navigation';
@@ -19,6 +19,7 @@ import Player from '../Player';
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
 import Loading from '../Loading';
+import CustomRouter from '../CustomRouter';
 
 const Background = styled.img`
   position: fixed;
@@ -44,7 +45,7 @@ const Layout = () => {
   const { authLoading } = useAuth();
 
   return (
-    <BrowserRouter>
+    <CustomRouter>
       <>
         <Background src={bglogo} />
 
@@ -71,7 +72,7 @@ const Layout = () => {
 
         <Player />
       </>
-    </BrowserRouter>
+    </CustomRouter>
   );
 };
 

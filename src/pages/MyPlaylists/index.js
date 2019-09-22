@@ -59,7 +59,12 @@ const MyPlaylists = () => {
       </Banner>
       <Grid p="3" gridTemplateColumns="1fr 1fr" gridGap="2">
         {playlists.map(p => (
-          <ListCard key={p.title} title={p.title} image={p.image} />
+          <ListCard
+            key={p.title}
+            title={p.title}
+            image={p.image}
+            to="/spellista"
+          />
         ))}
       </Grid>
     </>

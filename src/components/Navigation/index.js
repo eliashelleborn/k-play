@@ -1,12 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Hamburger, ArrowBack, Kplay, Search } from '../Icons';
 
 import Menu from '../Menu';
+import {
+  usePlayer,
+  PLAYER_TOGGLE_MINIMIZED,
+  PLAYER_TOGGLE_OPEN
+} from '../../context/player';
+import useRouter from '../../hooks/useRouter';
 
 const StyledNavigation = styled.nav`
   box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.08);
@@ -55,8 +61,71 @@ const StyledHamburger = styled(Hamburger)`
   position: fixed;
 `;
 
+const Back = styled.div`
+  border: none;
+  background: none;
+`;
+
 const Navigation = () => {
+  const { location, history } = useRouter();
+  const {
+    state: {
+      playing: playerPlaying,
+      open: playerOpen,
+      minimized: playerMinimized
+    },
+    dispatch
+  } = usePlayer();
+  const [prevPath, setPrevPath] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [showBack, setShowBack] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [backQueue, setBackQueue] = useState([]);
+
+  const addToBackQueue = path => {
+    setBackQueue([path, ...backQueue]);
+  };
+
+  const handleBackClick = () => {
+    if (playerOpen && !playerMinimized) {
+      if (playerPlaying) {
+        dispatch(PLAYER_TOGGLE_MINIMIZED);
+      } else {
+        dispatch(PLAYER_TOGGLE_OPEN);
+      }
+    } else {
+      const to = backQueue.length > 0 ? backQueue[0] : null;
+      history.push(to || '/');
+      setBackQueue(backQueue.filter(b => b !== to));
+    }
+  };
+
+  useEffect(() => {
+    // showSearch logic
+    if (location.pathname === '/sök') setShowSearch(false);
+    else setShowSearch(true);
+
+    // ===== Manual backQueue logic =====
+    // Handle Auth nested routes
+    if (location.pathname.match(/auth\/./g)) {
+      addToBackQueue('/auth');
+    }
+
+    // Handle "/spellista", "/mina-listor" relation
+    if (
+      location.pathname.includes('/spellista') &&
+      prevPath &&
+      prevPath.includes('/mina-listor')
+    ) {
+      addToBackQueue('/mina-listor');
+    }
+
+    setPrevPath(location.pathname);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setShowBack(location.pathname !== '/' || (playerOpen && !playerMinimized));
+  }, [location.pathname, playerOpen, playerMinimized]);
 
   return (
     <div>
@@ -64,9 +133,11 @@ const Navigation = () => {
       <StyledNavigation>
         <div>
           <div>
-            <NavLink to="/">
-              <ArrowBack />
-            </NavLink>
+            {showBack && (
+              <Back onClick={handleBackClick}>
+                <ArrowBack />
+              </Back>
+            )}
           </div>
           <div>
             <NavLink to="/">
@@ -74,9 +145,11 @@ const Navigation = () => {
             </NavLink>
           </div>
           <div>
-            <NavLink to="/sök">
-              <Search />
-            </NavLink>
+            {showSearch && (
+              <NavLink to="/sök">
+                <Search />
+              </NavLink>
+            )}
           </div>
         </div>
       </StyledNavigation>
