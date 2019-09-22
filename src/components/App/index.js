@@ -12,7 +12,7 @@ import MyPlaylists from '../../pages/MyPlaylists';
 import Playlist from '../../pages/Playlist';
 import Global from '../../style/global';
 import Settings from '../../pages/Settings';
-
+import ChangePassword from '../../pages/ChangePassword'
 import Player from '../Player';
 import PlayerText from '../PlayerText';
 
@@ -64,8 +64,9 @@ const Layout = () => {
             <Route path="/mina-listor" component={MyPlaylists} />
             <Route path="/spellista" component={Playlist} />
             <Route path="/inställningar" component={Settings} />
-            <Route path="/player-text" component={PlayerText} />
+            <Route path="/ändra-lösenord" component={ChangePassword} />
 
+            <Route path="/player-text" component={PlayerText} />
             <Route path="/player" component={Player} />
 
             <Route component={Error} />

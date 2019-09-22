@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
 import { Box } from '../../components/Util';
@@ -15,6 +16,10 @@ import { Text, Heading } from '../../components/Typography';
 import Loading from '../../components/Loading';
 import firebase from '../../firebase';
 import useRouter from '../../hooks/useRouter';
+
+const StyledBox = styled(Box)`
+  background-color: white;
+`;
 
 const Login = () => {
   const { history } = useRouter();
@@ -65,7 +70,7 @@ const Login = () => {
         Sign in with LinkedIn
       </Button>
 
-      <Box mt="5">
+      <StyledBox mt="5">
         <form onSubmit={signIn}>
           <Input
             borderTop="1px solid"
@@ -97,7 +102,7 @@ const Login = () => {
 
           {error && <p>{error.message}</p>}
         </form>
-      </Box>
+      </StyledBox>
     </div>
   );
 };

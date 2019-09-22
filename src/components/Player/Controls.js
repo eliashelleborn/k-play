@@ -31,12 +31,12 @@ const PlayPauseButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 0;
-
-  /* > svg {
-    margin-left: 5px;
-  } */
 `;
 
+const PlayWrapper = styled.div`
+  margin-left: 5px;
+  margin-top: 3px;
+`;
 
 
 const Controls = ({ playing, togglePlaying, next, jump }) => {
@@ -50,7 +50,7 @@ const Controls = ({ playing, togglePlaying, next, jump }) => {
       </Button>
 
       <PlayPauseButton onClick={togglePlaying} type="button">
-        {playing ? <Pause /> : <Play />}
+        {playing ? <Pause /> : <PlayWrapper> <Play /> </PlayWrapper>}
       </PlayPauseButton>
 
       <Button onClick={next} type="button">
