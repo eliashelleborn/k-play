@@ -86,7 +86,7 @@ const SocialIcons = styled.div`
   }
 `;
 
-const Menu = ({ authUser }) => {
+const Menu = ({ authUser, close }) => {
   return (
     <StyledMenu>
       <div>
@@ -99,18 +99,28 @@ const Menu = ({ authUser }) => {
         </MenuIcons>
 
         <MenuIcons>
-          <StyledNavLink to="/"> Start </StyledNavLink>
+          <StyledNavLink onClick={close} to="/">
+            Start
+          </StyledNavLink>
 
           {authUser ? (
-            <StyledNavLink to="/mina-listor"> Mina listor </StyledNavLink>
+            <StyledNavLink onClick={close} to="/mina-listor">
+              Mina listor
+            </StyledNavLink>
           ) : (
-            <StyledNavLink to="/auth"> Skapa konto </StyledNavLink>
+            <StyledNavLink onClick={close} to="/auth">
+              Skapa konto
+            </StyledNavLink>
           )}
 
-          <StyledNavLink to="/sök1"> Sök </StyledNavLink>
-          <StyledNavLink to="/inställningar"> Inställningar </StyledNavLink>
+          <StyledNavLink onClick={close} to="/sök">
+            Sök
+          </StyledNavLink>
+          <StyledNavLink onClick={close} to="/inställningar">
+            Inställningar
+          </StyledNavLink>
 
-          {authUser && <p> Mörkt tema </p>}
+          {authUser && <p>Mörkt tema</p>}
         </MenuIcons>
         {authUser && <StyledNightMode />}
       </div>

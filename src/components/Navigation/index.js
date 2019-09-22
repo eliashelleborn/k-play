@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -129,7 +126,7 @@ const Navigation = () => {
 
   return (
     <div>
-      {showMenu && <Menu />}
+      {showMenu && <Menu close={() => setShowMenu(false)} />}
       <StyledNavigation>
         <div>
           <div>
