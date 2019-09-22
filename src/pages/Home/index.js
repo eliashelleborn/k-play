@@ -17,8 +17,6 @@ import {
   PLAYER_OPEN
 } from '../../context/player';
 
-import { useAuth } from '../../context/auth';
-
 const StyledBanner = styled(Banner)`
   ${color}
   padding-bottom: 0px;
@@ -252,28 +250,35 @@ const Home = () => {
         ))}
       </Box>
 
-    {authUser ? (
-      <div>
-        <StyledBanner2 tint="rgba(0, 0, 0, 0.1)" image={BannerImage3} px="3">
-          <BannerText2>
-            Tipsa om kurser på KA Klippverktyget (funktioner)
-          </BannerText2>
-          <BannerText3>Dela till kollegor/studenter</BannerText3>
-        </StyledBanner2>
-      </div>
-    ) : (
-      <div>
-        <StyledBanner2 tint="rgba(0, 0, 0, 0.7)" image={BannerImage2} px="3">
-          <BannerText2> Upplev mer via <em> ditt </em> <span> K-play </span> </BannerText2>
-          <BannerText3> Skapa, spara, tyck till och dela! </BannerText3>
-          <StyledButton m="10px auto 0px">
-            <NavLink to="/auth/skapa-konto"> Skapa konto </NavLink>
-          </StyledButton>
-        </StyledBanner2>
-      </div>
-    )}
+      {authUser ? (
+        <div>
+          <StyledBanner2 tint="rgba(0, 0, 0, 0.1)" image={BannerImage3} px="3">
+            <BannerText2>
+              Tipsa om kurser på KA Klippverktyget (funktioner)
+            </BannerText2>
+            <BannerText3>Dela till kollegor/studenter</BannerText3>
+          </StyledBanner2>
+        </div>
+      ) : (
+        <div>
+          <StyledBanner2 tint="rgba(0, 0, 0, 0.7)" image={BannerImage2} px="3">
+            <BannerText2>
+              {' '}
+              Upplev mer via <em> ditt </em> <span> K-play </span>{' '}
+            </BannerText2>
+            <BannerText3> Skapa, spara, tyck till och dela! </BannerText3>
+            <StyledButton m="10px auto 0px">
+              <NavLink to="/auth/skapa-konto"> Skapa konto </NavLink>
+            </StyledButton>
+          </StyledBanner2>
+        </div>
+      )}
 
-    {authUser ? ( <Category>Nytt inom Scenkonst</Category> ) : ( <Category>Ljus</Category> )}
+      {authUser ? (
+        <Category>Nytt inom Scenkonst</Category>
+      ) : (
+        <Category>Ljus</Category>
+      )}
 
       <Box>
         {homelists.map(p => (
@@ -290,7 +295,11 @@ const Home = () => {
         ))}
       </Box>
 
-    {authUser ? <Category>Nytt inom Dans</Category> : <Category>Dans</Category>}
+      {authUser ? (
+        <Category>Nytt inom Dans</Category>
+      ) : (
+        <Category>Dans</Category>
+      )}
 
       <Box>
         {homelists.map(p => (

@@ -14,7 +14,7 @@ import Global from '../../style/global';
 import Settings from '../../pages/Settings';
 
 import Player from '../Player';
-/* import PlayerText from '../PlayerText'; */
+import PlayerText from '../PlayerText';
 
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
