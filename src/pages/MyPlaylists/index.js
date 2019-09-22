@@ -45,7 +45,7 @@ const playlists = [
 
 const MyPlaylists = () => {
   return (
-    <Box pt="65px">
+    <Box>
       <Banner
         tint="rgba(0,0,0,.85)"
         image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"

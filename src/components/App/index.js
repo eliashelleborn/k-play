@@ -44,9 +44,7 @@ const Layout = () => {
     <BrowserRouter>
       <>
         <Background src={bglogo} />
-
         <Navigation />
-
         {authLoading && (
           <LoadingContainer>
             <Loading color="#363636" />
@@ -55,17 +53,17 @@ const Layout = () => {
 
         {!authLoading && (
             <Switch>
-              <Route
-                exact path="/"
-                render={(props) => <Home {...props} authUser={authenticatedUser} />}
-              />
-            <Route path="/bibliotek" component={Library} />
+            <Route exact path="/" component={Home} />
             <Route path="/spela-upp" component={Play} />
             <Route path="/sök" component={Search} />
             <Route path="/auth" component={AuthPage} />
             <Route path="/mina-listor" component={MyPlaylists} />
             <Route path="/spellista" component={Playlist} />
             <Route path="/inställningar" component={Settings} />
+            <Route path="/player-text" component={PlayerText} />
+
+            <Route path="/player" component={Player} />
+
             <Route component={Error} />
           </Switch>
         )}

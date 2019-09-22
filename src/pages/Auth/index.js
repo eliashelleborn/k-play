@@ -12,7 +12,6 @@ const AuthContainer = styled.div`
   padding: 0 ${({ theme }) => theme.space[3]}px;
   display: flex;
   align-items: center;
-  padding-top: 65px;
 
   > div {
     margin-top: -65px;

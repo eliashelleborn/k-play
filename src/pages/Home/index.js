@@ -9,6 +9,8 @@ import ListHomeCard from '../../components/ListHomeCard';
 import Banner from '../../components/Banner';
 import Button from '../../components/Button';
 
+import { useAuth } from '../../context/auth';
+
 const StyledBanner = styled(Banner)`
   ${color}
   padding-bottom: 0px;
@@ -188,11 +190,24 @@ const Home = ({ authUser }) => (
       </div>
     </div>
 
-    {authUser ? (
-      <Category>Senaste avsnitten </Category>
-    ) : (
-      <Category>Fortsätt lyssna/titta</Category>
-    )}
+    {authUser ? ( <Category>Fortsätt lyssna/titta</Category> ) : ( <Category>Senaste avsnitten </Category> )}
+
+    <Box>
+      {homelists.map(p => (
+        <ListHomeCard
+          key={p.key}
+          title={p.title}
+          image={p.image}
+          subtitle={p.subtitle}
+          description={p.description}
+          contentType={p.contentType}
+          subject={p.subject}
+          episodes={p.episodes}
+        />
+      ))}
+    </Box>
+
+    {authUser ? ( <Category>Rekommenderas för dig</Category> ) : ( <Category>Populärt på K-play</Category> )}
 
     <Box>
       {homelists.map(p => (
@@ -210,39 +225,6 @@ const Home = ({ authUser }) => (
     </Box>
 
     {authUser ? (
-      <Category>Populärt på K-play</Category>
-    ) : (
-      <Category>Rekommenderas för dig</Category>
-    )}
-
-    <Box>
-      {homelists.map(p => (
-        <ListHomeCard
-          key={p.key}
-          title={p.title}
-          image={p.image}
-          subtitle={p.subtitle}
-          description={p.description}
-          contentType={p.contentType}
-          subject={p.subject}
-          episodes={p.episodes}
-        />
-      ))}
-    </Box>
-
-    {authUser ? (
-      <div>
-        <StyledBanner2 tint="rgba(0, 0, 0, 0.7)" image={BannerImage2} px="3">
-          <BannerText2>
-            Upplev mer via <em> ditt </em> <span> K-play </span>
-          </BannerText2>
-          <BannerText3> Skapa, spara, tyck till och dela! </BannerText3>
-          <StyledButton m="10px auto 0px">
-            <NavLink to="/auth/skapa-konto"> Skapa konto </NavLink>
-          </StyledButton>
-        </StyledBanner2>
-      </div>
-    ) : (
       <div>
         <StyledBanner2 tint="rgba(0, 0, 0, 0.1)" image={BannerImage3} px="3">
           <BannerText2>
@@ -251,13 +233,19 @@ const Home = ({ authUser }) => (
           <BannerText3>Dela till kollegor/studenter</BannerText3>
         </StyledBanner2>
       </div>
+    ) : (
+      <div>
+        <StyledBanner2 tint="rgba(0, 0, 0, 0.7)" image={BannerImage2} px="3">
+          <BannerText2> Upplev mer via <em> ditt </em> <span> K-play </span> </BannerText2>
+          <BannerText3> Skapa, spara, tyck till och dela! </BannerText3>
+          <StyledButton m="10px auto 0px">
+            <NavLink to="/auth/skapa-konto"> Skapa konto </NavLink>
+          </StyledButton>
+        </StyledBanner2>
+      </div>
     )}
 
-    {authUser ? (
-      <Category>Ljus</Category>
-    ) : (
-      <Category>Nytt inom Scenkonst</Category>
-    )}
+    {authUser ? ( <Category>Nytt inom Scenkonst</Category> ) : ( <Category>Ljus</Category> )}
 
     <Box>
       {homelists.map(p => (
@@ -274,7 +262,7 @@ const Home = ({ authUser }) => (
       ))}
     </Box>
 
-    {authUser ? <Category>Dans</Category> : <Category>Nytt inom Dans</Category>}
+    {authUser ? <Category>Nytt inom Dans</Category> : <Category>Dans</Category>}
 
     <Box>
       {homelists.map(p => (

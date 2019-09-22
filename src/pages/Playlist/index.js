@@ -68,7 +68,7 @@ const tracks = [
 
 const Playlist = () => {
   return (
-    <Box pt="65px">
+    <Box>
       <Banner
         name="Favoriter"
         context="Mina Listor"
