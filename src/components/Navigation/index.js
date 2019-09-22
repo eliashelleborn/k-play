@@ -1,12 +1,11 @@
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable react/destructuring-assignment */
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Hamburger, ArrowBack, Kplay, Search } from '../Icons';
 
 import Menu from '../Menu';
+import { usePlayer, PLAYER_MINIMIZE, PLAYER_CLOSE } from '../../context/player';
+import useRouter from '../../hooks/useRouter';
 
 const StyledNavigation = styled.nav`
   box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.08);
@@ -55,60 +54,105 @@ const StyledHamburger = styled(Hamburger)`
   position: fixed;
 `;
 
-class Navigation extends Component {
-  constructor() {
-    super();
-    this.state = {
-      showMenu: true
-    };
-  }
+const Back = styled.div`
+  border: none;
+  background: none;
+`;
 
-  showMenu() {
-    this.setState({
-      showMenu: !this.state.showMenu
-    });
-  }
+const Navigation = () => {
+  const { location, history } = useRouter();
+  const {
+    state: {
+      playing: playerPlaying,
+      open: playerOpen,
+      minimized: playerMinimized
+    },
+    dispatch
+  } = usePlayer();
+  const [prevPath, setPrevPath] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showBack, setShowBack] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [backQueue, setBackQueue] = useState([]);
 
-  render() {
-    const ShowMenu = !this.state.showMenu ? (
-      <Menu authUser={this.props.authUser} />
-    ) : (
-      ''
-    );
+  const addToBackQueue = path => {
+    setBackQueue([path, ...backQueue]);
+  };
 
-    // transform={!this.state.showMenu ? 'rotate(45)' : 'rotate(0)'}
+  const handleBackClick = () => {
+    if (playerOpen && !playerMinimized) {
+      if (playerPlaying) {
+        dispatch({ type: PLAYER_MINIMIZE });
+      }
+      dispatch({ type: PLAYER_CLOSE });
+    } else {
+      const to = backQueue.length > 0 ? backQueue[0] : null;
+      history.push(to || '/');
+      setBackQueue(backQueue.filter(b => b !== to));
+    }
+  };
 
-    return (
-      <div>
-        {ShowMenu}
-        <StyledNavigation>
+  useEffect(() => {
+    // showSearch logic
+    if (location.pathname === '/sök') setShowSearch(false);
+    else setShowSearch(true);
+
+    // ===== Manual backQueue logic =====
+    // Handle Auth nested routes
+    if (location.pathname.match(/auth\/./g)) {
+      addToBackQueue('/auth');
+    }
+
+    // Handle "/spellista", "/mina-listor" relation
+    if (
+      location.pathname.includes('/spellista') &&
+      prevPath &&
+      prevPath.includes('/mina-listor')
+    ) {
+      addToBackQueue('/mina-listor');
+    }
+
+    setPrevPath(location.pathname);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setShowBack(location.pathname !== '/' || (playerOpen && !playerMinimized));
+  }, [location.pathname, playerOpen, playerMinimized]);
+
+  return (
+    <div>
+      {showMenu && <Menu close={() => setShowMenu(false)} />}
+      <StyledNavigation>
+        <div>
           <div>
-            <div>
-              <NavLink to="/">
+            {showBack && (
+              <Back onClick={handleBackClick}>
                 <ArrowBack />
-              </NavLink>
-            </div>
-            <div>
-              <NavLink to="/">
-                <Kplay />
-              </NavLink>
-            </div>
-            <div>
+              </Back>
+            )}
+          </div>
+          <div>
+            <NavLink to="/">
+              <Kplay />
+            </NavLink>
+          </div>
+          <div>
+            {showSearch && (
               <NavLink to="/sök">
                 <Search />
               </NavLink>
-            </div>
+            )}
           </div>
-        </StyledNavigation>
-        <HamburgerWrapper>
-          <StyledHamburger
-            onClick={this.showMenu.bind(this)}
-            color={!this.state.showMenu ? '#ffffff' : '#363636'}
-          />
-        </HamburgerWrapper>
-      </div>
-    );
-  }
-}
+        </div>
+      </StyledNavigation>
+      <HamburgerWrapper>
+        <StyledHamburger
+          onClick={() => setShowMenu(!showMenu)}
+          color={showMenu ? '#ffffff' : '#363636'}
+        />
+      </HamburgerWrapper>
+    </div>
+  );
+};
 
 export default Navigation;

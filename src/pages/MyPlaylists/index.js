@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from '../../components/Banner';
 import { Heading } from '../../components/Typography';
-import { Grid, Box } from '../../components/Util';
+import { Grid } from '../../components/Util';
 import ListCard from '../../components/ListCard';
 import Plus from '../../components/Icons/Plus';
 
@@ -45,7 +45,7 @@ const playlists = [
 
 const MyPlaylists = () => {
   return (
-    <Box>
+    <>
       <Banner
         tint="rgba(0,0,0,.85)"
         image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
@@ -59,10 +59,15 @@ const MyPlaylists = () => {
       </Banner>
       <Grid p="3" gridTemplateColumns="1fr 1fr" gridGap="2">
         {playlists.map(p => (
-          <ListCard key={p.title} title={p.title} image={p.image} />
+          <ListCard
+            key={p.title}
+            title={p.title}
+            image={p.image}
+            to="/spellista"
+          />
         ))}
       </Grid>
-    </Box>
+    </>
   );
 };
 
