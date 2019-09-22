@@ -13,8 +13,8 @@ import Playlist from '../../pages/Playlist';
 import Global from '../../style/global';
 import Settings from '../../pages/Settings';
 
-/* import Player from '../Player';
-import PlayerText from '../PlayerText'; */
+import Player from '../Player';
+/* import PlayerText from '../PlayerText'; */
 
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
@@ -69,7 +69,7 @@ const Layout = () => {
           </Switch>
         )}
 
-        {/* <Player /> */}
+        <Player />
       </>
     </BrowserRouter>
   );

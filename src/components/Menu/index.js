@@ -17,9 +17,9 @@ import {
 
 const StyledMenu = styled.div`
   ${color}
-  <<<<<<< HEAD
+
   top: 0;
-  =======>>>>>>>masterbackground-color: ${({ theme }) => theme.colors.grey};
+  background-color: ${({ theme }) => theme.colors.grey};
   position: fixed;
   z-index: 110;
   width: 100%;

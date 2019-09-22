@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { Box } from '../Util';
@@ -7,16 +7,28 @@ import Controls from './Controls';
 import MiscControls from './MiscControls';
 import Progress from './Progress';
 import Footer from './Footer';
+import {
+  usePlayer,
+  PLAYER_TOGGLE_PLAYING,
+  PLAYER_TOGGLE_MINIMIZED,
+  PLAYER_TOGGLE_OPEN
+} from '../../context/player';
 
 const StyledPlayer = styled.div`
   position: fixed;
-  top: 65px;
+  bottom: 0;
   left: 0;
-  height: calc(100vh - 65px);
+  height: ${props => (props.minimized ? '65px' : 'calc(100vh - 65px)')};
   width: 100%;
-  background-color: #fff;
+  background-color: ${props => (props.minimized ? '#363636' : '#fff')};
   display: flex;
   flex-direction: column;
+  z-index: 900;
+
+  visibility: ${props => (props.open ? 'visible' : 'hidden')};
+  pointer-events: ${props => (props.open ? 'auto' : 'none')};
+  opacity: ${props => (props.open ? 1 : 0)};
+  transition: visibility 0.3s linear, opacity 0.3s ease;
 `;
 
 const ControlsContainer = styled.div`
@@ -26,29 +38,13 @@ const ControlsContainer = styled.div`
   flex: 1;
 `;
 
-const media = [
-  'https://www.youtube.com/watch?v=Nmf2V55mlgw',
-  'https://soundcloud.com/user-994747535/129-eeva-bolin-nya-organisation-for-kultur-i-grundskola-och-forskola'
-];
-
 const Player = () => {
-  const [mediaUrl, setMediaUrl] = useState(media[1]);
-  const [mediaType, setMediaType] = useState(null);
-  const [mediaDuration, setMediaDuration] = useState(null);
+  const {
+    state: { playing, minimized, open, currentMedia },
+    dispatch
+  } = usePlayer();
   const [mediaCurrentTime, setMediaCurrentTime] = useState(0);
   const playerRef = useRef(null);
-  const [playing, setPlaying] = useState(true);
-
-  useEffect(() => {
-    // Determine media type
-    const { hostname } = new URL(mediaUrl);
-    if (hostname.includes('youtube')) setMediaType('video');
-    if (hostname.includes('soundcloud')) setMediaType('podcast');
-  }, [mediaUrl]);
-
-  const handleReady = () => {
-    setMediaDuration(playerRef.current.getDuration());
-  };
 
   const handleProgress = e => {
     setMediaCurrentTime(e.playedSeconds);
@@ -59,7 +55,7 @@ const Player = () => {
     setMediaCurrentTime(e);
   };
 
-  const next = () => {
+  /*   const next = () => {
     let nextIndex = 0;
     const currentIndex = media.indexOf(mediaUrl);
     if (currentIndex < media.length - 1) nextIndex = currentIndex + 1;
@@ -71,7 +67,7 @@ const Player = () => {
     const currentIndex = media.indexOf(mediaUrl);
     if (currentIndex > 0) nextIndex = currentIndex - 1;
     setMediaUrl(media[nextIndex]);
-  };
+  }; */
 
   const jumpTenSeconds = direction => {
     const currentTime = playerRef.current.getCurrentTime();
@@ -80,13 +76,19 @@ const Player = () => {
   };
 
   return (
-    <StyledPlayer>
+    <StyledPlayer open={open} minimized={minimized}>
       <Box px="3" my="3">
+        <button type="button" onClick={() => dispatch(PLAYER_TOGGLE_MINIMIZED)}>
+          Minimize
+        </button>
+        <button type="button" onClick={() => dispatch(PLAYER_TOGGLE_OPEN)}>
+          Close
+        </button>
         <Heading fontSize="24px" fontWeight="400" m="0" mb="3">
-          Dansare - oavsett vilkor?
+          {currentMedia.title}
         </Heading>
         <Text fontSize="12px" m="0" mb="1" color="#AEAEAE">
-          Inspelad 2019-05-15
+          Inspelad {currentMedia.createdAt}
         </Text>
         <Text fontSize="12px" m="0" color="#AEAEAE">
           I samarbete med Teaterförbundets dansavd.
@@ -95,26 +97,25 @@ const Player = () => {
 
       <MediaBox
         ref={playerRef}
-        url={mediaUrl}
-        type={mediaType}
+        url={currentMedia.url}
+        type={currentMedia.type}
         playing={playing}
-        onReady={handleReady}
         onProgress={handleProgress}
       />
 
       <ControlsContainer>
         <MiscControls />
         <Progress
-          duration={mediaDuration}
+          duration={currentMedia.duration}
           current={mediaCurrentTime}
           onChange={handleSliderInteraction}
         />
         <Controls
-          next={next}
-          previous={previous}
+          next={() => {}}
+          previous={() => {}}
           playing={playing}
           jump={jumpTenSeconds}
-          togglePlaying={() => setPlaying(!playing)}
+          togglePlaying={() => dispatch(PLAYER_TOGGLE_PLAYING)}
         />
         <Footer />
       </ControlsContainer>

@@ -10,6 +10,7 @@ import Banner from '../../components/Banner';
 import Button from '../../components/Button';
 import { useAuth } from '../../context/auth';
 import { Text } from '../../components/Typography';
+import { usePlayer, PLAYER_TOGGLE_OPEN } from '../../context/player';
 
 const StyledBanner = styled(Banner)`
   ${color}
@@ -160,6 +161,7 @@ const homelists = [
 
 const Home = () => {
   const { authUser } = useAuth();
+  const { dispatch } = usePlayer();
 
   return (
     <div>
@@ -194,6 +196,7 @@ const Home = () => {
       <Box>
         {homelists.map(p => (
           <ListHomeCard
+            play={() => dispatch(PLAYER_TOGGLE_OPEN)}
             key={p.key}
             title={p.title}
             image={p.image}
