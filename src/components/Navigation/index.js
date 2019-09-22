@@ -4,11 +4,7 @@ import styled from 'styled-components';
 import { Hamburger, ArrowBack, Kplay, Search } from '../Icons';
 
 import Menu from '../Menu';
-import {
-  usePlayer,
-  PLAYER_TOGGLE_MINIMIZED,
-  PLAYER_TOGGLE_OPEN
-} from '../../context/player';
+import { usePlayer, PLAYER_MINIMIZE, PLAYER_CLOSE } from '../../context/player';
 import useRouter from '../../hooks/useRouter';
 
 const StyledNavigation = styled.nav`
@@ -86,10 +82,9 @@ const Navigation = () => {
   const handleBackClick = () => {
     if (playerOpen && !playerMinimized) {
       if (playerPlaying) {
-        dispatch(PLAYER_TOGGLE_MINIMIZED);
-      } else {
-        dispatch(PLAYER_TOGGLE_OPEN);
+        dispatch({ type: PLAYER_MINIMIZE });
       }
+      dispatch({ type: PLAYER_CLOSE });
     } else {
       const to = backQueue.length > 0 ? backQueue[0] : null;
       history.push(to || '/');

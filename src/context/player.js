@@ -3,23 +3,37 @@ import React, { useReducer } from 'react';
 const PlayerContext = React.createContext();
 
 // Action types
-export const PLAYER_TOGGLE_OPEN = 'PLAYER_TOGGLE_OPEN';
-export const PLAYER_TOGGLE_MINIMIZED = 'PLAYER_TOGGLE_MINIMIZED';
+export const PLAYER_OPEN = 'PLAYER_OPEN';
+export const PLAYER_CLOSE = 'PLAYER_CLOSE';
+export const PLAYER_MINIMIZE = 'PLAYER_MINIMIZE';
+export const PLAYER_EXPAND = 'PLAYER_EXPAND';
 export const PLAYER_TOGGLE_PLAYING = 'PLAYER_TOGGLE_PLAYING';
 export const PLAYER_SET_CURRENT_MEDIA = 'PLAYER_SET_CURRENT_MEDIA';
+export const PLAYER_CURRENT_TIME_UPDATE = 'PLAYER_CURRENT_TIME_UPDATE';
 
 const playerReducer = (state, action) => {
-  switch (action) {
-    case PLAYER_TOGGLE_OPEN:
+  console.log(action);
+
+  switch (action.type) {
+    case PLAYER_OPEN:
       return {
         ...state,
-        open: !state.open,
-        minimized: state.open ? state.minimized : false
+        open: true
       };
-    case PLAYER_TOGGLE_MINIMIZED:
+    case PLAYER_CLOSE:
       return {
         ...state,
-        minimized: !state.minimized
+        open: false
+      };
+    case PLAYER_MINIMIZE:
+      return {
+        ...state,
+        minimized: true
+      };
+    case PLAYER_EXPAND:
+      return {
+        ...state,
+        minimized: false
       };
     case PLAYER_TOGGLE_PLAYING:
       return {
@@ -29,7 +43,8 @@ const playerReducer = (state, action) => {
     case PLAYER_SET_CURRENT_MEDIA:
       return {
         ...state,
-        currentMedia: action.payload
+        currentMedia: action.payload,
+        playing: true
       };
     default:
       throw new Error('Unexpected action');
@@ -42,8 +57,8 @@ const PlayerProvider = ({ children }) => {
     minimized: false,
     playing: false,
     currentMedia: {
-      url: 'https://www.youtube.com/watch?v=Cln0J87vulU',
-      duration: 1120,
+      url: 'https://www.youtube.com/watch?v=yGkn5KYk6sg',
+      duration: 1381,
       type: 'VIDEO',
       title: 'Test',
       description: 'Test description',

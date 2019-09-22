@@ -9,7 +9,7 @@ const StyledMediaBox = styled.div`
   width: 100%;
   flex: 1;
   max-height: 300px;
-  position: relative;
+  position: ${props => (props.minimized ? 'absolute' : 'relative')};
 
   > div {
     top: 0;
@@ -81,8 +81,9 @@ const drawerVariants = {
 };
 
 const MediaBox = forwardRef(
-  ({ playing, url, type, onReady, onProgress }, ref) => {
+  ({ playing, url, type, onReady, onProgress, open }, ref) => {
     const [drawerOpen, setDrawerOpen] = useState(true);
+
     return (
       <StyledMediaBox type={type}>
         <div>
@@ -131,6 +132,7 @@ const MediaBox = forwardRef(
             height="100%"
             url={url}
             playing={playing}
+            muted={!open}
             config={{
               youtube: {
                 playerVars: { modestbranding: 1 }

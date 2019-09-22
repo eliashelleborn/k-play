@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { useAnimation, motion } from 'framer-motion';
 import { Heading, Text } from '../Typography';
 import { Box } from '../Util';
 import MediaBox from './MediaBox';
@@ -7,23 +8,28 @@ import Controls from './Controls';
 import MiscControls from './MiscControls';
 import Progress from './Progress';
 import Footer from './Footer';
-import { usePlayer, PLAYER_TOGGLE_PLAYING } from '../../context/player';
+import {
+  usePlayer,
+  PLAYER_TOGGLE_PLAYING,
+  PLAYER_CURRENT_TIME_UPDATE
+} from '../../context/player';
+import MinimizedPlayer from '../MinimizedPlayer';
 
-const StyledPlayer = styled.div`
+const StyledPlayer = styled(motion.div)`
   position: fixed;
   bottom: 0;
   left: 0;
-  height: ${props => (props.minimized ? '65px' : 'calc(100vh - 65px)')};
+  height: calc(100vh - 65px);
   width: 100%;
-  background-color: ${props => (props.minimized ? '#363636' : '#fff')};
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   z-index: 900;
 
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
-  opacity: ${props => (props.open ? 1 : 0)};
-  transition: visibility 0.3s linear, opacity 0.3s ease;
+  opacity: 0;
+  transition: visibility 0.3s linear;
 `;
 
 const ControlsContainer = styled.div`
@@ -38,16 +44,46 @@ const Player = () => {
     state: { playing, minimized, open, currentMedia },
     dispatch
   } = usePlayer();
-  const [mediaCurrentTime, setMediaCurrentTime] = useState(0);
   const playerRef = useRef(null);
+  const [ready, setReady] = useState({
+    main: false,
+    minimized: false
+  });
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const anim = useAnimation();
+
+  useEffect(() => {
+    if (open) {
+      anim.start({
+        opacity: 1,
+        transition: {
+          delay: 0.3,
+          duration: 0.3,
+          ease: 'easeOut'
+        }
+      });
+    } else {
+      anim.start({
+        opacity: 0,
+        transition: {
+          duration: 0.3,
+          ease: 'easeOut'
+        }
+      });
+    }
+  }, [open]);
 
   const handleProgress = e => {
-    setMediaCurrentTime(e.playedSeconds);
+    setCurrentTime(e.playedSeconds);
   };
 
   const handleSliderInteraction = e => {
     playerRef.current.seekTo(e, 'seconds');
-    setMediaCurrentTime(e);
+    dispatch({
+      type: PLAYER_CURRENT_TIME_UPDATE,
+      payload: e
+    });
   };
 
   /*   const next = () => {
@@ -65,50 +101,68 @@ const Player = () => {
   }; */
 
   const jumpTenSeconds = direction => {
-    const currentTime = playerRef.current.getCurrentTime();
-    setMediaCurrentTime(currentTime + 10 * direction);
+    /*  const onClickCurrentTime = playerRef.current.getCurrentTime(); */
+    dispatch({
+      type: PLAYER_CURRENT_TIME_UPDATE,
+      payload: currentTime + 10 * direction
+    });
     playerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
   };
 
   return (
-    <StyledPlayer open={open} minimized={minimized}>
-      <Box px="3" my="3">
-        <Heading fontSize="24px" fontWeight="400" m="0" mb="3">
-          {currentMedia.title}
-        </Heading>
-        <Text fontSize="12px" m="0" mb="1" color="#AEAEAE">
-          Inspelad {currentMedia.createdAt}
-        </Text>
-        <Text fontSize="12px" m="0" color="#AEAEAE">
-          I samarbete med Teaterförbundets dansavd.
-        </Text>
-      </Box>
+    <>
+      <StyledPlayer animate={anim} open={open && !minimized}>
+        <Box px="3" my="3">
+          <Heading fontSize="24px" fontWeight="400" m="0" mb="3">
+            {currentMedia.title}
+          </Heading>
+          <Text fontSize="12px" m="0" mb="1" color="#AEAEAE">
+            Inspelad {currentMedia.createdAt}
+          </Text>
+          <Text fontSize="12px" m="0" color="#AEAEAE">
+            I samarbete med Teaterförbundets dansavd.
+          </Text>
+        </Box>
 
-      <MediaBox
-        ref={playerRef}
-        url={currentMedia.url}
-        type={currentMedia.type}
-        playing={playing}
-        onProgress={handleProgress}
+        <MediaBox
+          minimized={minimized}
+          open={open}
+          ref={playerRef}
+          url={currentMedia.url}
+          type={currentMedia.type}
+          playing={ready.main && ready.minimized && playing}
+          onProgress={handleProgress}
+          onReady={() => setReady({ ...ready, main: true })}
+        />
+
+        <ControlsContainer>
+          <MiscControls />
+          <Progress
+            duration={currentMedia.duration}
+            current={currentTime}
+            onChange={handleSliderInteraction}
+          />
+          <Controls
+            next={() => {}}
+            previous={() => {}}
+            playing={playing}
+            jump={jumpTenSeconds}
+            togglePlaying={() => dispatch({ type: PLAYER_TOGGLE_PLAYING })}
+          />
+          <Footer />
+        </ControlsContainer>
+      </StyledPlayer>
+      <MinimizedPlayer
+        currentTime={currentTime}
+        ready={ready}
+        setReady={() =>
+          setReady({
+            ...ready,
+            minimized: true
+          })
+        }
       />
-
-      <ControlsContainer>
-        <MiscControls />
-        <Progress
-          duration={currentMedia.duration}
-          current={mediaCurrentTime}
-          onChange={handleSliderInteraction}
-        />
-        <Controls
-          next={() => {}}
-          previous={() => {}}
-          playing={playing}
-          jump={jumpTenSeconds}
-          togglePlaying={() => dispatch(PLAYER_TOGGLE_PLAYING)}
-        />
-        <Footer />
-      </ControlsContainer>
-    </StyledPlayer>
+    </>
   );
 };
 

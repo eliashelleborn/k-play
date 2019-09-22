@@ -10,7 +10,12 @@ import Banner from '../../components/Banner';
 import Button from '../../components/Button';
 import { useAuth } from '../../context/auth';
 import { Text } from '../../components/Typography';
-import { usePlayer, PLAYER_TOGGLE_OPEN } from '../../context/player';
+import {
+  usePlayer,
+  PLAYER_SET_CURRENT_MEDIA,
+  PLAYER_EXPAND,
+  PLAYER_OPEN
+} from '../../context/player';
 
 const StyledBanner = styled(Banner)`
   ${color}
@@ -196,7 +201,22 @@ const Home = () => {
       <Box>
         {homelists.map(p => (
           <ListHomeCard
-            play={() => dispatch(PLAYER_TOGGLE_OPEN)}
+            play={() => {
+              dispatch({ type: PLAYER_OPEN });
+              dispatch({ type: PLAYER_EXPAND });
+              dispatch({
+                type: PLAYER_SET_CURRENT_MEDIA,
+                payload: {
+                  url: 'https://www.youtube.com/watch?v=yGkn5KYk6sg',
+                  duration: 1381,
+                  type: 'VIDEO',
+                  title: p.title,
+                  description: 'Test description',
+                  episode: '1/3',
+                  createdAt: Date.now()
+                }
+              });
+            }}
             key={p.key}
             title={p.title}
             image={p.image}
