@@ -13,8 +13,8 @@ const StyledMediaBox = styled.div`
 
   > div {
     top: 0;
-    left: ${props => (props.type === 'video' ? 0 : '16px')};
-    width: calc(100% - ${props => (props.type === 'video' ? '0px' : '32px')});
+    left: ${props => (props.type === 'VIDEO' ? 0 : '16px')};
+    width: calc(100% - ${props => (props.type === 'VIDEO' ? '0px' : '32px')});
     height: 100%;
     position: absolute;
   }
@@ -89,10 +89,10 @@ const MediaBox = forwardRef(
         <div>
           <Overlay>
             <TypeIndicator>
-              {type === 'podcast' ? <Podcast /> : <Video />}
+              {type === 'PODCAST' ? <Podcast /> : <Video />}
             </TypeIndicator>
 
-            {type === 'podcast' && (
+            {type === 'PODCAST' && (
               <Drawer
                 open={drawerOpen}
                 animate={drawerOpen ? 'open' : 'closed'}
@@ -141,7 +141,7 @@ const MediaBox = forwardRef(
             onReady={onReady}
             onProgress={onProgress}
           />
-          {type === 'podcast' && (
+          {type === 'PODCAST' && (
             <img
               src="https://images.unsplash.com/photo-1562887106-0ba63ac82e02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80"
               alt=""
