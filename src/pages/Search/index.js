@@ -71,7 +71,7 @@ const Search = () => {
         <MediaFilter current={typeFilter} setCurrent={setTypeFilter} />
       </Box>
 
-      <Box mt="2" position="relative" minHeight="calc(100vw - 32px)">
+      <Box mt="2" position="relative" minHeight="200">
         <LoadingOverlay
           show={
             (searchLoading && (selectedCategory || input !== '')) ||

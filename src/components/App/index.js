@@ -48,9 +48,7 @@ const Layout = () => {
     <CustomRouter>
       <>
         <Background src={bglogo} />
-
         <Navigation />
-
         {authLoading && (
           <LoadingContainer>
             <Loading color="#363636" />
@@ -66,6 +64,10 @@ const Layout = () => {
             <Route path="/mina-listor" component={MyPlaylists} />
             <Route path="/spellista" component={Playlist} />
             <Route path="/inställningar" component={Settings} />
+            <Route path="/player-text" component={PlayerText} />
+
+            <Route path="/player" component={Player} />
+
             <Route component={Error} />
           </Switch>
         )}

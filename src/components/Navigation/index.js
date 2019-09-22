@@ -49,7 +49,7 @@ const HamburgerWrapper = styled.div`
 `;
 
 const StyledHamburger = styled(Hamburger)`
-  z-index: 10;
+  z-index: 200;
   transition: 0.3s;
   position: fixed;
 `;

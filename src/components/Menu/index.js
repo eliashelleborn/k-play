@@ -14,6 +14,8 @@ import {
   Instagram,
   LinkedInMenu
 } from '../Icons';
+import { useAuth } from '../../context/auth';
+
 
 const StyledMenu = styled.div`
   ${color}
