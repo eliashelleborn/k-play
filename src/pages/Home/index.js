@@ -8,8 +8,7 @@ import BannerImage3 from '../../images/banner-2-home2.png';
 import ListHomeCard from '../../components/ListHomeCard';
 import Banner from '../../components/Banner';
 import Button from '../../components/Button';
-
-import { useAuth } from '../../context/auth';
+// import { useAuth } from '../../context/auth';
 
 const StyledBanner = styled(Banner)`
   ${color}

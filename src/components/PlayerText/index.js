@@ -1,10 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { Box } from '../Util';
-import MiscControls from '../Player/MiscControls';
-import Progress from '../Player/Progress';
-import Player from '../Player';
-import Controls from '../Player/Controls'
 import ListPlayerText from '../ListPlayerText';
 import Image from '../../images/Player-text-img.png';
 
@@ -41,7 +36,5 @@ const PlayerText = () => {
     </div>
   );
 };
-// <Progress />
-// <Controls />
 
 export default PlayerText;

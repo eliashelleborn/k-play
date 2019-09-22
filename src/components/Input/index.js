@@ -8,7 +8,7 @@ const StyledInput = styled.div`
   height: 60px;
   position: relative;
   display: flex;
-
+  font-family: Barlow;
   input {
     height: 100%;
     width: 100%;
@@ -16,7 +16,15 @@ const StyledInput = styled.div`
     background: none;
     border: none;
     outline: none;
+    font-family: Barlow;
     -webkit-tap-highlight-color: none;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
   }
 `;
 
