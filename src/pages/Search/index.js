@@ -53,7 +53,7 @@ const Search = () => {
   }, [selectedCategory]);
 
   return (
-    <Box pt="81px">
+    <Box pt="24px">
       <Box px="3">
         <SearchInput
           category={selectedCategory && selectedCategory.name}
@@ -71,7 +71,7 @@ const Search = () => {
         <MediaFilter current={typeFilter} setCurrent={setTypeFilter} />
       </Box>
 
-      <Box mt="2" position="relative" minHeight="calc(100vw - 32px)">
+      <Box mt="2" position="relative" minHeight="200">
         <LoadingOverlay
           show={
             (searchLoading && (selectedCategory || input !== '')) ||

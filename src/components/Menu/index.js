@@ -14,12 +14,13 @@ import {
   Instagram,
   LinkedInMenu
 } from '../Icons';
+import { useAuth } from '../../context/auth';
+
 
 const StyledMenu = styled.div`
   ${color}
-  <<<<<<< HEAD
   top: 0;
-  =======>>>>>>>masterbackground-color: ${({ theme }) => theme.colors.grey};
+  background-color: ${({ theme }) => theme.colors.grey};
   position: fixed;
   z-index: 110;
   width: 100%;
@@ -87,6 +88,7 @@ const SocialIcons = styled.div`
 `;
 
 const Menu = ({ authUser }) => {
+  console.log(authUser)
   return (
     <StyledMenu>
       <div>
@@ -107,7 +109,7 @@ const Menu = ({ authUser }) => {
             <StyledNavLink to="/auth"> Skapa konto </StyledNavLink>
           )}
 
-          <StyledNavLink to="/sök1"> Sök </StyledNavLink>
+          <StyledNavLink to="/sök"> Sök </StyledNavLink>
           <StyledNavLink to="/inställningar"> Inställningar </StyledNavLink>
 
           {authUser && <p> Mörkt tema </p>}
