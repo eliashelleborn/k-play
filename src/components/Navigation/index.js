@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Hamburger, ArrowBack, Kplay, Search } from '../Icons';
@@ -55,60 +55,39 @@ const StyledHamburger = styled(Hamburger)`
   position: fixed;
 `;
 
-class Navigation extends Component {
-  constructor() {
-    super();
-    this.state = {
-      showMenu: true
-    };
-  }
+const Navigation = () => {
+  const [showMenu, setShowMenu] = useState(false);
 
-  showMenu() {
-    this.setState({
-      showMenu: !this.state.showMenu
-    });
-  }
-
-  render() {
-    const ShowMenu = !this.state.showMenu ? (
-      <Menu authUser={this.props.authUser} />
-    ) : (
-      ''
-    );
-
-    // transform={!this.state.showMenu ? 'rotate(45)' : 'rotate(0)'}
-
-    return (
-      <div>
-        {ShowMenu}
-        <StyledNavigation>
+  return (
+    <div>
+      {showMenu && <Menu />}
+      <StyledNavigation>
+        <div>
           <div>
-            <div>
-              <NavLink to="/">
-                <ArrowBack />
-              </NavLink>
-            </div>
-            <div>
-              <NavLink to="/">
-                <Kplay />
-              </NavLink>
-            </div>
-            <div>
-              <NavLink to="/sök">
-                <Search />
-              </NavLink>
-            </div>
+            <NavLink to="/">
+              <ArrowBack />
+            </NavLink>
           </div>
-        </StyledNavigation>
-        <HamburgerWrapper>
-          <StyledHamburger
-            onClick={this.showMenu.bind(this)}
-            color={!this.state.showMenu ? '#ffffff' : '#363636'}
-          />
-        </HamburgerWrapper>
-      </div>
-    );
-  }
-}
+          <div>
+            <NavLink to="/">
+              <Kplay />
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to="/sök">
+              <Search />
+            </NavLink>
+          </div>
+        </div>
+      </StyledNavigation>
+      <HamburgerWrapper>
+        <StyledHamburger
+          onClick={() => setShowMenu(!showMenu)}
+          color={showMenu ? '#ffffff' : '#363636'}
+        />
+      </HamburgerWrapper>
+    </div>
+  );
+};
 
 export default Navigation;
