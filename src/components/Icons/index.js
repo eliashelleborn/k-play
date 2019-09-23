@@ -36,3 +36,4 @@ export { default as Close } from './Close';
 export { default as Remove } from './Remove';
 export { default as Share2 } from './Share2';
 export { default as EditList } from './EditList';
+export { default as Person } from './Person';
