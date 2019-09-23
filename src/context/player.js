@@ -61,6 +61,8 @@ const PlayerProvider = ({ children }) => {
       duration: 1381,
       type: 'VIDEO',
       title: 'Test',
+      image:
+        'https://images.unsplash.com/photo-1569231175150-118ced11e66b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
       description: 'Test description',
       episode: '1/3',
       createdAt: Date.now()

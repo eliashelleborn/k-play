@@ -12,7 +12,7 @@ const StyledButton = styled.button`
   border-radius: 3px;
   font-weight: 500;
   border: none;
-  box-shadow: 0 4px 8px 0px rgba(54, 54, 54, 0.08);
+  box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.08);
   display: flex;
   align-items: center;
   justify-content: ${props => (props.withIcon ? 'flex-start' : 'center')};
@@ -22,6 +22,25 @@ const StyledButton = styled.button`
   text-decoration: none;
   outline: 0;
   -webkit-tap-highlight-color: transparent;
+  transition: box-shadow .3s ease;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    transition: background-color .3s ease;
+  }
+
+  &:active {
+    box-shadow: none;
+    &::after {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
 `;
 
 const Icon = styled.div`
