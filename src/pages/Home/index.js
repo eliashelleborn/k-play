@@ -23,6 +23,7 @@ const StyledBanner = styled(Banner)`
   padding-top: 0px;
   box-shadow: 0px 2px 8px rgba(54, 54, 54, 0.3);
   margin-bottom: 20px;
+  padding: 50px 0;
 `;
 
 const StyledBanner2 = styled(StyledBanner)`
@@ -192,10 +193,10 @@ const Home = () => {
         </div>
       </div>
 
-      {!authUser ? (
-        <Category>Senaste avsnitten </Category>
-      ) : (
+      {authUser ? (
         <Category>Fortsätt lyssna/titta</Category>
+      ) : (
+        <Category>Senaste avsnitten </Category>
       )}
 
       <Box>
@@ -229,10 +230,10 @@ const Home = () => {
         ))}
       </Box>
 
-      {!authUser ? (
-        <Category>Populärt på K-play</Category>
-      ) : (
+      {authUser ? (
         <Category>Rekommenderas för dig</Category>
+      ) : (
+        <Category>Populärt på K-play</Category>
       )}
 
       <Box>

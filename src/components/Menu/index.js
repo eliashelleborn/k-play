@@ -88,7 +88,9 @@ const SocialIcons = styled.div`
   }
 `;
 
-const Menu = ({ authUser, close }) => {
+const Menu = ({ close }) => {
+  const { authUser } = useAuth();
+
   return (
     <StyledMenu>
       <div>
