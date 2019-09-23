@@ -67,7 +67,6 @@ const Layout = () => {
             <Route path="/ändra-lösenord" component={ChangePassword} />
 
             <Route path="/player-text" component={PlayerText} />
-            <Route path="/player" component={Player} />
 
             <Route component={Error} />
           </Switch>
