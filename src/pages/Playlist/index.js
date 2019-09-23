@@ -1,6 +1,9 @@
 import React from 'react';
 import Banner from './Banner';
 import Track from '../../components/Track';
+import Modal from '../../components/Modals';
+import useModal from '../../hooks/useModal';
+import PlaylistActions from '../../components/Modals/PlaylistActions';
 
 const tracks = [
   {
@@ -66,9 +69,11 @@ const tracks = [
 ];
 
 const Playlist = () => {
+  const modal = useModal();
   return (
     <>
       <Banner
+        openModal={modal.toggle}
         name="Favoriter"
         context="Mina Listor"
         image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
@@ -86,6 +91,19 @@ const Playlist = () => {
           />
         ))}
       </div>
+
+      <Modal isShowing={modal.isShowing} hide={modal.toggle}>
+        <PlaylistActions
+          playlist={{
+            name: 'Favoriter',
+            tracksNum: tracks.length,
+            image:
+              'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
+          }}
+          isShowing={modal.isShowing}
+          hide={modal.toggle}
+        />
+      </Modal>
     </>
   );
 };

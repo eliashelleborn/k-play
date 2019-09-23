@@ -1,0 +1,20 @@
+import React from 'react';
+
+const Share2 = ({ color }) => {
+  return (
+    <svg
+      width="24"
+      height="20"
+      viewBox="0 0 24 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0.0114286 20L24 10L0.0114286 0L0 7.77778L17.1429 10L0 12.2222L0.0114286 20Z"
+        fill={color || '#363636'}
+      />
+    </svg>
+  );
+};
+
+export default Share2;

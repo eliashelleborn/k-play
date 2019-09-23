@@ -12,7 +12,7 @@ import MyPlaylists from '../../pages/MyPlaylists';
 import Playlist from '../../pages/Playlist';
 import Global from '../../style/global';
 import Settings from '../../pages/Settings';
-import ChangePassword from '../../pages/ChangePassword'
+import ChangePassword from '../../pages/ChangePassword';
 import Player from '../Player';
 import PlayerText from '../PlayerText';
 
@@ -20,6 +20,9 @@ import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
 import Loading from '../Loading';
 import CustomRouter from '../CustomRouter';
+import Modal from '../Modals';
+import AddToList from '../Modals/AddToList';
+import { useAppModals } from '../../context/modals';
 
 const Background = styled.img`
   position: fixed;
@@ -43,6 +46,11 @@ const LoadingContainer = styled.div`
 
 const Layout = () => {
   const { authLoading } = useAuth();
+  const {
+    open: modalsOpen,
+    toggleOpen: modalsToggleOpen,
+    content: modalContent
+  } = useAppModals();
 
   return (
     <CustomRouter>
@@ -74,6 +82,17 @@ const Layout = () => {
         )}
 
         <Player />
+
+        {/* MODALS */}
+        <Modal
+          isShowing={modalsOpen.addToList}
+          hide={() => modalsToggleOpen('addToList')}
+        >
+          <AddToList
+            content={modalContent}
+            hide={() => modalsToggleOpen('addToList')}
+          />
+        </Modal>
       </>
     </CustomRouter>
   );

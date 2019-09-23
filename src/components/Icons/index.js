@@ -33,3 +33,6 @@ export { default as Lock } from './Lock';
 export { default as Heart } from './Heart';
 export { default as Filter } from './Filter';
 export { default as Close } from './Close';
+export { default as Remove } from './Remove';
+export { default as Share2 } from './Share2';
+export { default as EditList } from './EditList';

@@ -18,12 +18,13 @@ const Buttons = styled.div`
   flex-direction: column;
   align-items: center;
 
-  svg:first-child {
-    margin-bottom: ${({ theme }) => theme.space[5]}px;
+  button:first-child {
+    margin-bottom: ${({ theme }) => theme.space[4]}px;
+    padding: 5px;
   }
 `;
 
-const PlaylistBanner = ({ name, context, image }) => {
+const PlaylistBanner = ({ name, context, image, openModal }) => {
   return (
     <Banner
       tint="rgba(0,0,0,.85)"
@@ -45,8 +46,12 @@ const PlaylistBanner = ({ name, context, image }) => {
         <div />
       </Info>
       <Buttons>
-        <More color="#fff" />
-        <Plus />
+        <button onClick={openModal} type="button">
+          <More color="#fff" />
+        </button>
+        <button type="button">
+          <Plus />
+        </button>
       </Buttons>
     </Banner>
   );
