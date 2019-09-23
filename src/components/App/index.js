@@ -22,7 +22,7 @@ import Loading from '../Loading';
 import CustomRouter from '../CustomRouter';
 import Modal from '../Modals';
 import AddToList from '../Modals/AddToList';
-import { useModals } from '../../context/modals';
+import { useAppModals } from '../../context/modals';
 
 const Background = styled.img`
   position: fixed;
@@ -50,7 +50,7 @@ const Layout = () => {
     open: modalsOpen,
     toggleOpen: modalsToggleOpen,
     content: modalContent
-  } = useModals();
+  } = useAppModals();
 
   return (
     <CustomRouter>

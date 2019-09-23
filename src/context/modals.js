@@ -4,7 +4,8 @@ const ModalsContext = React.createContext();
 
 const ModalsProvider = ({ children }) => {
   const [open, setOpen] = useState({
-    addToList: true,
+    addToList: false,
+    playlistActions: true,
     share: false
   });
   const [content, setContent] = useState({
@@ -34,6 +35,6 @@ const ModalsProvider = ({ children }) => {
   );
 };
 
-const useModals = () => React.useContext(ModalsContext);
+const useAppModals = () => React.useContext(ModalsContext);
 
-export { ModalsProvider, useModals };
+export { ModalsProvider, useAppModals };

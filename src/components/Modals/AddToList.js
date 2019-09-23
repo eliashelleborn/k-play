@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button from '../Button';
 import { Heading, Text } from '../Typography';
 import { Close, Plus } from '../Icons';
+import { List, Item } from '../List';
 
 const StyledAddToList = styled.div`
   height: 100%;
@@ -42,27 +43,6 @@ const CloseButton = styled.button`
   position: absolute;
   left: 16px;
   top: 20px;
-`;
-
-const List = styled.div`
-  margin-top: ${({ theme }) => theme.space[3]}px;
-  border-top: 1px solid #f3f3f3;
-  overflow-y: scroll;
-`;
-
-const Item = styled.div`
-  padding: 20px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #f3f3f3;
-
-  button {
-    height: 100%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-  }
 `;
 
 const AddToList = ({ hide, content }) => {
