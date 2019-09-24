@@ -112,6 +112,13 @@ const Navigation = () => {
       addToBackQueue('/mina-listor');
     }
 
+    // Handle "/sök"
+    if (location.pathname.includes('/sök')) {
+      if (prevPath && prevPath.includes('/spellista')) {
+        addToBackQueue(prevPath);
+      }
+    }
+
     const queueIndex = backQueue.indexOf(location.pathname);
     if (queueIndex > 0) {
       setBackQueue([...backQueue.filter((_, i) => i !== queueIndex)]);

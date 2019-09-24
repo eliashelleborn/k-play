@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import Banner from '../../components/Banner';
 import { Heading } from '../../components/Typography';
@@ -49,9 +51,9 @@ const PlaylistBanner = ({ name, context, image, openModal }) => {
         <button onClick={openModal} type="button">
           <More color="#fff" />
         </button>
-        <button type="button">
+        <Link to="/sök">
           <Plus />
-        </button>
+        </Link>
       </Buttons>
     </Banner>
   );
