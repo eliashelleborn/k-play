@@ -45,7 +45,7 @@ const useSearch = (input, sort, type, category) => {
         .then(snap => {
           const data = [];
           snap.forEach(doc => {
-            data.push(doc.data());
+            data.push({ id: doc.id, ...doc.data() });
           });
           setMedia(debouncedInputNotEmpty ? performQuery(data) : data);
           setLoading(false);

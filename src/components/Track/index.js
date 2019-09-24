@@ -2,8 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { Play, Video, More as MoreIcon, Podcast } from '../Icons';
-import useModal from '../../hooks/useModal';
-import Modal from '../../components/Modals';
+import { useAppModals } from '../../context/modals';
+import {
+  usePlayer,
+  PLAYER_EXPAND,
+  PLAYER_SET_CURRENT_MEDIA,
+  PLAYER_OPEN
+} from '../../context/player';
 
 const StyledTrack = styled.div`
   width: 100%;
@@ -38,7 +43,7 @@ const Info = styled.div`
   padding-left: ${({ theme }) => theme.space[2]}px;
   min-width: 0;
 
-  ${Text} {
+  ${Text}, ${Heading} {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -59,34 +64,49 @@ const More = styled.div`
   align-items: center;
 `;
 
-const Track = ({ type, image, title, description, duration, episode }) => {
-  const modal = useModal();
+const Track = ({ track }) => {
+  const { toggleOpen, setContent } = useAppModals();
+  const { dispatch } = usePlayer();
+
   return (
     <StyledTrack>
-      <Cover>
+      <Cover
+        onClick={() => {
+          dispatch({ type: PLAYER_OPEN });
+          dispatch({ type: PLAYER_EXPAND });
+          dispatch({
+            type: PLAYER_SET_CURRENT_MEDIA,
+            payload: track
+          });
+        }}
+      >
         <Play />
-        <img src={image} alt="" />
+        <img src={track.image} alt="" />
       </Cover>
       <Info>
         <div>
-          {type === 'VIDEO' && <Video />}
-          {type === 'PODCAST' && <Podcast />}
+          {track.type === 'VIDEO' ? <Video /> : <Podcast />}
           <Text ml="2" as="span">
-            {duration}
+            {Math.floor(track.duration / 60)} min
           </Text>
           <Text ml="2" as="span">
-            {episode} Avsnitt
+            {track.episode} {track.type === 'VIDEO' && 'Avsnitt'}
           </Text>
         </div>
 
         <Heading as="h5" m="0" mt="1" fontSize="20px" fontWeight="400">
-          {title}
+          {track.title}
         </Heading>
         <Text fontSize="12px" m="0" mt="1">
-          {description}
+          {track.description}
         </Text>
       </Info>
-      <More openModal={modal.toggle}>
+      <More
+        onClick={() => {
+          setContent(track);
+          toggleOpen('trackActions');
+        }}
+      >
         <MoreIcon />
       </More>
     </StyledTrack>

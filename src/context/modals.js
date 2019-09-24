@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 
 const ModalsContext = React.createContext();
 
+const initialModals = {
+  addToList: false,
+  playlistActions: false,
+  share: false,
+  trackActions: false,
+  createPlaylist: false
+};
+
 const ModalsProvider = ({ children }) => {
-  const [open, setOpen] = useState({
-    addToList: false,
-    playlistActions: true,
-    share: false
-  });
+  const [open, setOpen] = useState(initialModals);
   const [content, setContent] = useState({
     url: 'https://www.youtube.com/watch?v=yGkn5KYk6sg',
     duration: 1381,
@@ -23,7 +27,7 @@ const ModalsProvider = ({ children }) => {
 
   const toggleOpen = modal => {
     setOpen({
-      ...open,
+      ...initialModals,
       [modal]: !open[modal]
     });
   };

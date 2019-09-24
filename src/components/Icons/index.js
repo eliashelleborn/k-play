@@ -36,6 +36,7 @@ export { default as Close } from './Close';
 export { default as Remove } from './Remove';
 export { default as Share2 } from './Share2';
 export { default as EditList } from './EditList';
+export { default as Person } from './Person';
 export { default as Rate } from './Rate';
 export { default as AddToList } from './AddToList';
 export { default as FacebookShare } from './FacebookShare';

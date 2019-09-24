@@ -22,7 +22,7 @@ import CustomRouter from '../CustomRouter';
 import Modal from '../Modals';
 import AddToList from '../Modals/AddToList';
 import { useAppModals } from '../../context/modals';
-
+import TrackActions from '../Modals/TrackActions';
 
 const Background = styled.img`
   position: fixed;
@@ -70,7 +70,7 @@ const Layout = () => {
             <Route path="/sök" component={Search} />
             <Route path="/auth" component={AuthPage} />
             <Route path="/mina-listor" component={MyPlaylists} />
-            <Route path="/spellista" component={Playlist} />
+            <Route path="/spellista/:id" component={Playlist} />
             <Route path="/inställningar" component={Settings} />
             <Route path="/ändra-lösenord" component={ChangePassword} />
 
@@ -88,6 +88,15 @@ const Layout = () => {
           <AddToList
             content={modalContent}
             hide={() => modalsToggleOpen('addToList')}
+          />
+        </Modal>
+        <Modal
+          isShowing={modalsOpen.trackActions}
+          hide={() => modalsToggleOpen('trackActions')}
+        >
+          <TrackActions
+            trackInfo={modalContent}
+            hide={() => modalsToggleOpen('trackActions')}
           />
         </Modal>
       </>

@@ -8,11 +8,7 @@ import Controls from './Controls';
 import MiscControls from './MiscControls';
 import Progress from './Progress';
 import Footer from './Footer';
-import {
-  usePlayer,
-  PLAYER_TOGGLE_PLAYING,
-  PLAYER_CURRENT_TIME_UPDATE
-} from '../../context/player';
+import { usePlayer, PLAYER_TOGGLE_PLAYING } from '../../context/player';
 import MinimizedPlayer from '../MinimizedPlayer';
 
 const StyledPlayer = styled(motion.div)`
@@ -24,7 +20,7 @@ const StyledPlayer = styled(motion.div)`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  z-index: 900;
+  z-index: 90;
 
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
@@ -45,6 +41,7 @@ const Player = () => {
     dispatch
   } = usePlayer();
   const playerRef = useRef(null);
+  const minimizedPlayerRef = useRef(null);
   const [ready, setReady] = useState({
     main: false,
     minimized: false
@@ -52,6 +49,8 @@ const Player = () => {
   const [currentTime, setCurrentTime] = useState(0);
 
   const anim = useAnimation();
+
+  console.log(currentMedia);
 
   useEffect(() => {
     if (open) {
@@ -80,10 +79,8 @@ const Player = () => {
 
   const handleSliderInteraction = e => {
     playerRef.current.seekTo(e, 'seconds');
-    dispatch({
-      type: PLAYER_CURRENT_TIME_UPDATE,
-      payload: e
-    });
+    minimizedPlayerRef.current.seekTo(e, 'seconds');
+    setCurrentTime(e);
   };
 
   /*   const next = () => {
@@ -102,11 +99,9 @@ const Player = () => {
 
   const jumpTenSeconds = direction => {
     /*  const onClickCurrentTime = playerRef.current.getCurrentTime(); */
-    dispatch({
-      type: PLAYER_CURRENT_TIME_UPDATE,
-      payload: currentTime + 10 * direction
-    });
+    setCurrentTime(currentTime + 10 * direction);
     playerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
+    minimizedPlayerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
   };
 
   return (
@@ -153,6 +148,7 @@ const Player = () => {
         </ControlsContainer>
       </StyledPlayer>
       <MinimizedPlayer
+        ref={minimizedPlayerRef}
         currentTime={currentTime}
         ready={ready}
         setReady={() =>

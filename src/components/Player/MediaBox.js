@@ -89,10 +89,10 @@ const MediaBox = forwardRef(
         <div>
           <Overlay>
             <TypeIndicator>
-              {type === 'PODCAST' ? <Podcast /> : <Video />}
+              {type === 'PODD' ? <Podcast /> : <Video />}
             </TypeIndicator>
 
-            {type === 'PODCAST' && (
+            {type === 'PODD' && (
               <Drawer
                 open={drawerOpen}
                 animate={drawerOpen ? 'open' : 'closed'}
@@ -141,7 +141,7 @@ const MediaBox = forwardRef(
             onReady={onReady}
             onProgress={onProgress}
           />
-          {type === 'PODCAST' && (
+          {type === 'PODD' && (
             <img
               src="https://images.unsplash.com/photo-1562887106-0ba63ac82e02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80"
               alt=""
