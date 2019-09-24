@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { Play, Video, More as MoreIcon, Podcast } from '../Icons';
 import { useAppModals } from '../../context/modals';
+import {
+  usePlayer,
+  PLAYER_EXPAND,
+  PLAYER_SET_CURRENT_MEDIA,
+  PLAYER_OPEN
+} from '../../context/player';
 
 const StyledTrack = styled.div`
   width: 100%;
@@ -60,10 +66,20 @@ const More = styled.div`
 
 const Track = ({ track }) => {
   const { toggleOpen, setContent } = useAppModals();
+  const { dispatch } = usePlayer();
 
   return (
     <StyledTrack>
-      <Cover>
+      <Cover
+        onClick={() => {
+          dispatch({ type: PLAYER_OPEN });
+          dispatch({ type: PLAYER_EXPAND });
+          dispatch({
+            type: PLAYER_SET_CURRENT_MEDIA,
+            payload: track
+          });
+        }}
+      >
         <Play />
         <img src={track.image} alt="" />
       </Cover>

@@ -20,7 +20,7 @@ const StyledPlayer = styled(motion.div)`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  z-index: 900;
+  z-index: 90;
 
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
@@ -49,6 +49,8 @@ const Player = () => {
   const [currentTime, setCurrentTime] = useState(0);
 
   const anim = useAnimation();
+
+  console.log(currentMedia);
 
   useEffect(() => {
     if (open) {
