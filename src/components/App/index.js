@@ -14,7 +14,6 @@ import Global from '../../style/global';
 import Settings from '../../pages/Settings';
 import ChangePassword from '../../pages/ChangePassword';
 import Player from '../Player';
-import PlayerText from '../PlayerText';
 
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
@@ -73,8 +72,6 @@ const Layout = () => {
             <Route path="/spellista/:id" component={Playlist} />
             <Route path="/inställningar" component={Settings} />
             <Route path="/ändra-lösenord" component={ChangePassword} />
-
-            <Route path="/player-text" component={PlayerText} />
 
             <Route component={Error} />
           </Switch>

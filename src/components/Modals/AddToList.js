@@ -13,6 +13,11 @@ const StyledAddToList = styled.div`
   flex-direction: column;
   position: relative;
   padding: ${({ theme }) => theme.space[3]}px;
+
+  > div div button {
+    border: none;
+    background-color: transparent;
+  }
 `;
 
 const Info = styled.div`
