@@ -37,7 +37,7 @@ const Info = styled.div`
   padding-left: ${({ theme }) => theme.space[2]}px;
   min-width: 0;
 
-  ${Text} {
+  ${Text}, ${Heading} {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -60,6 +60,7 @@ const More = styled.div`
 
 const Track = ({ track }) => {
   const { toggleOpen, setContent } = useAppModals();
+
   return (
     <StyledTrack>
       <Cover>
@@ -68,13 +69,12 @@ const Track = ({ track }) => {
       </Cover>
       <Info>
         <div>
-          {track.type === 'VIDEO' && <Video />}
-          {track.type === 'PODCAST' && <Podcast />}
+          {track.type === 'VIDEO' ? <Video /> : <Podcast />}
           <Text ml="2" as="span">
-            {track.duration}
+            {Math.floor(track.duration / 60)} min
           </Text>
           <Text ml="2" as="span">
-            {track.episode} Avsnitt
+            {track.episode} {track.type === 'VIDEO' && 'Avsnitt'}
           </Text>
         </div>
 

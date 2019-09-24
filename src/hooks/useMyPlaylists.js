@@ -29,21 +29,32 @@ const useMyPlaylists = () => {
       .add({
         owner: firebase.auth().currentUser.uid,
         name,
-        numberOfTracks: 0
+        tracks: []
       });
   };
 
-  const addTrack = (playlist, track) => {
+  const addTrack = (playlist, track, snippet = null) => {
     return firebase
       .firestore()
       .collection('playlists')
       .doc(playlist)
-      .set(
-        {
-          tracks: [firebase.firestore().doc(`/media/${track}`)]
-        },
-        { merge: true }
-      );
+      .get()
+      .then(doc => {
+        const data = doc.data();
+        firebase
+          .firestore()
+          .collection('playlists')
+          .doc(playlist)
+          .update({
+            tracks: [
+              ...data.tracks,
+              {
+                ref: firebase.firestore().doc(`/media/${track}`),
+                snippet
+              }
+            ]
+          });
+      });
   };
 
   useEffect(() => {

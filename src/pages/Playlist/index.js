@@ -26,6 +26,7 @@ const Playlist = ({ match, history }) => {
 
   const fetchPlaylist = () => {
     setLoading(true);
+    const tracksArr = [];
     firebase
       .firestore()
       .collection('playlists')
@@ -38,13 +39,14 @@ const Playlist = ({ match, history }) => {
 
           doc.data().tracks.forEach(t => {
             promises.push(
-              t.get().then(trackDoc => {
-                setTracks([...tracks, { id: trackDoc.id, ...trackDoc.data() }]);
+              t.ref.get().then(trackDoc => {
+                tracksArr.push({ id: trackDoc.id, ...trackDoc.data() });
               })
             );
           });
 
           Promise.all(promises).then(() => {
+            setTracks(tracksArr);
             setLoading(false);
           });
         }
