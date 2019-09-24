@@ -20,41 +20,12 @@ const StyledPlaylist = styled.div`
 const Playlist = ({ match, history }) => {
   const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
-  const [loading, setLoading] = useState({
-    tracks: true,
-    info: true
-  });
+  const [loading, setLoading] = useState(true);
   const actionsModal = useModal();
   const deleteModal = useModal();
 
-  const fetchTracks = () => {
-    setLoading({
-      ...loading,
-      tracks: true
-    });
-    firebase
-      .firestore()
-      .collection('playlist-media')
-      .where('playlist', '==', match.params.id)
-      .get()
-      .then(snapshot => {
-        const data = [];
-        snapshot.forEach(doc => {
-          data.push({ id: doc.id, ...doc.data() });
-        });
-        setTracks(data);
-        setLoading({
-          ...loading,
-          tracks: false
-        });
-      });
-  };
-
   const fetchPlaylist = () => {
-    setLoading({
-      ...loading,
-      info: true
-    });
+    setLoading(true);
     firebase
       .firestore()
       .collection('playlists')
@@ -62,13 +33,21 @@ const Playlist = ({ match, history }) => {
       .get()
       .then(doc => {
         if (doc.exists) {
+          const promises = [];
           setPlaylist({ id: doc.id, ...doc.data() });
-          fetchTracks();
+
+          doc.data().tracks.forEach(t => {
+            promises.push(
+              t.get().then(trackDoc => {
+                setTracks([...tracks, { id: trackDoc.id, ...trackDoc.data() }]);
+              })
+            );
+          });
+
+          Promise.all(promises).then(() => {
+            setLoading(false);
+          });
         }
-        setLoading({
-          ...loading,
-          info: false
-        });
       });
   };
 
@@ -89,7 +68,7 @@ const Playlist = ({ match, history }) => {
 
   return (
     <StyledPlaylist>
-      {loading.info && loading.tracks && (
+      {loading && (
         <Flex
           position="absolute"
           top="0"
@@ -101,7 +80,7 @@ const Playlist = ({ match, history }) => {
           <Loading color="#363636" />
         </Flex>
       )}
-      {!loading.info && !playlist && (
+      {!loading && !playlist && (
         <Flex
           position="absolute"
           top="0"
@@ -113,7 +92,7 @@ const Playlist = ({ match, history }) => {
           <Text m="0">Kunde inte hitta spellistan</Text>
         </Flex>
       )}
-      {playlist && !loading.tracks && (
+      {playlist && !loading && (
         <>
           <Banner
             openModal={actionsModal.toggle}
@@ -123,17 +102,7 @@ const Playlist = ({ match, history }) => {
           />
           <div>
             {tracks.length > 0 ? (
-              tracks.map(t => (
-                <Track
-                  key={t.id}
-                  title={t.title}
-                  type={t.type}
-                  description={t.description}
-                  duration={t.duration}
-                  episode={t.episode}
-                  image={t.image}
-                />
-              ))
+              tracks.map(t => <Track key={t.id} track={t} />)
             ) : (
               <Box>
                 <Text mt="5" textAlign="center">

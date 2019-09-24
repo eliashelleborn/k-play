@@ -12,8 +12,6 @@ export const PLAYER_SET_CURRENT_MEDIA = 'PLAYER_SET_CURRENT_MEDIA';
 export const PLAYER_CURRENT_TIME_UPDATE = 'PLAYER_CURRENT_TIME_UPDATE';
 
 const playerReducer = (state, action) => {
-  console.log(action);
-
   switch (action.type) {
     case PLAYER_OPEN:
       return {

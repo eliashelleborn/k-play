@@ -22,6 +22,7 @@ import CustomRouter from '../CustomRouter';
 import Modal from '../Modals';
 import AddToList from '../Modals/AddToList';
 import { useAppModals } from '../../context/modals';
+import TrackActions from '../Modals/TrackActions';
 
 const Background = styled.img`
   position: fixed;
@@ -87,6 +88,15 @@ const Layout = () => {
           <AddToList
             content={modalContent}
             hide={() => modalsToggleOpen('addToList')}
+          />
+        </Modal>
+        <Modal
+          isShowing={modalsOpen.trackActions}
+          hide={() => modalsToggleOpen('trackActions')}
+        >
+          <TrackActions
+            trackInfo={modalContent}
+            hide={() => modalsToggleOpen('trackActions')}
           />
         </Modal>
       </>

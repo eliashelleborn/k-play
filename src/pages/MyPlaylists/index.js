@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Banner from '../../components/Banner';
 import { Heading, Text } from '../../components/Typography';
 import { Grid, Box, Flex } from '../../components/Util';
 import ListCard from '../../components/ListCard';
 import Plus from '../../components/Icons/Plus';
-import firebase from '../../firebase';
 import Loading from '../../components/Loading';
 import Modal from '../../components/Modals';
 import Dialog from '../../components/Dialog';
 import useModal from '../../hooks/useModal';
+import useMyPlaylists from '../../hooks/useMyPlaylists';
 
 const CreateButton = styled.button`
   border: none;
@@ -27,48 +28,41 @@ const CreateInput = styled.input`
   padding: 0 16px;
 `;
 
-const MyPlaylists = () => {
-  const [playlists, setPlaylists] = useState([]);
-  const [loading, setLoading] = useState(true);
+const MyPlaylists = ({ location }) => {
+  const {
+    playlists,
+    loading,
+    fetchPlaylists,
+    createPlaylist,
+    addTrack
+  } = useMyPlaylists();
   const [createInput, setCreateInput] = useState('');
   const createModal = useModal();
 
-  const fetchPlaylists = () => {
-    setLoading(true);
-    firebase
-      .firestore()
-      .collection('playlists')
-      .where('owner', '==', firebase.auth().currentUser.uid)
-      .get()
-      .then(snapshot => {
-        const data = [];
-        snapshot.forEach(doc => {
-          data.push({ id: doc.id, ...doc.data() });
-        });
-        setLoading(false);
-        setPlaylists(data);
-      });
-  };
-
-  const createPlaylist = () => {
+  const onCreatePlaylist = () => {
     if (createInput !== '') {
       createModal.toggle();
-      firebase
-        .firestore()
-        .collection('playlists')
-        .add({
-          owner: firebase.auth().currentUser.uid,
-          name: createInput,
-          numberOfTracks: 0
-        })
-        .then(() => {
+
+      createPlaylist(createInput).then(doc => {
+        const queryParams = new URLSearchParams(location.search);
+        const trackToAdd = queryParams.get('track');
+
+        if (trackToAdd) {
+          addTrack(doc.id, trackToAdd).then(() => {
+            fetchPlaylists();
+          });
+        } else {
           fetchPlaylists();
-        });
+        }
+      });
     }
   };
 
   useEffect(() => {
-    fetchPlaylists();
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.get('create')) {
+      createModal.toggle();
+    }
   }, []);
 
   return (
@@ -95,10 +89,11 @@ const MyPlaylists = () => {
         <Grid p="3" gridTemplateColumns="1fr 1fr" gridGap="2">
           {playlists.map(p => (
             <ListCard
+              as={Link}
               key={p.id}
               title={p.name}
               image={p.image}
-              tracksNum={p.numberOfTracks}
+              tracksNum={p.tracks.length}
               isOwner
               to={`/spellista/${p.id}`}
             />
@@ -116,7 +111,7 @@ const MyPlaylists = () => {
       <Modal isShowing={createModal.isShowing} hide={createModal.toggle}>
         <Dialog
           onCancel={createModal.toggle}
-          onConfirm={createPlaylist}
+          onConfirm={onCreatePlaylist}
           mainButton="confirm"
         >
           <Heading
@@ -138,4 +133,4 @@ const MyPlaylists = () => {
   );
 };
 
-export default MyPlaylists;
+export default withRouter(MyPlaylists);

@@ -1,9 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../Button';
 import { Heading, Text } from '../Typography';
 import { Close, Plus } from '../Icons';
 import { List, Item } from '../List';
+import useMyPlaylists from '../../hooks/useMyPlaylists';
+import { Flex } from '../Util';
+import Loading from '../Loading';
 
 const StyledAddToList = styled.div`
   height: 100%;
@@ -51,6 +55,7 @@ const CloseButton = styled.button`
 `;
 
 const AddToList = ({ hide, content }) => {
+  const { playlists, loading, addTrack } = useMyPlaylists();
   return (
     <StyledAddToList>
       <CloseButton onClick={hide}>
@@ -81,49 +86,35 @@ const AddToList = ({ hide, content }) => {
         </Info>
       )}
 
-      <Button>Skapa ny lista</Button>
+      <Button
+        as={Link}
+        onClick={hide}
+        to={`/mina-listor?create=true&track=${content.id}`}
+      >
+        Skapa ny lista
+      </Button>
 
       <List>
-        <Item>
-          <Text fontWeight="500" m="0">
-            Ljusvideos
-          </Text>
-          <button type="button">
-            <Plus color="#AEAEAE" height="22px" width="22px" />
-          </button>
-        </Item>
-        <Item>
-          <Text fontWeight="500" m="0">
-            Dela med klassen
-          </Text>
-          <button type="button">
-            <Plus color="#AEAEAE" height="22px" width="22px" />
-          </button>
-        </Item>
-        <Item>
-          <Text fontWeight="500" m="0">
-            Danspoddar
-          </Text>
-          <button type="button">
-            <Plus color="#AEAEAE" height="22px" width="22px" />
-          </button>
-        </Item>
-        <Item>
-          <Text fontWeight="500" m="0">
-            Lär mig nytt
-          </Text>
-          <button type="button">
-            <Plus color="#AEAEAE" height="22px" width="22px" />
-          </button>
-        </Item>
-        <Item>
-          <Text fontWeight="500" m="0">
-            Färglära
-          </Text>
-          <button type="button">
-            <Plus color="#AEAEAE" height="22px" width="22px" />
-          </button>
-        </Item>
+        {loading && (
+          <Flex justifyContent="center" pt="5">
+            <Loading color="#363636" />
+          </Flex>
+        )}
+        {playlists.map(p => (
+          <Item
+            onClick={() => {
+              addTrack(p.id, content.id);
+              hide();
+            }}
+          >
+            <Text fontWeight="500" m="0">
+              {p.name}
+            </Text>
+            <button type="button">
+              <Plus color="#AEAEAE" height="22px" width="22px" />
+            </button>
+          </Item>
+        ))}
       </List>
     </StyledAddToList>
   );

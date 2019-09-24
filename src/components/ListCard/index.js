@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import Heart from '../Icons/Heart';
 import { Person } from '../Icons';
 
-const StyledListCard = styled(Link)`
+const StyledListCard = styled.div`
   position: relative;
   width: 100%;
   padding-top: 100%;
@@ -69,9 +67,9 @@ const Tint = styled.div`
   z-index: -1;
 `;
 
-const ListCard = ({ image, title, to, isOwner, tracksNum = null, ...rest }) => {
+const ListCard = ({ image, title, isOwner, tracksNum = null, ...rest }) => {
   return (
-    <StyledListCard to={to} {...rest}>
+    <StyledListCard {...rest}>
       {isOwner ? <Person /> : <Heart />}
 
       <Content>

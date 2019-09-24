@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { Play, Video, More as MoreIcon, Podcast } from '../Icons';
-import useModal from '../../hooks/useModal';
+import { useAppModals } from '../../context/modals';
 
 const StyledTrack = styled.div`
   width: 100%;
@@ -58,34 +58,39 @@ const More = styled.div`
   align-items: center;
 `;
 
-const Track = ({ type, image, title, description, duration, episode }) => {
-  const modal = useModal();
+const Track = ({ track }) => {
+  const { toggleOpen, setContent } = useAppModals();
   return (
     <StyledTrack>
       <Cover>
         <Play />
-        <img src={image} alt="" />
+        <img src={track.image} alt="" />
       </Cover>
       <Info>
         <div>
-          {type === 'VIDEO' && <Video />}
-          {type === 'PODCAST' && <Podcast />}
+          {track.type === 'VIDEO' && <Video />}
+          {track.type === 'PODCAST' && <Podcast />}
           <Text ml="2" as="span">
-            {duration}
+            {track.duration}
           </Text>
           <Text ml="2" as="span">
-            {episode} Avsnitt
+            {track.episode} Avsnitt
           </Text>
         </div>
 
         <Heading as="h5" m="0" mt="1" fontSize="20px" fontWeight="400">
-          {title}
+          {track.title}
         </Heading>
         <Text fontSize="12px" m="0" mt="1">
-          {description}
+          {track.description}
         </Text>
       </Info>
-      <More openModal={modal.toggle}>
+      <More
+        onClick={() => {
+          setContent(track);
+          toggleOpen('trackActions');
+        }}
+      >
         <MoreIcon />
       </More>
     </StyledTrack>
