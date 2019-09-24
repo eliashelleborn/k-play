@@ -20,7 +20,13 @@ const Buttons = styled.div`
 
   button:first-child {
     margin-bottom: ${({ theme }) => theme.space[4]}px;
-    padding: 5px;
+    background-color: transparent;
+    border: none;
+  }
+
+  button:last-child {
+    background-color: transparent;
+    border: none;
   }
 `;
 

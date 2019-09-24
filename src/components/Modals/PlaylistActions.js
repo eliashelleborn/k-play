@@ -16,15 +16,12 @@ const StyledPlaylistActions = styled.div`
 
 const Image = styled.div`
   width: 100%;
-  padding-bottom: 90%;
+  padding-bottom: 20px;
   position: relative;
   margin-bottom: 16px;
   img {
     width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    height: 270px;
     object-fit: cover;
   }
 `;

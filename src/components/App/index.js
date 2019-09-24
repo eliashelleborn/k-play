@@ -14,7 +14,6 @@ import Global from '../../style/global';
 import Settings from '../../pages/Settings';
 import ChangePassword from '../../pages/ChangePassword';
 import Player from '../Player';
-import PlayerText from '../PlayerText';
 
 import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
@@ -23,6 +22,7 @@ import CustomRouter from '../CustomRouter';
 import Modal from '../Modals';
 import AddToList from '../Modals/AddToList';
 import { useAppModals } from '../../context/modals';
+
 
 const Background = styled.img`
   position: fixed;
@@ -73,8 +73,6 @@ const Layout = () => {
             <Route path="/spellista" component={Playlist} />
             <Route path="/inställningar" component={Settings} />
             <Route path="/ändra-lösenord" component={ChangePassword} />
-
-            <Route path="/player-text" component={PlayerText} />
 
             <Route component={Error} />
           </Switch>

@@ -4,6 +4,8 @@ import Track from '../../components/Track';
 import Modal from '../../components/Modals';
 import useModal from '../../hooks/useModal';
 import PlaylistActions from '../../components/Modals/PlaylistActions';
+import TrackActions from '../../components/Modals/TrackActions';
+
 
 const tracks = [
   {
@@ -104,8 +106,24 @@ const Playlist = () => {
           hide={modal.toggle}
         />
       </Modal>
+
+
+      <Modal >
+        <TrackActions
+          trackInfo={{
+            name: 'Dansare - oavsett villkor?',
+            subtitle: 'I samarbete med Folkteatern',
+            image:
+              'https://files.list.co.uk/images/2019/07/02/sdt-ritualia-colette-sadler-double-bill1-LST341078.jpg',
+            contentType: 'podcast'
+          }}
+
+        />
+      </Modal>
+
     </>
   );
 };
+
 
 export default Playlist;
