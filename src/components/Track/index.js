@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { Play, Video, More as MoreIcon, Podcast } from '../Icons';
+import useModal from '../../hooks/useModal';
+import Modal from '../../components/Modals';
 
 const StyledTrack = styled.div`
   width: 100%;
@@ -58,6 +60,7 @@ const More = styled.div`
 `;
 
 const Track = ({ type, image, title, description, duration, episode }) => {
+  const modal = useModal();
   return (
     <StyledTrack>
       <Cover>
@@ -83,7 +86,7 @@ const Track = ({ type, image, title, description, duration, episode }) => {
           {description}
         </Text>
       </Info>
-      <More>
+      <More openModal={modal.toggle}>
         <MoreIcon />
       </More>
     </StyledTrack>
