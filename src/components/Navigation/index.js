@@ -112,6 +112,11 @@ const Navigation = () => {
       addToBackQueue('/mina-listor');
     }
 
+    const queueIndex = backQueue.indexOf(location.pathname);
+    if (queueIndex > 0) {
+      setBackQueue([...backQueue.filter((_, i) => i !== queueIndex)]);
+    }
+
     setPrevPath(location.pathname);
   }, [location.pathname]);
 

@@ -70,7 +70,7 @@ const Layout = () => {
             <Route path="/sök" component={Search} />
             <Route path="/auth" component={AuthPage} />
             <Route path="/mina-listor" component={MyPlaylists} />
-            <Route path="/spellista" component={Playlist} />
+            <Route path="/spellista/:id" component={Playlist} />
             <Route path="/inställningar" component={Settings} />
             <Route path="/ändra-lösenord" component={ChangePassword} />
 

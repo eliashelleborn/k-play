@@ -100,7 +100,7 @@ const MyPlaylists = () => {
               image={p.image}
               tracksNum={p.numberOfTracks}
               isOwner
-              to="/spellista"
+              to={`/spellista/${p.id}`}
             />
           ))}
         </Grid>

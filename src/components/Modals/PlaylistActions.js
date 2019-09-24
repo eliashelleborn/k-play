@@ -44,7 +44,7 @@ const Close = styled.button`
   padding: ${({ theme }) => theme.space[3]}px 0;
 `;
 
-const PlaylistActions = ({ playlist, hide }) => {
+const PlaylistActions = ({ playlist, hide, onRemove }) => {
   return (
     <StyledPlaylistActions>
       <Image>
@@ -70,7 +70,7 @@ const PlaylistActions = ({ playlist, hide }) => {
             Redigera lista
           </Text>
         </Item>
-        <Item>
+        <Item onClick={onRemove}>
           <Remove />
           <Text m="0" ml="3">
             Ta bort lista
