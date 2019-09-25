@@ -28,6 +28,14 @@ const LoadingOverlay = styled.div`
   transition: opacity 0.3s ease;
 `;
 
+const StyledGrid = styled(Grid)`
+  ${({ theme }) => theme.mediaQueries.large} {
+    grid-gap: 24px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+  }
+`;
+
 const Search = () => {
   const [typeFilter, setTypeFilter] = useState('ALL');
   const [input, setInput] = useState('');
@@ -103,7 +111,7 @@ const Search = () => {
                 )}
           </Box>
         ) : (
-          <Grid px="3" gridGap="2" gridTemplateColumns="1fr 1fr">
+          <StyledGrid px="3" gridGap="2" gridTemplateColumns="1fr 1fr">
             {categories &&
               categories.map(c => (
                 <ListCard
@@ -113,7 +121,7 @@ const Search = () => {
                   image={c.image}
                 />
               ))}
-          </Grid>
+          </StyledGrid>
         )}
       </Box>
       {selectedCategory && otherCategories.length > 0 && (

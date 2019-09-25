@@ -31,6 +31,10 @@ const Background = styled.img`
   width: 100%;
   pointer-events: none;
   z-index: -10;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    opacity: 0.7;
+  }
 `;
 
 const LoadingContainer = styled.div`
