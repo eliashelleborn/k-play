@@ -191,7 +191,7 @@ const ListHomeCard = ({
         <div>
           <More />
         </div>
-        <div>
+        <div onClick={play}>
           <Play color="#363636" />
         </div>
         <CornerContent>

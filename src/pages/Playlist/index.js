@@ -9,13 +9,9 @@ import Modal from '../../components/Modals';
 import useModal from '../../hooks/useModal';
 import PlaylistActions from '../../components/Modals/PlaylistActions';
 
-// delete?
 import TrackActions from '../../components/Modals/TrackActions';
-import styled from 'styled-components';
 import ListCard from '../../components/ListCard';
 import { Grid } from '../../components/Util';
-// del??
-
 
 import Dialog from '../../components/Dialog';
 import { Heading, Text } from '../../components/Typography';
@@ -33,7 +29,6 @@ const StyledPlaylist = styled.div`
   height: calc(100vh - 65px);
 `;
 
-// delete?
 const ContentWrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.large} {
     display: flex;
@@ -44,7 +39,7 @@ const ContentWrapper = styled.div`
 
 const DesktopPlaylist = styled.div`
   display: none;
-  ${({ theme }) => theme.mediaQueries.desktop} {
+  ${({ theme }) => theme.mediaQueries.large} {
     display: grid;
     width: 470px;
     height: 480px;
@@ -60,7 +55,6 @@ const TrackList = styled.div`
     width: 68%;
   }
 `;
-// ??
 
 
 const Playlist = ({ match, history }) => {
@@ -154,32 +148,45 @@ const Playlist = ({ match, history }) => {
             context="Mina Listor"
             image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
           />
-          <div>
-            {tracks.length > 0 ? (
-              tracks.map((t, i) => (
-                <Track
-                  key={t.id + i}
-                  onPlay={() => {
-                    dispatch({
-                      type: PLAYER_SET_QUEUE,
-                      payload: tracks.slice(i + 1)
-                    });
-                    dispatch({
-                      type: PLAYER_SET_PREVIOUS,
-                      payload: tracks.slice(0, i)
-                    });
-                  }}
-                  track={t}
+
+          <ContentWrapper>
+            <DesktopPlaylist>
+              <Grid p="12px" gridTemplateColumns="1fr">
+                <ListCard
+                  key={playlist.name}
+                  title={playlist.name}
+                  image={'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'}
+                  to="/spellista"
                 />
-              ))
-            ) : (
-              <Box>
-                <Text mt="5" textAlign="center">
-                  Denna spellistan är tom
-                </Text>
-              </Box>
-            )}
-          </div>
+              </Grid>
+            </DesktopPlaylist>
+            <TrackList>
+              {tracks.length > 0 ? (
+                tracks.map((t, i) => (
+                  <Track
+                    key={t.id + i}
+                    onPlay={() => {
+                      dispatch({
+                        type: PLAYER_SET_QUEUE,
+                        payload: tracks.slice(i + 1)
+                      });
+                      dispatch({
+                        type: PLAYER_SET_PREVIOUS,
+                        payload: tracks.slice(0, i)
+                      });
+                    }}
+                    track={t}
+                  />
+                ))
+              ) : (
+                <Box>
+                  <Text mt="5" textAlign="center">
+                    Denna spellistan är tom
+                  </Text>
+                </Box>
+              )}
+            </TrackList>
+          </ContentWrapper>
 
 
           <Modal isShowing={actionsModal.isShowing} hide={actionsModal.toggle}>

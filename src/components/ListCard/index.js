@@ -14,6 +14,13 @@ const StyledListCard = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
+
+    ${({ theme }) => theme.mediaQueries.large} {
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+    }
   }
 
   img {

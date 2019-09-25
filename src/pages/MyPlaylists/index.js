@@ -11,7 +11,6 @@ import Modal from '../../components/Modals';
 import Dialog from '../../components/Dialog';
 import useModal from '../../hooks/useModal';
 import useMyPlaylists from '../../hooks/useMyPlaylists';
-import styled from 'styled-components';
 
 const StyledBanner = styled(Banner)`
   ${({ theme }) => theme.mediaQueries.large} {
@@ -117,7 +116,7 @@ const MyPlaylists = ({ location }) => {
         <CreateButton onClick={createModal.toggle}>
           <Plus />
         </CreateButton>
-      </Banner>
+      </StyledBanner>
       {loading && (
         <Flex p="5" justifyContent="center">
           <Loading color="#363636" />
