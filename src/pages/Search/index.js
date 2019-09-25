@@ -79,7 +79,7 @@ const Search = () => {
         <MediaFilter current={typeFilter} setCurrent={setTypeFilter} />
       </Box>
 
-      <Box mt="2" position="relative" minHeight="200">
+      <Box mt="2" position="relative" minHeight="200px">
         <LoadingOverlay
           show={
             (searchLoading && (selectedCategory || input !== '')) ||
@@ -91,17 +91,7 @@ const Search = () => {
         {selectedCategory || input !== '' ? (
           <Box>
             {media.length > 0
-              ? media.map(m => (
-                  <Track
-                    key={m.title}
-                    title={m.title}
-                    type={m.type}
-                    description={m.description}
-                    duration={m.duration}
-                    episode={m.episode}
-                    image={m.image}
-                  />
-                ))
+              ? media.map(m => <Track key={m.id} track={m} />)
               : !searchLoading && (
                   <Box px="3" pt="5">
                     <Text textAlign="center" m="0">

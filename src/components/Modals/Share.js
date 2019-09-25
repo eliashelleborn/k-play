@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
-import { Close, ArrowBack, FacebookShare, Messenger, Sms, LinkedInShare, EmailShare, Copylink } from '../Icons';
+import {
+  Close,
+  ArrowBack,
+  FacebookShare,
+  Messenger,
+  Sms,
+  LinkedInShare,
+  EmailShare,
+  Copylink
+} from '../Icons';
 import { List, Item } from '../List';
 
 const StyledShare = styled.div`

@@ -1,15 +1,39 @@
-import React from 'react';
+/* eslint-disable react/no-array-index-key */
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+
+import styled from 'styled-components';
 import Banner from './Banner';
 import Track from '../../components/Track';
 import Modal from '../../components/Modals';
 import useModal from '../../hooks/useModal';
 import PlaylistActions from '../../components/Modals/PlaylistActions';
+
+// delete?
 import TrackActions from '../../components/Modals/TrackActions';
 import styled from 'styled-components';
 import ListCard from '../../components/ListCard';
 import { Grid } from '../../components/Util';
+// del??
 
 
+import Dialog from '../../components/Dialog';
+import { Heading, Text } from '../../components/Typography';
+import { Flex, Box } from '../../components/Util';
+import Loading from '../../components/Loading';
+import firebase from '../../firebase';
+import {
+  usePlayer,
+  PLAYER_SET_QUEUE,
+  PLAYER_SET_PREVIOUS
+} from '../../context/player';
+
+
+const StyledPlaylist = styled.div`
+  height: calc(100vh - 65px);
+`;
+
+// delete?
 const ContentWrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.large} {
     display: flex;
@@ -36,150 +60,171 @@ const TrackList = styled.div`
     width: 68%;
   }
 `;
-
-const tracks = [
-  {
-    id: 1,
-    title: 'Måla ditt ansikte',
-    type: 'VIDEO',
-    description: 'Måla ditt ansikte som en galning.',
-    duration: '59 min',
-    episode: '3/10',
-    image:
-      'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    id: 2,
-    title: 'Dance in fog',
-    type: 'PODCAST',
-    description: 'Dansa dansa som en galning.',
-    duration: '22 min',
-    episode: '1/3',
-    image:
-      'https://images.unsplash.com/photo-1494255109162-2f3d1eddb31e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 3,
-    title: 'Pumpor',
-    type: 'VIDEO',
-    description: 'Stora fina pumpor till halloween.',
-    duration: '15 min',
-    episode: '3/5',
-    image:
-      'https://images.unsplash.com/photo-1568574097055-c552b8dfcc23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    id: 4,
-    title: 'Måla ditt ansikte',
-    type: 'VIDEO',
-    description: 'Måla ditt ansikte som en galning.',
-    duration: '59 min',
-    episode: '3/10',
-    image:
-      'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    id: 5,
-    title: 'Dance in fog',
-    type: 'PODCAST',
-    description: 'Dansa dansa som en galning.',
-    duration: '22 min',
-    episode: '1/3',
-    image:
-      'https://images.unsplash.com/photo-1494255109162-2f3d1eddb31e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 6,
-    title: 'Pumpor',
-    type: 'VIDEO',
-    description: 'Stora fina pumpor till halloween.',
-    duration: '15 min',
-    episode: '3/5',
-    image:
-      'https://images.unsplash.com/photo-1568574097055-c552b8dfcc23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
-  }
-];
-
-const playlist = [
-  {
-    id: 1,
-    name: 'Favoriter',
-    track: '13 spår',
-    image:
-      'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
-  }
-];
+// ??
 
 
+const Playlist = ({ match, history }) => {
+  const { dispatch } = usePlayer();
+  const [playlist, setPlaylist] = useState(null);
+  const [tracks, setTracks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const actionsModal = useModal();
+  const deleteModal = useModal();
 
-const Playlist = () => {
-  const modal = useModal();
+  const fetchPlaylist = () => {
+    setLoading(true);
+    const tracksArr = [];
+    firebase
+      .firestore()
+      .collection('playlists')
+      .doc(match.params.id)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          const promises = [];
+          setPlaylist({ id: doc.id, ...doc.data() });
+
+          doc.data().tracks.forEach(t => {
+            promises.push(
+              t.ref.get().then(trackDoc => {
+                tracksArr.push({
+                  id: trackDoc.id,
+                  ...trackDoc.data(),
+                  snippet: t.snippet
+                });
+              })
+            );
+          });
+
+          Promise.all(promises).then(() => {
+            setTracks(tracksArr);
+            setLoading(false);
+          });
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetchPlaylist();
+  }, []);
+
+
+  const deletePlaylist = () => {
+    firebase
+      .firestore()
+      .collection('playlists')
+      .doc(match.params.id)
+      .delete()
+      .then(() => {
+        history.push('/mina-listor');
+      });
+  };
+
   return (
-    <>
-      <Banner
-        openModal={modal.toggle}
-        name="Favoriter"
-        context="Mina Listor"
-        image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-      />
+    <StyledPlaylist>
+      {loading && (
+        <Flex
+          position="absolute"
+          top="0"
+          justifyContent="center"
+          alignItems="center"
+          height="100%"
+          width="100%"
+        >
+          <Loading color="#363636" />
+        </Flex>
+      )}
+      {!loading && !playlist && (
+        <Flex
+          position="absolute"
+          top="0"
+          justifyContent="center"
+          alignItems="center"
+          height="100%"
+          width="100%"
+        >
+          <Text m="0">Kunde inte hitta spellistan</Text>
+        </Flex>
+      )}
+      {playlist && !loading && (
+        <>
+          <Banner
+            openModal={actionsModal.toggle}
+            name={playlist.name}
+            context="Mina Listor"
+            image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+          />
+          <div>
+            {tracks.length > 0 ? (
+              tracks.map((t, i) => (
+                <Track
+                  key={t.id + i}
+                  onPlay={() => {
+                    dispatch({
+                      type: PLAYER_SET_QUEUE,
+                      payload: tracks.slice(i + 1)
+                    });
+                    dispatch({
+                      type: PLAYER_SET_PREVIOUS,
+                      payload: tracks.slice(0, i)
+                    });
+                  }}
+                  track={t}
+                />
+              ))
+            ) : (
+              <Box>
+                <Text mt="5" textAlign="center">
+                  Denna spellistan är tom
+                </Text>
+              </Box>
+            )}
+          </div>
 
-      <ContentWrapper>
-        <DesktopPlaylist>
-          <Grid p="12px" gridTemplateColumns="1fr">
-            {playlist.map(p => (
-              <ListCard
-                key={p.name}
-                title={p.name}
-                image={p.image}
-                to="/spellista"
-              />
-            ))}
-          </Grid>
-        </DesktopPlaylist>
-        <TrackList>
-          {tracks.map(t => (
-            <Track
-              key={t.id}
-              title={t.title}
-              type={t.type}
-              description={t.description}
-              duration={t.duration}
-              episode={t.episode}
-              image={t.image}
+
+          <Modal isShowing={actionsModal.isShowing} hide={actionsModal.toggle}>
+            <PlaylistActions
+              playlist={{
+                name: 'Favoriter',
+                tracksNum: tracks.length,
+                image:
+                  'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
+              }}
+              isShowing={actionsModal.isShowing}
+              hide={actionsModal.toggle}
+              onRemove={() => {
+                actionsModal.toggle();
+                deleteModal.toggle();
+              }}
             />
-          ))}
-        </TrackList>
-      </ContentWrapper>
+          </Modal>
 
-      <Modal isShowing={modal.isShowing} hide={modal.toggle}>
-        <PlaylistActions
-          playlist={{
-            name: 'Favoriter',
-            tracksNum: tracks.length,
-            image:
-              'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
-          }}
-          isShowing={modal.isShowing}
-          hide={modal.toggle}
-        />
-      </Modal>
-
-
-      <Modal >
-        <TrackActions
-          trackInfo={{
-            name: 'Dansare - oavsett villkor?',
-            subtitle: 'I samarbete med Folkteatern',
-            image:
-              'https://files.list.co.uk/images/2019/07/02/sdt-ritualia-colette-sadler-double-bill1-LST341078.jpg',
-            contentType: 'podcast'
-          }}
-        />
-      </Modal>
-
-    </>
+          <Modal isShowing={deleteModal.isShowing} hide={deleteModal.toggle}>
+            <Dialog
+              mainButton="cancel"
+              onConfirm={deletePlaylist}
+              confirm="Ta bort"
+              onCancel={deleteModal.toggle}
+            >
+              <Heading
+                textAlign="center"
+                as="h3"
+                fontSize="20px"
+                fontWeight="600"
+                m="0"
+                mb="2"
+              >
+                Är du säker?
+              </Heading>
+              <Text m="0" mb="6" textAlign="center">
+                Vill du radera listan “{playlist.name}”?
+              </Text>
+            </Dialog>
+          </Modal>
+        </>
+      )}
+    </StyledPlaylist>
   );
 };
 
-
-export default Playlist;
+export default withRouter(Playlist);

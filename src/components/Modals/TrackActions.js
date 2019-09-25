@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { List, Item as BaseItem } from '../List';
 import { Share, AddToList, Rate, Heart, Podcast, Video } from '../Icons';
+import { useAppModals } from '../../context/modals';
 
 const StyledTrackActions = styled.div`
   height: 100%;
@@ -56,52 +57,56 @@ const ContentType = styled.div`
 `;
 
 const TrackActions = ({ trackInfo, hide }) => {
+  const { toggleOpen } = useAppModals();
+
   return (
     <StyledTrackActions>
-
       <ContentType>
-        {trackInfo.contentType == 'podcast' ? <Podcast /> : <Video />}
+        {trackInfo.contentType === 'podcast' ? <Podcast /> : <Video />}
       </ContentType>
 
       <Image>
         <img src={trackInfo.image} alt="" />
       </Image>
       <Heading as="h3" fontWeight="500" m="0">
-        {trackInfo.name}
+        {trackInfo.title}
       </Heading>
       <Text m="0" mt="1">
         {trackInfo.subtitle}
       </Text>
 
-      <List onClick={hide}>
-        <Item>
+      <List>
+        <Item onClick={hide}>
           <Share />
           <Text m="0" ml="3">
             Dela
           </Text>
         </Item>
 
-        <Item>
-        <AddToList />
+        <Item
+          onClick={() => {
+            toggleOpen('addToList');
+          }}
+        >
+          <AddToList />
           <Text m="0" ml="3">
             Lägg till i Mina listor
           </Text>
         </Item>
 
-        <Item>
-        <Rate />
+        <Item onClick={hide}>
+          <Rate />
           <Text m="0" ml="3">
             Betygsätt
           </Text>
         </Item>
 
-        <Item>
-        <Heart color={'#363636'} />
+        <Item onClick={hide}>
+          <Heart color="#363636" />
           <Text m="0" ml="3">
             Spara kategori
           </Text>
         </Item>
-
       </List>
       <Close onClick={hide}>Stäng</Close>
     </StyledTrackActions>

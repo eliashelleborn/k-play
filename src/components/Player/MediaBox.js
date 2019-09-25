@@ -81,7 +81,7 @@ const drawerVariants = {
 };
 
 const MediaBox = forwardRef(
-  ({ playing, url, type, onReady, onProgress, open }, ref) => {
+  ({ playing, url, type, onReady, onProgress, open, onStart }, ref) => {
     const [drawerOpen, setDrawerOpen] = useState(true);
 
     return (
@@ -89,10 +89,10 @@ const MediaBox = forwardRef(
         <div>
           <Overlay>
             <TypeIndicator>
-              {type === 'PODCAST' ? <Podcast /> : <Video />}
+              {type === 'PODD' ? <Podcast /> : <Video />}
             </TypeIndicator>
 
-            {type === 'PODCAST' && (
+            {type === 'PODD' && (
               <Drawer
                 open={drawerOpen}
                 animate={drawerOpen ? 'open' : 'closed'}
@@ -140,8 +140,9 @@ const MediaBox = forwardRef(
             }}
             onReady={onReady}
             onProgress={onProgress}
+            onStart={onStart}
           />
-          {type === 'PODCAST' && (
+          {type === 'PODD' && (
             <img
               src="https://images.unsplash.com/photo-1562887106-0ba63ac82e02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80"
               alt=""

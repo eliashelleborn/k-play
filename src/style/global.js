@@ -28,6 +28,13 @@ const Global = createGlobalStyle`
 
   }
 
+  button {
+    border: none;
+    background: none;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
 `;
 
 export default Global;

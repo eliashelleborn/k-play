@@ -11,9 +11,14 @@ import Footer from './Footer';
 import {
   usePlayer,
   PLAYER_TOGGLE_PLAYING,
-  PLAYER_CURRENT_TIME_UPDATE
+  PLAYER_NEXT,
+  PLAYER_PREVIOUS
 } from '../../context/player';
 import MinimizedPlayer from '../MinimizedPlayer';
+import Modal from '../Modals';
+import Snippet from '../Modals/Snippet';
+import useModal from '../../hooks/useModal';
+import { useAppModals } from '../../context/modals';
 
 const StyledPlayer = styled(motion.div)`
   position: fixed;
@@ -24,7 +29,7 @@ const StyledPlayer = styled(motion.div)`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  z-index: 900;
+  z-index: 90;
 
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
@@ -41,17 +46,45 @@ const ControlsContainer = styled.div`
 
 const Player = () => {
   const {
-    state: { playing, minimized, open, currentMedia },
+    state: { playing, minimized, open, currentMedia, queue, previous },
     dispatch
   } = usePlayer();
-  const playerRef = useRef(null);
+  const appModals = useAppModals();
+  const snippetModal = useModal();
+  const [snippet, setSnippet] = useState([0, 0]);
   const [ready, setReady] = useState({
     main: false,
     minimized: false
   });
   const [currentTime, setCurrentTime] = useState(0);
-
+  const playerRef = useRef(null);
+  const minimizedPlayerRef = useRef(null);
   const anim = useAnimation();
+
+  const handleStart = () => {
+    setCurrentTime(currentMedia.snippet ? currentMedia.snippet.start : 0);
+    playerRef.current.seekTo(
+      currentMedia.snippet ? currentMedia.snippet.start : 0,
+      'seconds'
+    );
+    minimizedPlayerRef.current.seekTo(
+      currentMedia.snippet ? currentMedia.snippet.start : 0,
+      'seconds'
+    );
+  };
+
+  useEffect(() => {
+    if (currentMedia) {
+      handleStart();
+    }
+  }, [currentMedia]);
+
+  useEffect(() => {
+    if (currentMedia && snippetModal.isShowing) {
+      playerRef.current.seekTo(snippet[0], 'seconds');
+      minimizedPlayerRef.current.seekTo(snippet[0], 'seconds');
+    }
+  }, [snippet, snippetModal.isShowing]);
 
   useEffect(() => {
     if (open) {
@@ -75,39 +108,22 @@ const Player = () => {
   }, [open]);
 
   const handleProgress = e => {
-    setCurrentTime(e.playedSeconds);
+    if (!snippetModal.isShowing) setCurrentTime(e.playedSeconds);
   };
 
   const handleSliderInteraction = e => {
     playerRef.current.seekTo(e, 'seconds');
-    dispatch({
-      type: PLAYER_CURRENT_TIME_UPDATE,
-      payload: e
-    });
+    minimizedPlayerRef.current.seekTo(e, 'seconds');
+    setCurrentTime(e);
   };
-
-  /*   const next = () => {
-    let nextIndex = 0;
-    const currentIndex = media.indexOf(mediaUrl);
-    if (currentIndex < media.length - 1) nextIndex = currentIndex + 1;
-    setMediaUrl(media[nextIndex]);
-  };
-
-  const previous = () => {
-    let nextIndex = media.length - 1;
-    const currentIndex = media.indexOf(mediaUrl);
-    if (currentIndex > 0) nextIndex = currentIndex - 1;
-    setMediaUrl(media[nextIndex]);
-  }; */
 
   const jumpTenSeconds = direction => {
-    /*  const onClickCurrentTime = playerRef.current.getCurrentTime(); */
-    dispatch({
-      type: PLAYER_CURRENT_TIME_UPDATE,
-      payload: currentTime + 10 * direction
-    });
+    setCurrentTime(currentTime + 10 * direction);
     playerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
+    minimizedPlayerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
   };
+
+  if (!currentMedia) return null;
 
   return (
     <>
@@ -125,6 +141,7 @@ const Player = () => {
         </Box>
 
         <MediaBox
+          onStart={handleStart}
           minimized={minimized}
           open={open}
           ref={playerRef}
@@ -136,23 +153,27 @@ const Player = () => {
         />
 
         <ControlsContainer>
-          <MiscControls />
+          <MiscControls onCreateSnippet={snippetModal.toggle} />
           <Progress
+            snippet={currentMedia.snippet}
             duration={currentMedia.duration}
             current={currentTime}
             onChange={handleSliderInteraction}
           />
           <Controls
-            next={() => {}}
-            previous={() => {}}
+            next={() => dispatch({ type: PLAYER_NEXT })}
+            previous={() => dispatch({ type: PLAYER_PREVIOUS })}
             playing={playing}
             jump={jumpTenSeconds}
+            disableNext={queue.length === 0}
+            disablePrevious={previous.length === 0}
             togglePlaying={() => dispatch({ type: PLAYER_TOGGLE_PLAYING })}
           />
           <Footer />
         </ControlsContainer>
       </StyledPlayer>
       <MinimizedPlayer
+        ref={minimizedPlayerRef}
         currentTime={currentTime}
         ready={ready}
         setReady={() =>
@@ -162,6 +183,23 @@ const Player = () => {
           })
         }
       />
+
+      <Modal isShowing={snippetModal.isShowing} hide={snippetModal.toggle}>
+        <Snippet
+          hide={snippetModal.toggle}
+          onChange={setSnippet}
+          max={currentMedia.duration}
+          value={snippet}
+          onFinished={() => {
+            snippetModal.toggle();
+            appModals.setContent({
+              ...currentMedia,
+              snippet: { start: snippet[0], end: snippet[1] }
+            });
+            appModals.toggleOpen('addToList');
+          }}
+        />
+      </Modal>
     </>
   );
 };
