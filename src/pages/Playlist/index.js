@@ -8,6 +8,15 @@ import Track from '../../components/Track';
 import Modal from '../../components/Modals';
 import useModal from '../../hooks/useModal';
 import PlaylistActions from '../../components/Modals/PlaylistActions';
+
+// delete?
+import TrackActions from '../../components/Modals/TrackActions';
+import styled from 'styled-components';
+import ListCard from '../../components/ListCard';
+import { Grid } from '../../components/Util';
+// del??
+
+
 import Dialog from '../../components/Dialog';
 import { Heading, Text } from '../../components/Typography';
 import { Flex, Box } from '../../components/Util';
@@ -19,9 +28,40 @@ import {
   PLAYER_SET_PREVIOUS
 } from '../../context/player';
 
+
 const StyledPlaylist = styled.div`
   height: calc(100vh - 65px);
 `;
+
+// delete?
+const ContentWrapper = styled.div`
+  ${({ theme }) => theme.mediaQueries.large} {
+    display: flex;
+    flex-direction: row;
+    margin: 36px 52px;
+  }
+`;
+
+const DesktopPlaylist = styled.div`
+  display: none;
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    display: grid;
+    width: 470px;
+    height: 480px;
+  }
+`;
+
+const TrackList = styled.div`
+  ${({ theme }) => theme.mediaQueries.large} {
+    width: 100%;
+  }
+
+  ${({ theme }) => theme.mediaQueries.large} {
+    width: 68%;
+  }
+`;
+// ??
+
 
 const Playlist = ({ match, history }) => {
   const { dispatch } = usePlayer();
@@ -67,6 +107,7 @@ const Playlist = ({ match, history }) => {
   useEffect(() => {
     fetchPlaylist();
   }, []);
+
 
   const deletePlaylist = () => {
     firebase
@@ -139,6 +180,7 @@ const Playlist = ({ match, history }) => {
               </Box>
             )}
           </div>
+
 
           <Modal isShowing={actionsModal.isShowing} hide={actionsModal.toggle}>
             <PlaylistActions

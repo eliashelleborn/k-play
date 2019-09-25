@@ -24,6 +24,12 @@ const Cover = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+
+  ${({ theme }) => theme.mediaQueries.large} {
+    width: 125px;
+    height: 125px;
+  }
+
   img {
     position: absolute;
     top: 0;
@@ -43,6 +49,19 @@ const Info = styled.div`
   padding-left: ${({ theme }) => theme.space[2]}px;
   min-width: 0;
 
+  ${({ theme }) => theme.mediaQueries.large} {
+    background-color: #F3F3F3;
+    height: 125px;
+    padding-left: ${({ theme }) => theme.space[4]}px;
+    > h5 {
+      padding: 2px 0;
+      font-size: 24px;
+    }
+    > p {
+      font-size: 16px;
+    }
+  }
+
   ${Text}, ${Heading} {
     overflow: hidden;
     white-space: nowrap;
@@ -54,6 +73,10 @@ const Info = styled.div`
     font-size: 12px;
     display: flex;
     align-items: center;
+
+    ${({ theme }) => theme.mediaQueries.large} {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -62,6 +85,15 @@ const More = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${({ theme }) => theme.mediaQueries.large} {
+    background-color: #f3f3f3;
+
+    > svg {
+      width: 37px;
+      height: 10px;
+    }
+  }
 `;
 
 const Track = ({ track, onPlay }) => {

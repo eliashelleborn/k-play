@@ -18,18 +18,56 @@ import {
 } from '../../context/player';
 
 const StyledBanner = styled(Banner)`
-  ${color}
-  padding-bottom: 0px;
-  padding-top: 0px;
-  box-shadow: 0px 2px 8px rgba(54, 54, 54, 0.3);
-  margin-bottom: 20px;
-  padding: 50px 0;
+  ${({ theme }) => theme.mediaQueries.medium} {
+    height: 500px;
+    display: flex;
+    align-items: flex-end;
+
+    > p {
+      font-size: 64px;
+      max-width: 460px;
+      margin-left: 48px;
+      margin-bottom: 52px;
+      line-height: 54px;
+    }
+  }
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    height: calc(100vh - 65px);
+  }
 `;
 
 const StyledBanner2 = styled(StyledBanner)`
   flex-direction: column;
   margin-top: 16px;
   justify-content: center;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    margin-top: 56px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+
+    > p {
+      font-size: 56px;
+      margin: 0;
+      line-height: 54px;
+      max-width: 700px;
+
+      &:nth-child(2) {
+        font-size: 24px;
+        line-height: 30px;
+        max-width: 640px;
+        margin-top: 20px;
+        margin-bottom: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    height: 400px;
+  }
 `;
 
 const BannerText2 = styled.p`
@@ -58,6 +96,10 @@ const Category = styled.p`
   margin: 16px;
   z-index: -1;
   font-weight: 500;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    margin: 48px 0 0 56px;
+  }
 `;
 
 const Box = styled.div`
@@ -78,10 +120,21 @@ const Box = styled.div`
 
 const StyledButton = styled(Button)`
   width: 150px;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    width: 230px;
+    height: 46px;
+  }
+
   > a {
     color: ${({ theme }) => theme.colors.white};
     text-decoration: none;
     letter-spacing: 0.5px;
+
+    ${({ theme }) => theme.mediaQueries.large} {
+      font-size: 24px;
+      font-weight: 500;
+    }
   }
 `;
 
@@ -173,12 +226,13 @@ const Home = () => {
     <div>
       <div>
         <div>
-          <Banner
+          <StyledBanner
             tint="rgba(4, 4, 4, 0.3)"
             image={BannerImage}
             justifyContent="space-between"
             px="3"
           >
+
             <Text
               m="0"
               fontSize="32px"
@@ -187,9 +241,14 @@ const Home = () => {
               fontWeight="600"
               lineHeight="32px"
             >
-              Podd- och webcasts om scenkonst, media och musik
+            {authUser ? (
+              'Välkommen tillbaka Karin'
+            ) : (
+              'Podd- och webcasts om scenkonst, media och musik'
+            )}
+
             </Text>
-          </Banner>
+          </StyledBanner>
         </div>
       </div>
 
@@ -255,9 +314,9 @@ const Home = () => {
         <div>
           <StyledBanner2 tint="rgba(0, 0, 0, 0.1)" image={BannerImage3} px="3">
             <BannerText2>
-              Tipsa om kurser på KA Klippverktyget (funktioner)
+              Tips om kurser
             </BannerText2>
-            <BannerText3>Dela till kollegor/studenter</BannerText3>
+            <BannerText3>Tipsa om kurser på KA Klippverktyget (funktioner). Dela till kollegor/studenter</BannerText3>
           </StyledBanner2>
         </div>
       ) : (

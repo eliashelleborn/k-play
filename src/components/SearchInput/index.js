@@ -10,6 +10,11 @@ const StyledSearchInput = styled.div`
   align-items: center;
   padding: 0 8px;
 
+  ${({ theme }) => theme.mediaQueries.large} {
+    width: 422px;
+    margin: 42px 0 80px 64px;
+  }
+
   input {
     flex: 1;
     min-width: 0;
@@ -53,6 +58,18 @@ const Category = styled.div`
   }
 `;
 
+const DesktopSearchText = styled.div`
+  display: none;
+  ${({ theme }) => theme.mediaQueries.large} {
+    display: initial;
+    > p {
+      font-size: 56px;
+      font-weight: 600;
+      margin: 48px 0 0 64px;
+    }
+  }
+`;
+
 const SearchInput = ({
   value,
   onChange,
@@ -61,6 +78,10 @@ const SearchInput = ({
   openSort
 }) => {
   return (
+    <div>
+    <DesktopSearchText>
+      <p> Sök </p>
+    </DesktopSearchText>
     <StyledSearchInput>
       {category && (
         <Category>
@@ -81,6 +102,7 @@ const SearchInput = ({
         <Filter />
       </button>
     </StyledSearchInput>
+    </div>
   );
 };
 
