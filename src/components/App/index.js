@@ -24,6 +24,7 @@ import AddToList from '../Modals/AddToList';
 import { useAppModals } from '../../context/modals';
 import TrackActions from '../Modals/TrackActions';
 import Share from '../Modals/Share';
+import AuthShield from '../Modals/AuthShield';
 
 const Background = styled.img`
   position: fixed;
@@ -112,6 +113,12 @@ const Layout = () => {
             trackInfo={modalContent}
             hide={() => modalsToggleOpen('share')}
           />
+        </Modal>
+        <Modal
+          isShowing={modalsOpen.login}
+          hide={() => modalsToggleOpen('login')}
+        >
+          <AuthShield hide={() => modalsToggleOpen('login')} />
         </Modal>
       </>
     </CustomRouter>

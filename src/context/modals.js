@@ -7,7 +7,8 @@ const initialModals = {
   playlistActions: false,
   share: false,
   trackActions: false,
-  createPlaylist: false
+  createPlaylist: false,
+  login: true
 };
 
 const ModalsProvider = ({ children }) => {
