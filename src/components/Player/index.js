@@ -8,7 +8,12 @@ import Controls from './Controls';
 import MiscControls from './MiscControls';
 import Progress from './Progress';
 import Footer from './Footer';
-import { usePlayer, PLAYER_TOGGLE_PLAYING } from '../../context/player';
+import {
+  usePlayer,
+  PLAYER_TOGGLE_PLAYING,
+  PLAYER_NEXT,
+  PLAYER_PREVIOUS
+} from '../../context/player';
 import MinimizedPlayer from '../MinimizedPlayer';
 import Modal from '../Modals';
 import Snippet from '../Modals/Snippet';
@@ -41,7 +46,7 @@ const ControlsContainer = styled.div`
 
 const Player = () => {
   const {
-    state: { playing, minimized, open, currentMedia },
+    state: { playing, minimized, open, currentMedia, queue, previous },
     dispatch
   } = usePlayer();
   const appModals = useAppModals();
@@ -156,10 +161,12 @@ const Player = () => {
             onChange={handleSliderInteraction}
           />
           <Controls
-            next={() => {}}
-            previous={() => {}}
+            next={() => dispatch({ type: PLAYER_NEXT })}
+            previous={() => dispatch({ type: PLAYER_PREVIOUS })}
             playing={playing}
             jump={jumpTenSeconds}
+            disableNext={queue.length === 0}
+            disablePrevious={previous.length === 0}
             togglePlaying={() => dispatch({ type: PLAYER_TOGGLE_PLAYING })}
           />
           <Footer />

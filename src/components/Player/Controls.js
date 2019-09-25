@@ -38,23 +38,36 @@ const PlayWrapper = styled.div`
   margin-top: 3px;
 `;
 
-
-const Controls = ({ playing, togglePlaying, next, jump }) => {
+const Controls = ({
+  playing,
+  togglePlaying,
+  next,
+  previous,
+  jump,
+  disableNext,
+  disablePrevious
+}) => {
   return (
     <StyledControls>
       <Button onClick={() => jump(-1)} type="button">
         <SkipTen />
       </Button>
-      <Button onClick={next} type="button">
-        <Skip />
+      <Button disabled={disablePrevious} onClick={previous} type="button">
+        <Skip color={disablePrevious ? '#AEAEAE' : '#363636'} />
       </Button>
 
       <PlayPauseButton onClick={togglePlaying} type="button">
-        {playing ? <Pause /> : <PlayWrapper> <Play /> </PlayWrapper>}
+        {playing ? (
+          <Pause />
+        ) : (
+          <PlayWrapper>
+            <Play />
+          </PlayWrapper>
+        )}
       </PlayPauseButton>
 
-      <Button onClick={next} type="button">
-        <Skip forward />
+      <Button disabled={disableNext} onClick={next} type="button">
+        <Skip color={disableNext ? '#AEAEAE' : '#363636'} forward />
       </Button>
       <Button onClick={() => jump(1)} type="button">
         <SkipTen forward />
