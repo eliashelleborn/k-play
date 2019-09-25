@@ -23,6 +23,7 @@ import Modal from '../Modals';
 import AddToList from '../Modals/AddToList';
 import { useAppModals } from '../../context/modals';
 import TrackActions from '../Modals/TrackActions';
+import Share from '../Modals/Share';
 
 const Background = styled.img`
   position: fixed;
@@ -97,6 +98,15 @@ const Layout = () => {
           <TrackActions
             trackInfo={modalContent}
             hide={() => modalsToggleOpen('trackActions')}
+          />
+        </Modal>
+        <Modal
+          isShowing={modalsOpen.share}
+          hide={() => modalsToggleOpen('share')}
+        >
+          <Share
+            trackInfo={modalContent}
+            hide={() => modalsToggleOpen('share')}
           />
         </Modal>
       </>

@@ -103,7 +103,7 @@ const AddToList = ({ hide, content }) => {
         {playlists.map(p => (
           <Item
             onClick={() => {
-              addTrack(p.id, content.id);
+              addTrack(p.id, content.id, content.snippet);
               hide();
             }}
           >

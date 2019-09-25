@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -12,12 +13,18 @@ import { Heading, Text } from '../../components/Typography';
 import { Flex, Box } from '../../components/Util';
 import Loading from '../../components/Loading';
 import firebase from '../../firebase';
+import {
+  usePlayer,
+  PLAYER_SET_QUEUE,
+  PLAYER_SET_PREVIOUS
+} from '../../context/player';
 
 const StyledPlaylist = styled.div`
   height: calc(100vh - 65px);
 `;
 
 const Playlist = ({ match, history }) => {
+  const { dispatch } = usePlayer();
   const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +47,11 @@ const Playlist = ({ match, history }) => {
           doc.data().tracks.forEach(t => {
             promises.push(
               t.ref.get().then(trackDoc => {
-                tracksArr.push({ id: trackDoc.id, ...trackDoc.data() });
+                tracksArr.push({
+                  id: trackDoc.id,
+                  ...trackDoc.data(),
+                  snippet: t.snippet
+                });
               })
             );
           });
@@ -104,7 +115,22 @@ const Playlist = ({ match, history }) => {
           />
           <div>
             {tracks.length > 0 ? (
-              tracks.map(t => <Track key={t.id} track={t} />)
+              tracks.map((t, i) => (
+                <Track
+                  key={t.id + i}
+                  onPlay={() => {
+                    dispatch({
+                      type: PLAYER_SET_QUEUE,
+                      payload: tracks.slice(i + 1)
+                    });
+                    dispatch({
+                      type: PLAYER_SET_PREVIOUS,
+                      payload: tracks.slice(0, i)
+                    });
+                  }}
+                  track={t}
+                />
+              ))
             ) : (
               <Box>
                 <Text mt="5" textAlign="center">

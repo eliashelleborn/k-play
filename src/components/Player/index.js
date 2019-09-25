@@ -10,6 +10,10 @@ import Progress from './Progress';
 import Footer from './Footer';
 import { usePlayer, PLAYER_TOGGLE_PLAYING } from '../../context/player';
 import MinimizedPlayer from '../MinimizedPlayer';
+import Modal from '../Modals';
+import Snippet from '../Modals/Snippet';
+import useModal from '../../hooks/useModal';
+import { useAppModals } from '../../context/modals';
 
 const StyledPlayer = styled(motion.div)`
   position: fixed;
@@ -40,17 +44,42 @@ const Player = () => {
     state: { playing, minimized, open, currentMedia },
     dispatch
   } = usePlayer();
-  const playerRef = useRef(null);
-  const minimizedPlayerRef = useRef(null);
+  const appModals = useAppModals();
+  const snippetModal = useModal();
+  const [snippet, setSnippet] = useState([0, 0]);
   const [ready, setReady] = useState({
     main: false,
     minimized: false
   });
   const [currentTime, setCurrentTime] = useState(0);
-
+  const playerRef = useRef(null);
+  const minimizedPlayerRef = useRef(null);
   const anim = useAnimation();
 
-  console.log(currentMedia);
+  const handleStart = () => {
+    setCurrentTime(currentMedia.snippet ? currentMedia.snippet.start : 0);
+    playerRef.current.seekTo(
+      currentMedia.snippet ? currentMedia.snippet.start : 0,
+      'seconds'
+    );
+    minimizedPlayerRef.current.seekTo(
+      currentMedia.snippet ? currentMedia.snippet.start : 0,
+      'seconds'
+    );
+  };
+
+  useEffect(() => {
+    if (currentMedia) {
+      handleStart();
+    }
+  }, [currentMedia]);
+
+  useEffect(() => {
+    if (currentMedia && snippetModal.isShowing) {
+      playerRef.current.seekTo(snippet[0], 'seconds');
+      minimizedPlayerRef.current.seekTo(snippet[0], 'seconds');
+    }
+  }, [snippet, snippetModal.isShowing]);
 
   useEffect(() => {
     if (open) {
@@ -74,7 +103,7 @@ const Player = () => {
   }, [open]);
 
   const handleProgress = e => {
-    setCurrentTime(e.playedSeconds);
+    if (!snippetModal.isShowing) setCurrentTime(e.playedSeconds);
   };
 
   const handleSliderInteraction = e => {
@@ -83,26 +112,13 @@ const Player = () => {
     setCurrentTime(e);
   };
 
-  /*   const next = () => {
-    let nextIndex = 0;
-    const currentIndex = media.indexOf(mediaUrl);
-    if (currentIndex < media.length - 1) nextIndex = currentIndex + 1;
-    setMediaUrl(media[nextIndex]);
-  };
-
-  const previous = () => {
-    let nextIndex = media.length - 1;
-    const currentIndex = media.indexOf(mediaUrl);
-    if (currentIndex > 0) nextIndex = currentIndex - 1;
-    setMediaUrl(media[nextIndex]);
-  }; */
-
   const jumpTenSeconds = direction => {
-    /*  const onClickCurrentTime = playerRef.current.getCurrentTime(); */
     setCurrentTime(currentTime + 10 * direction);
     playerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
     minimizedPlayerRef.current.seekTo(currentTime + 10 * direction, 'seconds');
   };
+
+  if (!currentMedia) return null;
 
   return (
     <>
@@ -120,6 +136,7 @@ const Player = () => {
         </Box>
 
         <MediaBox
+          onStart={handleStart}
           minimized={minimized}
           open={open}
           ref={playerRef}
@@ -131,8 +148,9 @@ const Player = () => {
         />
 
         <ControlsContainer>
-          <MiscControls />
+          <MiscControls onCreateSnippet={snippetModal.toggle} />
           <Progress
+            snippet={currentMedia.snippet}
             duration={currentMedia.duration}
             current={currentTime}
             onChange={handleSliderInteraction}
@@ -158,6 +176,23 @@ const Player = () => {
           })
         }
       />
+
+      <Modal isShowing={snippetModal.isShowing} hide={snippetModal.toggle}>
+        <Snippet
+          hide={snippetModal.toggle}
+          onChange={setSnippet}
+          max={currentMedia.duration}
+          value={snippet}
+          onFinished={() => {
+            snippetModal.toggle();
+            appModals.setContent({
+              ...currentMedia,
+              snippet: { start: snippet[0], end: snippet[1] }
+            });
+            appModals.toggleOpen('addToList');
+          }}
+        />
+      </Modal>
     </>
   );
 };

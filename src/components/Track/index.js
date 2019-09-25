@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
-import { Play, Video, More as MoreIcon, Podcast } from '../Icons';
+import { Play, Video, More as MoreIcon, Podcast, Snippet } from '../Icons';
 import { useAppModals } from '../../context/modals';
 import {
   usePlayer,
@@ -64,7 +64,7 @@ const More = styled.div`
   align-items: center;
 `;
 
-const Track = ({ track }) => {
+const Track = ({ track, onPlay }) => {
   const { toggleOpen, setContent } = useAppModals();
   const { dispatch } = usePlayer();
 
@@ -72,6 +72,7 @@ const Track = ({ track }) => {
     <StyledTrack>
       <Cover
         onClick={() => {
+          onPlay();
           dispatch({ type: PLAYER_OPEN });
           dispatch({ type: PLAYER_EXPAND });
           dispatch({
@@ -85,7 +86,13 @@ const Track = ({ track }) => {
       </Cover>
       <Info>
         <div>
-          {track.type === 'VIDEO' ? <Video /> : <Podcast />}
+          {track.snippet ? (
+            <Snippet width="20px" />
+          ) : track.type === 'VIDEO' ? (
+            <Video />
+          ) : (
+            <Podcast />
+          )}
           <Text ml="2" as="span">
             {Math.floor(track.duration / 60)} min
           </Text>
