@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Caption, Crop, Plus, More } from '../Icons';
 import { NavLink } from 'react-router-dom';
+import { Caption, Plus, More, Snippet } from '../Icons';
 
 const StyledMiscControls = styled.div`
   margin: ${({ theme }) => theme.space[3]}px 0;
@@ -26,17 +26,17 @@ const StyledMiscControls = styled.div`
   }
 `;
 
-const MiscControls = () => {
+const MiscControls = ({ onCreateSnippet }) => {
   return (
     <StyledMiscControls>
       <div>
         <button type="button">
-          <NavLink to='/player-text'>
+          <NavLink to="/player-text">
             <Caption />
           </NavLink>
         </button>
-        <button type="button">
-          <Crop />
+        <button onClick={onCreateSnippet} type="button">
+          <Snippet />
         </button>
         <button type="button">
           <Plus height="28px" color="#363636" />

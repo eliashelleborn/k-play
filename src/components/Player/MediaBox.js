@@ -81,7 +81,7 @@ const drawerVariants = {
 };
 
 const MediaBox = forwardRef(
-  ({ playing, url, type, onReady, onProgress, open }, ref) => {
+  ({ playing, url, type, onReady, onProgress, open, onStart }, ref) => {
     const [drawerOpen, setDrawerOpen] = useState(true);
 
     return (
@@ -140,6 +140,7 @@ const MediaBox = forwardRef(
             }}
             onReady={onReady}
             onProgress={onProgress}
+            onStart={onStart}
           />
           {type === 'PODD' && (
             <img

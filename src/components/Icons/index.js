@@ -45,3 +45,4 @@ export { default as Sms } from './Sms';
 export { default as LinkedInShare } from './LinkedInShare';
 export { default as EmailShare } from './EmailShare';
 export { default as Copylink } from './Copylink';
+export { default as Snippet } from './Snippet';

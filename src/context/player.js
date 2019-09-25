@@ -10,6 +10,10 @@ export const PLAYER_EXPAND = 'PLAYER_EXPAND';
 export const PLAYER_TOGGLE_PLAYING = 'PLAYER_TOGGLE_PLAYING';
 export const PLAYER_SET_CURRENT_MEDIA = 'PLAYER_SET_CURRENT_MEDIA';
 export const PLAYER_CURRENT_TIME_UPDATE = 'PLAYER_CURRENT_TIME_UPDATE';
+export const PLAYER_NEXT = 'PLAYER_NEXT';
+export const PLAYER_PREVIOUS = 'PLAYER_PREVIOUS';
+export const PLAYER_SET_QUEUE = 'PLAYER_SET_QUEUE';
+export const PLAYER_SET_PREVIOUS = 'PLAYER_SET_PREVIOUS';
 
 const playerReducer = (state, action) => {
   switch (action.type) {
@@ -44,6 +48,30 @@ const playerReducer = (state, action) => {
         currentMedia: action.payload,
         playing: true
       };
+    case PLAYER_NEXT:
+      return {
+        ...state,
+        currentMedia: state.queue[0],
+        queue: state.queue.slice(1),
+        previous: [state.currentMedia, ...state.previous]
+      };
+    case PLAYER_PREVIOUS:
+      return {
+        ...state,
+        currentMedia: state.previous[0],
+        queue: [state.currentMedia, ...state.queue],
+        previous: state.previous.slice(1)
+      };
+    case PLAYER_SET_QUEUE:
+      return {
+        ...state,
+        queue: action.payload
+      };
+    case PLAYER_SET_PREVIOUS:
+      return {
+        ...state,
+        previous: action.payload
+      };
     default:
       throw new Error('Unexpected action');
   }
@@ -54,19 +82,13 @@ const PlayerProvider = ({ children }) => {
     open: false,
     minimized: false,
     playing: false,
-    currentMedia: {
-      url: 'https://www.youtube.com/watch?v=yGkn5KYk6sg',
-      duration: 1381,
-      type: 'VIDEO',
-      title: 'Test',
-      image:
-        'https://images.unsplash.com/photo-1569231175150-118ced11e66b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
-      description: 'Test description',
-      episode: '1/3',
-      createdAt: Date.now()
-    },
-    queue: []
+    currentMedia: null,
+    queue: [],
+    previous: []
   });
+
+  console.log(state.previous);
+  console.log(state.queue);
 
   return (
     <PlayerContext.Provider value={{ state, dispatch }}>

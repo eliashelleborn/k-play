@@ -7,7 +7,9 @@ import {
   usePlayer,
   PLAYER_OPEN,
   PLAYER_EXPAND,
-  PLAYER_TOGGLE_PLAYING
+  PLAYER_TOGGLE_PLAYING,
+  PLAYER_PREVIOUS,
+  PLAYER_NEXT
 } from '../../context/player';
 import { Flex, Box } from '../Util';
 import { Text } from '../Typography';
@@ -156,7 +158,10 @@ const MinimizedPlayer = React.forwardRef(
             </Info>
 
             <Controls>
-              <button onClick={() => {}} type="button">
+              <button
+                onClick={() => dispatch({ type: PLAYER_NEXT })}
+                type="button"
+              >
                 <Skip height="20px" color="#fff" />
               </button>
               <button
@@ -165,7 +170,10 @@ const MinimizedPlayer = React.forwardRef(
               >
                 {playing ? <Pause /> : <Play />}
               </button>
-              <button onClick={() => {}} type="button">
+              <button
+                onClick={() => dispatch({ type: PLAYER_PREVIOUS })}
+                type="button"
+              >
                 <Skip height="20px" color="#fff" forward />
               </button>
             </Controls>
