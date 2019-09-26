@@ -9,7 +9,8 @@ import {
   PLAYER_EXPAND,
   PLAYER_TOGGLE_PLAYING,
   PLAYER_PREVIOUS,
-  PLAYER_NEXT
+  PLAYER_NEXT,
+  PLAYER_CLOSE
 } from '../../context/player';
 import { Flex, Box } from '../Util';
 import { Text } from '../Typography';
@@ -25,6 +26,7 @@ const StyledMinimizedPlayer = styled(motion.div)`
     background-color: ${({ theme }) => theme.colors.grey};
   }
   z-index: 100;
+  pointer-events: none;
 `;
 
 const MediaPlayer = styled.div`
@@ -34,13 +36,13 @@ const MediaPlayer = styled.div`
   max-width: 420px;
   max-height: 240px;
   visibility: ${props => (props.mediaType === 'VIDEO' ? 'visible' : 'hidden')};
-  pointer-events: none;
 `;
 
 const Controls = styled.div`
   display: flex;
   height: 100%;
   align-items: center;
+  pointer-events: auto;
   button {
     height: 100%;
     display: flex;
@@ -61,6 +63,7 @@ const Info = styled.div`
   overflow: hidden;
   height: 100%;
   cursor: pointer;
+  pointer-events: auto;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
     max-width: 260px;
@@ -170,7 +173,11 @@ const MinimizedPlayer = React.forwardRef(
                 <Skip height="20px" color="#fff" />
               </button>
               <button
-                onClick={() => dispatch({ type: PLAYER_TOGGLE_PLAYING })}
+                onClick={() => {
+                  dispatch({ type: PLAYER_CLOSE });
+                  dispatch({ type: PLAYER_EXPAND });
+                  dispatch({ type: PLAYER_TOGGLE_PLAYING });
+                }}
                 type="button"
               >
                 {playing ? <Pause /> : <Play />}

@@ -31,6 +31,9 @@ const StyledPlayer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   z-index: 90;
+  align-items: center;
+
+  justify-content: center;
 
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
@@ -47,7 +50,7 @@ const ControlsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1;
+  width: 100%;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
     justify-content: flex-start;
@@ -58,31 +61,29 @@ const MediaWrapper = styled.div`
   width: 100%;
   height: 100%;
   max-width: 960px;
-  margin: auto;
+  max-height: 500px;
+
+  display: flex;
+  flex-direction: column;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
-    margin-top: 130px;
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 350px;
+    max-height: 300px;
   }
 
   > div:nth-child(1) {
     ${({ theme }) => theme.mediaQueries.desktop} {
       margin: 0;
-      padding: 24px;
-      margin-right: 24px;
-      width: 470px;
-      height: 350px;
+      flex: 1;
       box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.1);
     }
   }
 
   > div:nth-child(2) {
     ${({ theme }) => theme.mediaQueries.desktop} {
-      width: 470px;
-      height: 350px;
+      flex: 1;
       box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.1);
     }
   }
@@ -226,6 +227,7 @@ const Player = () => {
             playing={ready.main && ready.minimized && playing}
             onProgress={handleProgress}
             onReady={() => setReady({ ...ready, main: true })}
+            image={currentMedia.image}
           />
         </MediaWrapper>
         <ControlsContainer>

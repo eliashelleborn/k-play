@@ -8,13 +8,12 @@ import { Podcast, Video } from '../Icons';
 const StyledMediaBox = styled.div`
   width: 100%;
   flex: 1;
-  height: 100%;
   max-height: 300px;
   min-height: 220px;
-  position: ${props => (props.minimized ? 'absolute' : 'relative')};
+  position: relative;
 
   ${({ theme }) => theme.mediaQueries.large} {
-    min-height: 350px;
+    max-height: 100%;
   }
 
   > div {
@@ -32,6 +31,15 @@ const StyledMediaBox = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
+  }
+
+  @media screen and (orientation: landscape) and (max-width: 900px) {
+    height: 100%;
+    max-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 101;
   }
 `;
 
@@ -87,7 +95,7 @@ const drawerVariants = {
 };
 
 const MediaBox = forwardRef(
-  ({ playing, url, type, onReady, onProgress, open, onStart }, ref) => {
+  ({ playing, url, type, image, onReady, onProgress, open, onStart }, ref) => {
     const [drawerOpen, setDrawerOpen] = useState(true);
 
     return (
@@ -139,6 +147,7 @@ const MediaBox = forwardRef(
             url={url}
             playing={playing}
             muted={!open}
+            style={{ pointerEvents: 'none' }}
             config={{
               youtube: {
                 playerVars: { modestbranding: 1 }
@@ -148,12 +157,7 @@ const MediaBox = forwardRef(
             onProgress={onProgress}
             onStart={onStart}
           />
-          {type === 'PODD' && (
-            <img
-              src="https://images.unsplash.com/photo-1562887106-0ba63ac82e02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80"
-              alt=""
-            />
-          )}
+          {type === 'PODD' && <img src={image} alt="" />}
         </div>
       </StyledMediaBox>
     );

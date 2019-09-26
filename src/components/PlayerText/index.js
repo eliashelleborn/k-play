@@ -17,6 +17,12 @@ const TitleContent = styled.div`
     font-weight: 500;
     margin: 6px 0;
   }
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+  }
 `;
 
 const Subtitle = styled.p`
@@ -28,6 +34,7 @@ const Subtitle = styled.p`
 const Text = styled.p`
   font-size: 16px;
   line-height: 26px;
+  color: #363636;
 
   &:nth-child(3) {
     margin-bottom: 0px;
@@ -47,12 +54,18 @@ const ImageContainer = styled.div`
 `;
 
 const PlayerText = ({ title, subtitle, date, description, image, text }) => {
+  console.log(description);
+
   return (
     <StyledPlayerText>
       <TitleContent>
         <p>{title}</p>
-        <Plus color="#EC733F" width="24" />
-        <More />
+        <button type="button">
+          <Plus color="#EC733F" width="24" />
+        </button>
+        <button type="button">
+          <More />
+        </button>
       </TitleContent>
 
       <Subtitle>{subtitle}</Subtitle>
