@@ -12,6 +12,7 @@ export const Item = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #f3f3f3;
+  cursor: pointer;
 
   button {
     height: 100%;

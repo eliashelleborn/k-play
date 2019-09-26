@@ -22,6 +22,7 @@ const Item = styled.button`
   padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
   background: none;
   border: none;
+  cursor: pointer;
 `;
 
 const Background = styled.div`

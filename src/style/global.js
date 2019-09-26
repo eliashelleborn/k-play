@@ -33,6 +33,7 @@ const Global = createGlobalStyle`
     background: none;
     outline: 0;
     -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
   }
 
 `;

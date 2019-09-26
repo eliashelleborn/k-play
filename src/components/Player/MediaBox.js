@@ -8,6 +8,7 @@ import { Podcast, Video } from '../Icons';
 const StyledMediaBox = styled.div`
   width: 100%;
   flex: 1;
+  height: 100%;
   max-height: 300px;
   min-height: 220px;
   position: ${props => (props.minimized ? 'absolute' : 'relative')};
