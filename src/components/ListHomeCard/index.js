@@ -14,7 +14,7 @@ const StyledHomeCard = styled.div`
     margin: 18px 12px 8px;
 
     &:first-child {
-      margin-left: 56px;
+      margin-left: 64px;
     }
   }
 

@@ -18,6 +18,10 @@ const StyledNavigation = styled.nav`
   position: fixed;
   width: 100%;
 
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    padding: 0 64px;
+  }
+
   > div {
     width: 100%;
     display: flex;
@@ -31,12 +35,30 @@ const StyledNavigation = styled.nav`
     width: 33%;
   }
 
+  > div div:nth-child(1) {
+    ${({ theme }) => theme.mediaQueries.desktop} {
+      display: none;
+    }
+  }
+
   > div div:nth-child(2) {
     justify-content: center;
+
+    ${({ theme }) => theme.mediaQueries.desktop} {
+      justify-content: flex-start;
+    }
   }
 
   > div div:nth-child(3) {
     justify-content: center;
+
+    ${({ theme }) => theme.mediaQueries.desktop} {
+      width: 260px;
+      background-color: #f3f3f3;
+      justify-content: flex-end;
+      padding: 6px 10px;
+      border-radius: 3px;
+    }
   }
 `;
 
@@ -53,6 +75,11 @@ const StyledHamburger = styled(Hamburger)`
   z-index: 200;
   transition: 0.3s;
   position: fixed;
+  display: initial;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    display: none;
+  }
 `;
 
 const Back = styled.div`
@@ -60,6 +87,15 @@ const Back = styled.div`
   background: none;
   cursor: pointer;
 `;
+
+const DesktopMenu = styled.div`
+  display: none;
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    display: initial;
+  }
+  padding-bottom: 65px;
+`;
+
 
 const Navigation = () => {
   const { location, history } = useRouter();
@@ -136,6 +172,10 @@ const Navigation = () => {
   return (
     <div>
       {showMenu && <Menu close={() => setShowMenu(false)} />}
+      <DesktopMenu>
+      <Menu />
+      </DesktopMenu>
+
       <StyledNavigation>
         <div>
           <div>

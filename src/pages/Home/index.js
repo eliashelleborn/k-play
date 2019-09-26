@@ -33,7 +33,7 @@ const StyledBanner = styled(Banner)`
   }
 
   ${({ theme }) => theme.mediaQueries.desktop} {
-    height: calc(100vh - 65px);
+    height: 600px;
   }
 `;
 
@@ -98,7 +98,7 @@ const Category = styled.p`
   font-weight: 500;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
-    margin: 48px 0 0 56px;
+    margin: 48px 0 0 64px;
   }
 `;
 
@@ -246,9 +246,9 @@ const Home = () => {
               lineHeight="32px"
             >
             {authUser ? (
-              'Välkommen tillbaka Karin'
+              'Välkommen tillbaka Josefine'
             ) : (
-              'Podd- och webcasts om scenkonst, media och musik'
+              'Podd- och webbcasts om scenkonst, media och musik'
             )}
 
             </Text>

@@ -39,7 +39,6 @@ const Image = styled.div`
   width: 100%;
   padding-bottom: 20px;
   position: relative;
-  margin-bottom: 16px;
   img {
     width: 100%;
     height: 270px;
@@ -60,7 +59,10 @@ const Close = styled.button`
   -webkit-tap-highlight-color: transparent;
   margin-top: auto;
   padding: ${({ theme }) => theme.space[3]}px 0;
-  padding-right: 70px;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    padding-right: 70px;
+  }
 `;
 
 const ContentType = styled.div`
