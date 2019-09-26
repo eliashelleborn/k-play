@@ -9,6 +9,10 @@ const StyledFooter = styled.div`
   align-items: center;
   margin: 0 ${({ theme }) => theme.space[3]}px;
 
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    display: none;
+  }
+
   button {
     padding: ${({ theme }) => theme.space[3]}px 0;
     display: flex;

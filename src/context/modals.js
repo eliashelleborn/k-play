@@ -6,7 +6,7 @@ const ModalsContext = React.createContext();
 const initialModals = {
   addToList: false,
   playlistActions: false,
-  share: true,
+  share: false,
   trackActions: false,
   createPlaylist: false,
   login: false

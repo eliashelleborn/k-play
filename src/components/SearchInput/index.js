@@ -12,7 +12,7 @@ const StyledSearchInput = styled.div`
 
   ${({ theme }) => theme.mediaQueries.large} {
     width: 422px;
-    margin: 42px 0 80px 64px;
+    margin: 42px 0 40px 48px;
   }
 
   input {
@@ -65,7 +65,7 @@ const DesktopSearchText = styled.div`
     > p {
       font-size: 56px;
       font-weight: 600;
-      margin: 48px 0 0 64px;
+      margin: 48px 0 0 48px;
     }
   }
 `;
@@ -79,29 +79,29 @@ const SearchInput = ({
 }) => {
   return (
     <div>
-    <DesktopSearchText>
-      <p> Sök </p>
-    </DesktopSearchText>
-    <StyledSearchInput>
-      {category && (
-        <Category>
-          <div>
-            {category}
-            <button type="button" onClick={removeCategory}>
-              <Close />
-            </button>
-          </div>
-        </Category>
-      )}
+      <DesktopSearchText>
+        <p> Sök </p>
+      </DesktopSearchText>
+      <StyledSearchInput>
+        {category && (
+          <Category>
+            <div>
+              {category}
+              <button type="button" onClick={removeCategory}>
+                <Close />
+              </button>
+            </div>
+          </Category>
+        )}
 
-      <input type="text" value={value} onChange={onChange} />
-      <button type="button">
-        <Search />
-      </button>
-      <button type="button" onClick={openSort}>
-        <Filter />
-      </button>
-    </StyledSearchInput>
+        <input type="text" value={value} onChange={onChange} />
+        <button type="button">
+          <Search />
+        </button>
+        <button type="button" onClick={openSort}>
+          <Filter />
+        </button>
+      </StyledSearchInput>
     </div>
   );
 };

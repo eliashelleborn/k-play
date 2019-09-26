@@ -19,6 +19,34 @@ import useRouter from '../../hooks/useRouter';
 
 const StyledBox = styled(Box)`
   background-color: white;
+  max-width: 343px;
+  margin: auto;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    padding: 0px 100px 50px;
+    max-width: 543px;
+    margin: auto;
+  }
+`;
+
+const StyledHeading = styled(Heading)`
+  max-width: 343px;
+  margin: 20px auto;
+  ${({ theme }) => theme.mediaQueries.medium} {
+    margin: 0 auto 40px;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  max-width: 343px;
+  margin: auto;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    background-color: white;
+    max-width: 543px;
+    padding: 50px 100px 20px;
+    margin: auto;
+  }
 `;
 
 const Login = () => {
@@ -45,30 +73,32 @@ const Login = () => {
 
   return (
     <div>
-      <Heading as="h2" fontWeight="500">
-        Logga in
-      </Heading>
-      <Button
-        icon={<Facebook />}
-        color="white"
-        bg="#2553B4"
-        fontSize="14px"
-        mb="3"
-      >
-        Sign in with Facebook
-      </Button>
-      <Button
-        icon={<Google />}
-        color="rgba(0, 0, 0, 0.54)"
-        bg="white"
-        fontSize="14px"
-        mb="3"
-      >
-        Sign in with Google
-      </Button>
-      <Button icon={<LinkedIn />} color="white" bg="#0077B5" fontSize="14px">
-        Sign in with LinkedIn
-      </Button>
+      <ButtonWrapper>
+        <StyledHeading as="h2" fontWeight="500">
+          Logga in
+        </StyledHeading>
+        <Button
+          icon={<Facebook />}
+          color="white"
+          bg="#2553B4"
+          fontSize="14px"
+          mb="3"
+        >
+          Sign in with Facebook
+        </Button>
+        <Button
+          icon={<Google />}
+          color="rgba(0, 0, 0, 0.54)"
+          bg="white"
+          fontSize="14px"
+          mb="3"
+        >
+          Sign in with Google
+        </Button>
+        <Button icon={<LinkedIn />} color="white" bg="#0077B5" fontSize="14px">
+          Sign in with LinkedIn
+        </Button>
+      </ButtonWrapper>
 
       <StyledBox mt="5">
         <form onSubmit={signIn}>

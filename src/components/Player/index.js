@@ -35,6 +35,11 @@ const StyledPlayer = styled(motion.div)`
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
   opacity: 0;
   transition: visibility 0.3s linear;
+
+  ${({ theme }) => theme.mediaQueries.large} {
+    padding: 0px 100px;
+    margin: auto;
+  }
 `;
 
 const ControlsContainer = styled.div`
@@ -42,6 +47,75 @@ const ControlsContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    justify-content: flex-start;
+  }
+`;
+
+const MediaWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  max-width: 960px;
+  margin: auto;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    margin-top: 130px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 350px;
+  }
+
+  > div:nth-child(1) {
+    ${({ theme }) => theme.mediaQueries.desktop} {
+      margin: 0;
+      padding: 24px;
+      margin-right: 24px;
+      width: 470px;
+      height: 350px;
+      box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.1);
+    }
+  }
+
+  > div:nth-child(2) {
+    ${({ theme }) => theme.mediaQueries.desktop} {
+      width: 470px;
+      height: 350px;
+      box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.1);
+    }
+  }
+`;
+
+const DesktopControls = styled.div`
+  width: 100%;
+  height: 100%;
+  max-width: 960px;
+  margin: auto;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: 50px;
+  }
+
+  > div:nth-child(1) {
+    ${({ theme }) => theme.mediaQueries.desktop} {
+      width: 460px;
+      padding: 0;
+    }
+  }
+
+  > div:nth-child(2) {
+    ${({ theme }) => theme.mediaQueries.desktop} {
+      width: 460px;
+      padding: 0;
+      margin-right: 44px;
+    }
+  }
 `;
 
 const Player = () => {
@@ -128,38 +202,41 @@ const Player = () => {
   return (
     <>
       <StyledPlayer animate={anim} open={open && !minimized}>
-        <Box px="3" my="3">
-          <Heading fontSize="24px" fontWeight="400" m="0" mb="3">
-            {currentMedia.title}
-          </Heading>
-          <Text fontSize="12px" m="0" mb="1" color="#AEAEAE">
-            Inspelad {currentMedia.createdAt}
-          </Text>
-          <Text fontSize="12px" m="0" color="#AEAEAE">
-            I samarbete med Teaterförbundets dansavd.
-          </Text>
-        </Box>
+        <MediaWrapper>
+          <Box px="3" my="3">
+            <Heading fontSize="24px" fontWeight="400" m="0" mb="3">
+              {currentMedia.title}
+            </Heading>
+            <Text fontSize="12px" m="0" mb="1" color="#AEAEAE">
+              Inspelad {currentMedia.createdAt}
+            </Text>
+            <Text fontSize="12px" m="0" color="#AEAEAE">
+              I samarbete med Teaterförbundets dansavd.
+            </Text>
+          </Box>
 
-        <MediaBox
-          onStart={handleStart}
-          minimized={minimized}
-          open={open}
-          ref={playerRef}
-          url={currentMedia.url}
-          type={currentMedia.type}
-          playing={ready.main && ready.minimized && playing}
-          onProgress={handleProgress}
-          onReady={() => setReady({ ...ready, main: true })}
-        />
-
-        <ControlsContainer>
-          <MiscControls onCreateSnippet={snippetModal.toggle} />
-          <Progress
-            snippet={currentMedia.snippet}
-            duration={currentMedia.duration}
-            current={currentTime}
-            onChange={handleSliderInteraction}
+          <MediaBox
+            onStart={handleStart}
+            minimized={minimized}
+            open={open}
+            ref={playerRef}
+            url={currentMedia.url}
+            type={currentMedia.type}
+            playing={ready.main && ready.minimized && playing}
+            onProgress={handleProgress}
+            onReady={() => setReady({ ...ready, main: true })}
           />
+        </MediaWrapper>
+        <ControlsContainer>
+          <DesktopControls>
+            <MiscControls onCreateSnippet={snippetModal.toggle} />
+            <Progress
+              snippet={currentMedia.snippet}
+              duration={currentMedia.duration}
+              current={currentTime}
+              onChange={handleSliderInteraction}
+            />
+          </DesktopControls>
           <Controls
             next={() => dispatch({ type: PLAYER_NEXT })}
             previous={() => dispatch({ type: PLAYER_PREVIOUS })}

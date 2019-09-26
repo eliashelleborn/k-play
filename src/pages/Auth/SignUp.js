@@ -18,7 +18,41 @@ import firebase from '../../firebase';
 import useRouter from '../../hooks/useRouter';
 
 const StyledBox = styled(Box)`
+  max-width: 343px;
+  margin: auto;
   background-color: white;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    max-width: 543px;
+    padding: 0px 100px 50px;
+  }
+`;
+
+const StyledHeading = styled(Heading)`
+  max-width: 343px;
+  margin: 20px auto;
+  ${({ theme }) => theme.mediaQueries.medium} {
+    margin: 40px auto;
+  }
+`;
+
+const StyledButton = styled(Button)`
+  ${({ theme }) => theme.mediaQueries.medium} {
+    max-width: 343px;
+    margin: 16px auto;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  max-width: 343px;
+  margin: auto;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    background-color: white;
+    max-width: 543px;
+    padding: 50px 100px 20px;
+    margin: auto;
+  }
 `;
 
 const SignUp = () => {
@@ -45,30 +79,37 @@ const SignUp = () => {
 
   return (
     <div>
-      <Heading as="h2" fontWeight="500">
-        Skapa konto
-      </Heading>
-      <Button
-        icon={<Facebook />}
-        color="white"
-        bg="#2553B4"
-        fontSize="14px"
-        mb="3"
-      >
-        Sign in with Facebook
-      </Button>
-      <Button
-        icon={<Google />}
-        color="rgba(0, 0, 0, 0.54)"
-        bg="white"
-        fontSize="14px"
-        mb="3"
-      >
-        Sign in with Google
-      </Button>
-      <Button icon={<LinkedIn />} color="white" bg="#0077B5" fontSize="14px">
-        Sign in with LinkedIn
-      </Button>
+      <ButtonWrapper>
+        <StyledHeading as="h2" fontWeight="500">
+          Skapa konto
+        </StyledHeading>
+        <StyledButton
+          icon={<Facebook />}
+          color="white"
+          bg="#2553B4"
+          fontSize="14px"
+          mb="3"
+        >
+          Sign in with Facebook
+        </StyledButton>
+        <StyledButton
+          icon={<Google />}
+          color="rgba(0, 0, 0, 0.54)"
+          bg="white"
+          fontSize="14px"
+          mb="3"
+        >
+          Sign in with Google
+        </StyledButton>
+        <StyledButton
+          icon={<LinkedIn />}
+          color="white"
+          bg="#0077B5"
+          fontSize="14px"
+        >
+          Sign in with LinkedIn
+        </StyledButton>
+      </ButtonWrapper>
 
       <StyledBox mt="5">
         <form onSubmit={signIn}>

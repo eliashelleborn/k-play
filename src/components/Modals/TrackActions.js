@@ -13,13 +13,32 @@ const StyledTrackActions = styled.div`
   flex-direction: column;
   position: relative;
   padding: ${({ theme }) => theme.space[3]}px;
+
+   ${({ theme }) => theme.mediaQueries.medium} {
+     display: flex;
+     flex-direction: column;
+     width: 600px;
+     padding-left: 100px;
+     height: 800px;
+
+     > div, h3, p {
+       width: 345px;
+       margin: auto;
+       margin-left: 24px;
+     }
+   }
+
+  > div {
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Image = styled.div`
   width: 100%;
   padding-bottom: 20px;
   position: relative;
-  margin-bottom: 16px;
   img {
     width: 100%;
     height: 270px;
@@ -40,6 +59,10 @@ const Close = styled.button`
   -webkit-tap-highlight-color: transparent;
   margin-top: auto;
   padding: ${({ theme }) => theme.space[3]}px 0;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    padding-right: 70px;
+  }
 `;
 
 const ContentType = styled.div`
@@ -54,6 +77,7 @@ const ContentType = styled.div`
   margin-right: 16px;
   z-index: 100;
   border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 `;
 
 const TrackActions = ({ trackInfo, hide }) => {
@@ -61,13 +85,13 @@ const TrackActions = ({ trackInfo, hide }) => {
 
   return (
     <StyledTrackActions>
-      <ContentType>
-        {trackInfo.contentType === 'podcast' ? <Podcast /> : <Video />}
-      </ContentType>
-
       <Image>
+        <ContentType>
+          {trackInfo.contentType === 'podcast' ? <Podcast /> : <Video />}
+        </ContentType>
         <img src={trackInfo.image} alt="" />
       </Image>
+
       <Heading as="h3" fontWeight="500" m="0">
         {trackInfo.title}
       </Heading>

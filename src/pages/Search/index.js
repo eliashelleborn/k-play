@@ -33,6 +33,40 @@ const StyledGrid = styled(Grid)`
     grid-gap: 24px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 100%;
+    padding: 8px 64px 48px;
+  }
+`;
+
+const StyledHeading = styled(Heading)`
+  ${({ theme }) => theme.mediaQueries.large} {
+    margin: 0 64px 0;
+  }
+`;
+
+const StyledBox = styled(Box)`
+  ${({ theme }) => theme.mediaQueries.large} {
+    padding: 0;
+  }
+`;
+
+/* const StyledListCard = styled(ListCard)`
+  ${({ theme }) => theme.mediaQueries.large} {
+    margin: 48px;
+  }
+`; */
+
+const DesktopTrack = styled.div`
+  > div div div svg,
+  div div div:nth-child(1) {
+    cursor: pointer;
+  }
+  ${({ theme }) => theme.mediaQueries.large} {
+    margin-left: 48px;
+    max-width: 810px;
+
+    > div div p {
+      text-align: left;
+    }
   }
 `;
 
@@ -79,7 +113,7 @@ const Search = () => {
         <MediaFilter current={typeFilter} setCurrent={setTypeFilter} />
       </Box>
 
-      <Box mt="2" position="relative" minHeight="200px">
+      <Box mt="2" position="relative" minHeight="140px">
         <LoadingOverlay
           show={
             (searchLoading && (selectedCategory || input !== '')) ||
@@ -89,17 +123,19 @@ const Search = () => {
           <Loading color="#363636" />
         </LoadingOverlay>
         {selectedCategory || input !== '' ? (
-          <Box>
-            {media.length > 0
-              ? media.map(m => <Track key={m.id} track={m} />)
-              : !searchLoading && (
-                  <Box px="3" pt="5">
-                    <Text textAlign="center" m="0">
-                      0 resultat
-                    </Text>
-                  </Box>
-                )}
-          </Box>
+          <DesktopTrack>
+            <Box>
+              {media.length > 0
+                ? media.map(m => <Track key={m.id} track={m} />)
+                : !searchLoading && (
+                    <Box px="3" pt="5">
+                      <Text textAlign="center" m="0">
+                        0 resultat
+                      </Text>
+                    </Box>
+                  )}
+            </Box>
+          </DesktopTrack>
         ) : (
           <StyledGrid px="3" gridGap="2" gridTemplateColumns="1fr 1fr">
             {categories &&
@@ -115,11 +151,11 @@ const Search = () => {
         )}
       </Box>
       {selectedCategory && otherCategories.length > 0 && (
-        <Box mt="5" px="3">
-          <Heading as="h2" fontWeight="500" m="0">
+        <StyledBox mt="5" px="3">
+          <StyledHeading as="h2" fontWeight="500" m="0">
             Utforska fler kategorier
-          </Heading>
-          <Grid mt="3" gridGap="2" gridTemplateColumns="1fr 1fr">
+          </StyledHeading>
+          <StyledGrid mt="3" gridGap="2" gridTemplateColumns="1fr 1fr">
             {otherCategories.map(c => (
               <ListCard
                 key={c.id}
@@ -128,8 +164,8 @@ const Search = () => {
                 image={c.image}
               />
             ))}
-          </Grid>
-        </Box>
+          </StyledGrid>
+        </StyledBox>
       )}
     </>
   );

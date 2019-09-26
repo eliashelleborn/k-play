@@ -6,6 +6,12 @@ const StyledMediaFilter = styled.div`
   display: flex;
   justify-content: space-around;
 
+  ${({ theme }) => theme.mediaQueries.large} {
+    max-width: 470px;
+    margin-left: 8px;
+    margin-bottom: 24px;
+  }
+
   button {
     font-size: 20px;
     padding: ${({ theme }) => theme.space[3]}px;
@@ -17,6 +23,10 @@ const StyledMediaFilter = styled.div`
 
     p {
       margin: 0;
+
+      ${({ theme }) => theme.mediaQueries.large} {
+        font-size: 36px;
+      }
     }
   }
 `;

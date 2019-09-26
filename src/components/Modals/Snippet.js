@@ -8,6 +8,11 @@ const StyledSnippet = styled.div`
   width: 100%;
   background-color: #fff;
   position: relative;
+  max-width: 560px;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    min-height: 290px;
+  }
 `;
 
 const Header = styled.div`

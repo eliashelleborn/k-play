@@ -18,9 +18,27 @@ const StyledAddToList = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.space[3]}px;
 
+  ${({ theme }) => theme.mediaQueries.medium} {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 800px;
+
   > div div button {
     border: none;
     background-color: transparent;
+  }
+
+  > div, a {
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    ${({ theme }) => theme.mediaQueries.medium} {
+      width: 345px;
+      margin: 20px auto;
+    }
   }
 `;
 
@@ -32,6 +50,11 @@ const Info = styled.div`
     width: 20vw;
     height: 20vw;
     margin-right: ${({ theme }) => theme.space[3]}px;
+
+    ${({ theme }) => theme.mediaQueries.medium} {
+      width: 180px;
+      height: 180px;
+    }
   }
 
   > div {
