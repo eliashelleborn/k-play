@@ -20,7 +20,6 @@ const StyledMiscControls = styled.div`
       border-right: 1px solid #f3f3f3;
       padding: 8px 0;
       font-size: 12px;
-
       svg,
       a {
         flex: 1;
@@ -28,17 +27,14 @@ const StyledMiscControls = styled.div`
         align-items: center;
         margin-bottom: 3px;
       }
-
       ${({ theme }) => theme.mediaQueries.desktop} {
         padding: 0;
       }
-
       &:last-child {
         border-right: none;
       }
       &:first-child {
         display: none;
-
         ${({ theme }) => theme.mediaQueries.desktop} {
           display: initial;
         }

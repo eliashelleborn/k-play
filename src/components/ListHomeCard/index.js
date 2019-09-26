@@ -33,9 +33,11 @@ const StyledHomeCard = styled.div`
   > p {
     margin: -2px 16px;
     font-size: 12px;
-
+    overflow: hidden;
+    max-height: 14px;
     ${({ theme }) => theme.mediaQueries.desktop} {
       font-size: 14px;
+      max-height: 16px;
     }
   }
 `;
@@ -54,11 +56,16 @@ const TitleContent = styled.div`
   > p {
     font-size: 16px;
     font-weight: 500;
-    margin: 8px 0;
+    margin: 12px 0 8px;
     letter-spacing: 0.5px;
+    max-height: 20px;
+    overflow: hidden;
+    max-width: 250px;
 
     ${({ theme }) => theme.mediaQueries.desktop} {
       font-size: 24px;
+      max-height: 30px;
+      max-width: 360px;
     }
   }
 
@@ -90,13 +97,19 @@ const Tint = styled.div`
 `;
 
 const Description = styled.div`
-  margin: 0 16px;
+  margin: 0 16px 8px;
+  max-height: 55px;
+  overflow: hidden;
 
+  ${({ theme }) => theme.mediaQueries.desktop} {
+      max-height: 52px;
+  }
   > p {
     ${({ theme }) => theme.mediaQueries.desktop} {
       font-size: 16px;
-      max-width: 300px;
+      max-width: 350px;
       margin-bottom: 8px;
+      max-height: 49px;
     }
   }
 `;
@@ -165,7 +178,7 @@ const ListHomeCard = ({
   episodes,
   play
 }) => {
-  const CategoryIcon = contentType === 'video' ? <Podcast /> : <Video />;
+  const CategoryIcon = contentType === 'PODD' ? <Podcast /> : <Video />;
 
   return (
     <StyledHomeCard>

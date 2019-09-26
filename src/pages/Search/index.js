@@ -29,6 +29,7 @@ const LoadingOverlay = styled.div`
 `;
 
 const StyledGrid = styled(Grid)`
+padding-bottom: 16px;
   ${({ theme }) => theme.mediaQueries.large} {
     grid-gap: 24px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -48,12 +49,6 @@ const StyledBox = styled(Box)`
     padding: 0;
   }
 `;
-
-/* const StyledListCard = styled(ListCard)`
-  ${({ theme }) => theme.mediaQueries.large} {
-    margin: 48px;
-  }
-`; */
 
 const DesktopTrack = styled.div`
   > div div div svg,
