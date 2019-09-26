@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Heading, Text } from '../../components/Typography';
@@ -20,7 +20,6 @@ import useRouter from '../../hooks/useRouter';
 const StyledBox = styled(Box)`
   max-width: 343px;
   margin: auto;
-  background-color: white;
 
   ${({ theme }) => theme.mediaQueries.medium} {
     max-width: 543px;
@@ -76,6 +75,10 @@ const SignUp = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (error) console.log(`Sign Up Error: ${error}`);
+  }, [error]);
 
   return (
     <div>
@@ -143,7 +146,6 @@ const SignUp = () => {
               Logga in
             </Link>
           </Text>
-          {error && <p>{error.message}</p>}
         </form>
       </StyledBox>
     </div>

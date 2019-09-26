@@ -47,7 +47,13 @@ const StyledMiscControls = styled.div`
   }
 `;
 
-const MiscControls = ({ onCreateSnippet }) => {
+const MiscControls = ({
+  onCreateSnippet,
+  mediaId,
+  hide,
+  onAddToList,
+  onMore
+}) => {
   return (
     <StyledMiscControls>
       <div>
@@ -55,7 +61,7 @@ const MiscControls = ({ onCreateSnippet }) => {
           <Share />
         </button>
         <button type="button">
-          <NavLink to="/player-text">
+          <NavLink onClick={hide} to={`/media/${mediaId}`}>
             <Caption />
           </NavLink>
           <span>Läs mer</span>
@@ -64,11 +70,11 @@ const MiscControls = ({ onCreateSnippet }) => {
           <Snippet />
           <span>Spara stycke</span>
         </button>
-        <button type="button">
+        <button onClick={onAddToList} type="button">
           <Plus height="28px" color="#363636" />
           <span>Lägg till</span>
         </button>
-        <button type="button">
+        <button onClick={onMore} type="button">
           <More />
           <span>Mer</span>
         </button>

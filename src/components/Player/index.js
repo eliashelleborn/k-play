@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAnimation, motion } from 'framer-motion';
+import Div100vh from 'react-div-100vh';
 import { Heading, Text } from '../Typography';
 import { Box } from '../Util';
 import MediaBox from './MediaBox';
@@ -12,7 +13,8 @@ import {
   usePlayer,
   PLAYER_TOGGLE_PLAYING,
   PLAYER_NEXT,
-  PLAYER_PREVIOUS
+  PLAYER_PREVIOUS,
+  PLAYER_MINIMIZE
 } from '../../context/player';
 import MinimizedPlayer from '../MinimizedPlayer';
 import Modal from '../Modals';
@@ -24,12 +26,15 @@ const StyledPlayer = styled(motion.div)`
   position: fixed;
   bottom: 0;
   left: 0;
-  height: calc(100vh - 65px);
+  height: calc(100% - 65px);
   width: 100%;
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  z-index: 90;
+  z-index: 75;
+  align-items: center;
+
+  justify-content: center;
 
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
@@ -46,7 +51,7 @@ const ControlsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1;
+  width: 100%;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
     justify-content: flex-start;
@@ -57,31 +62,30 @@ const MediaWrapper = styled.div`
   width: 100%;
   height: 100%;
   max-width: 960px;
-  margin: auto;
+  max-height: 500px;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
-    margin-top: 130px;
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 350px;
+    max-height: 300px;
   }
 
   > div:nth-child(1) {
     ${({ theme }) => theme.mediaQueries.desktop} {
       margin: 0;
-      padding: 24px;
-      margin-right: 24px;
-      width: 470px;
-      height: 350px;
+      flex: 1;
       box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.1);
     }
   }
 
   > div:nth-child(2) {
     ${({ theme }) => theme.mediaQueries.desktop} {
-      width: 470px;
-      height: 350px;
+      flex: 1;
       box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.1);
     }
   }
@@ -136,6 +140,8 @@ const Player = () => {
   const anim = useAnimation();
 
   const handleStart = () => {
+    console.log('start');
+
     setCurrentTime(currentMedia.snippet ? currentMedia.snippet.start : 0);
     playerRef.current.seekTo(
       currentMedia.snippet ? currentMedia.snippet.start : 0,
@@ -146,6 +152,20 @@ const Player = () => {
       'seconds'
     );
   };
+
+  useEffect(() => {
+    if (playing) {
+      if (currentMedia.snippet) {
+        if (currentTime >= currentMedia.snippet.end) {
+          if (queue.length > 0) {
+            dispatch({ type: PLAYER_NEXT });
+          } else {
+            dispatch({ type: PLAYER_TOGGLE_PLAYING });
+          }
+        }
+      }
+    }
+  }, [currentTime]);
 
   useEffect(() => {
     if (currentMedia) {
@@ -200,7 +220,7 @@ const Player = () => {
   if (!currentMedia) return null;
 
   return (
-    <>
+    <Div100vh>
       <StyledPlayer animate={anim} open={open && !minimized}>
         <MediaWrapper>
           <Box px="3" my="3">
@@ -216,20 +236,41 @@ const Player = () => {
           </Box>
 
           <MediaBox
+            onPause={() => {
+              if (playing) {
+                dispatch({ type: PLAYER_TOGGLE_PLAYING });
+              }
+            }}
             onStart={handleStart}
             minimized={minimized}
             open={open}
             ref={playerRef}
+            description={currentMedia.description || currentMedia.subtitle}
             url={currentMedia.url}
             type={currentMedia.type}
             playing={ready.main && ready.minimized && playing}
             onProgress={handleProgress}
-            onReady={() => setReady({ ...ready, main: true })}
+            onReady={() => {
+              setReady({ ...ready, main: true });
+            }}
+            image={currentMedia.image}
           />
         </MediaWrapper>
         <ControlsContainer>
           <DesktopControls>
-            <MiscControls onCreateSnippet={snippetModal.toggle} />
+            <MiscControls
+              hide={() => dispatch({ type: PLAYER_MINIMIZE })}
+              mediaId={currentMedia.id}
+              onCreateSnippet={snippetModal.toggle}
+              onAddToList={() => {
+                appModals.setContent(currentMedia);
+                appModals.toggleOpen('addToList');
+              }}
+              onMore={() => {
+                appModals.setContent(currentMedia);
+                appModals.toggleOpen('trackActions');
+              }}
+            />
             <Progress
               snippet={currentMedia.snippet}
               duration={currentMedia.duration}
@@ -277,7 +318,7 @@ const Player = () => {
           }}
         />
       </Modal>
-    </>
+    </Div100vh>
   );
 };
 

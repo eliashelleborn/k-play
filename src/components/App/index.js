@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import AppProvider from '../../context';
 import Navigation from '../Navigation';
 import Home from '../../pages/Home';
-import Play from '../../pages/Play';
 import Search from '../../pages/Search';
 import AuthPage from '../../pages/Auth';
 import Error from '../../pages/Error';
@@ -20,6 +19,7 @@ import { useAuth } from '../../context/auth';
 import Loading from '../Loading';
 import CustomRouter from '../CustomRouter';
 import Modals from './Modals';
+import Media from '../../pages/Media';
 
 const Background = styled.img`
   position: fixed;
@@ -62,7 +62,7 @@ const Layout = () => {
         {!authLoading && (
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/spela-upp" component={Play} />
+            <Route path="/media/:id" component={Media} />
             <Route path="/sök" component={Search} />
             <Route path="/auth" component={AuthPage} />
             <Route path="/mina-listor" component={MyPlaylists} />

@@ -21,7 +21,7 @@ const StyledMenu = styled.div`
   top: 0;
   background-color: ${({ theme }) => theme.colors.grey};
   position: fixed;
-  z-index: 110;
+  z-index: 85;
   width: 100%;
   height: 100vh;
   /* transition: 0.3s; */

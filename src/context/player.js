@@ -87,9 +87,6 @@ const PlayerProvider = ({ children }) => {
     previous: []
   });
 
-  console.log(state.previous);
-  console.log(state.queue);
-
   return (
     <PlayerContext.Provider value={{ state, dispatch }}>
       {children}
