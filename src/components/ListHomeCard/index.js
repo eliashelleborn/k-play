@@ -73,6 +73,7 @@ const TitleContent = styled.div`
 const Tint = styled.div`
   background-color: rgba(4, 4, 4, 0.3);
   height: 92px;
+  cursor: pointer;
 
   > svg {
     position: relative;

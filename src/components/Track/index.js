@@ -24,6 +24,7 @@ const Cover = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  cursor: pointer;
 
   ${({ theme }) => theme.mediaQueries.large} {
     width: 125px;
@@ -85,6 +86,7 @@ const More = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   ${({ theme }) => theme.mediaQueries.large} {
     background-color: #f3f3f3;

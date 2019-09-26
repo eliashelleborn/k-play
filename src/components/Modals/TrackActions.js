@@ -52,7 +52,6 @@ export const Image = styled.div`
 const Item = styled(BaseItem)`
   justify-content: flex-start;
   padding: ${({ theme }) => theme.space[4]}px 0;
-  cursor: pointer;
 `;
 
 const Close = styled.button`

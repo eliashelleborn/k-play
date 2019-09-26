@@ -49,6 +49,7 @@ const Controls = styled.div`
     background: none;
     outline: none;
     -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
   }
 `;
 
@@ -59,6 +60,7 @@ const Info = styled.div`
   min-width: 0;
   overflow: hidden;
   height: 100%;
+  cursor: pointer;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
     max-width: 260px;

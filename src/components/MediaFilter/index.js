@@ -17,7 +17,6 @@ const StyledMediaFilter = styled.div`
     padding: ${({ theme }) => theme.space[3]}px;
     outline: 0;
     -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
     background: none;
     border: none;
 

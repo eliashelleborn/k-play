@@ -16,7 +16,6 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: ${props => (props.icon ? 'flex-start' : 'center')};
-  cursor: pointer;
   padding-right: ${({ theme }) => theme.space[3]}px;
   padding-left: ${({ theme }) => theme.space[3]}px;
   text-decoration: none;
