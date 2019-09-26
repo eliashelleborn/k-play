@@ -140,6 +140,8 @@ const Player = () => {
   const anim = useAnimation();
 
   const handleStart = () => {
+    console.log('start');
+
     setCurrentTime(currentMedia.snippet ? currentMedia.snippet.start : 0);
     playerRef.current.seekTo(
       currentMedia.snippet ? currentMedia.snippet.start : 0,
@@ -150,6 +152,20 @@ const Player = () => {
       'seconds'
     );
   };
+
+  useEffect(() => {
+    if (playing) {
+      if (currentMedia.snippet) {
+        if (currentTime >= currentMedia.snippet.end) {
+          if (queue.length > 0) {
+            dispatch({ type: PLAYER_NEXT });
+          } else {
+            dispatch({ type: PLAYER_TOGGLE_PLAYING });
+          }
+        }
+      }
+    }
+  }, [currentTime]);
 
   useEffect(() => {
     if (currentMedia) {
@@ -220,6 +236,11 @@ const Player = () => {
           </Box>
 
           <MediaBox
+            onPause={() => {
+              if (playing) {
+                dispatch({ type: PLAYER_TOGGLE_PLAYING });
+              }
+            }}
             onStart={handleStart}
             minimized={minimized}
             open={open}
@@ -228,7 +249,9 @@ const Player = () => {
             type={currentMedia.type}
             playing={ready.main && ready.minimized && playing}
             onProgress={handleProgress}
-            onReady={() => setReady({ ...ready, main: true })}
+            onReady={() => {
+              setReady({ ...ready, main: true });
+            }}
             image={currentMedia.image}
           />
         </MediaWrapper>

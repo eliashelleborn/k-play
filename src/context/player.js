@@ -16,6 +16,8 @@ export const PLAYER_SET_QUEUE = 'PLAYER_SET_QUEUE';
 export const PLAYER_SET_PREVIOUS = 'PLAYER_SET_PREVIOUS';
 
 const playerReducer = (state, action) => {
+  console.log(action);
+
   switch (action.type) {
     case PLAYER_OPEN:
       return {
@@ -86,9 +88,6 @@ const PlayerProvider = ({ children }) => {
     queue: [],
     previous: []
   });
-
-  console.log(state.previous);
-  console.log(state.queue);
 
   return (
     <PlayerContext.Provider value={{ state, dispatch }}>

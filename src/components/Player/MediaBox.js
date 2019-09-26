@@ -94,7 +94,10 @@ const drawerVariants = {
 };
 
 const MediaBox = forwardRef(
-  ({ playing, url, type, image, onReady, onProgress, open, onStart }, ref) => {
+  (
+    { playing, url, type, image, onReady, onProgress, open, onStart, onPause },
+    ref
+  ) => {
     const [drawerOpen, setDrawerOpen] = useState(true);
 
     return (
@@ -145,18 +148,24 @@ const MediaBox = forwardRef(
             height="100%"
             url={url}
             playing={playing}
-            muted={!open}
+            muted={!open && type === 'VIDEO'}
             style={{ pointerEvents: 'none' }}
             config={{
+              soundcloud: {
+                options: {
+                  auto_play: true
+                }
+              },
               youtube: {
                 playerVars: { modestbranding: 1 }
               }
             }}
+            onPause={onPause}
             onReady={onReady}
             onProgress={onProgress}
             onStart={onStart}
           />
-          {type === 'PODD' && <img src={image} alt="" />}
+          {false === 'PODD' && <img src={image} alt="" />}
         </div>
       </StyledMediaBox>
     );
