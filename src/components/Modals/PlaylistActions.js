@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { List, Item as BaseItem } from '../List';
 import { Share2, Remove, EditList } from '../Icons';
+import { useAppModals } from '../../context/modals';
 
 const StyledPlaylistActions = styled.div`
   height: 100%;
@@ -42,6 +43,7 @@ const Close = styled.button`
 `;
 
 const PlaylistActions = ({ playlist, hide, onRemove }) => {
+  const { toggleOpen } = useAppModals();
   return (
     <StyledPlaylistActions>
       <Image>
@@ -57,7 +59,7 @@ const PlaylistActions = ({ playlist, hide, onRemove }) => {
       <List onClick={hide}>
         <Item>
           <Share2 />
-          <Text m="0" ml="3">
+          <Text m="0" ml="3" onClick={() => toggleOpen('share')}>
             Dela lista
           </Text>
         </Item>

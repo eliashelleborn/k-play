@@ -8,14 +8,12 @@ import Track from '../../components/Track';
 import Modal from '../../components/Modals';
 import useModal from '../../hooks/useModal';
 import PlaylistActions from '../../components/Modals/PlaylistActions';
-
-import TrackActions from '../../components/Modals/TrackActions';
 import ListCard from '../../components/ListCard';
-import { Grid } from '../../components/Util';
+import { Grid, Flex, Box } from '../../components/Util';
 
 import Dialog from '../../components/Dialog';
 import { Heading, Text } from '../../components/Typography';
-import { Flex, Box } from '../../components/Util';
+
 import Loading from '../../components/Loading';
 import firebase from '../../firebase';
 import {
@@ -23,7 +21,7 @@ import {
   PLAYER_SET_QUEUE,
   PLAYER_SET_PREVIOUS
 } from '../../context/player';
-
+import { useAppModals } from '../../context/modals';
 
 const StyledPlaylist = styled.div`
   height: calc(100vh - 65px);
@@ -56,7 +54,6 @@ const TrackList = styled.div`
   }
 `;
 
-
 const Playlist = ({ match, history }) => {
   const { dispatch } = usePlayer();
   const [playlist, setPlaylist] = useState(null);
@@ -64,6 +61,7 @@ const Playlist = ({ match, history }) => {
   const [loading, setLoading] = useState(true);
   const actionsModal = useModal();
   const deleteModal = useModal();
+  const { setContent } = useAppModals();
 
   const fetchPlaylist = () => {
     setLoading(true);
@@ -101,7 +99,6 @@ const Playlist = ({ match, history }) => {
   useEffect(() => {
     fetchPlaylist();
   }, []);
-
 
   const deletePlaylist = () => {
     firebase
@@ -143,7 +140,10 @@ const Playlist = ({ match, history }) => {
       {playlist && !loading && (
         <>
           <Banner
-            openModal={actionsModal.toggle}
+            openModal={() => {
+              setContent(playlist);
+              actionsModal.toggle();
+            }}
             name={playlist.name}
             context="Mina Listor"
             image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
@@ -155,7 +155,7 @@ const Playlist = ({ match, history }) => {
                 <ListCard
                   key={playlist.name}
                   title={playlist.name}
-                  image={'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'}
+                  image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
                   to="/spellista"
                 />
               </Grid>
@@ -187,7 +187,6 @@ const Playlist = ({ match, history }) => {
               )}
             </TrackList>
           </ContentWrapper>
-
 
           <Modal isShowing={actionsModal.isShowing} hide={actionsModal.toggle}>
             <PlaylistActions

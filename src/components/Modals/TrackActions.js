@@ -76,7 +76,7 @@ const TrackActions = ({ trackInfo, hide }) => {
       </Text>
 
       <List>
-        <Item onClick={hide}>
+        <Item onClick={() => toggleOpen('share')}>
           <Share />
           <Text m="0" ml="3">
             Dela

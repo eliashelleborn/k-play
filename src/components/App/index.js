@@ -110,7 +110,7 @@ const Layout = () => {
           hide={() => modalsToggleOpen('share')}
         >
           <Share
-            trackInfo={modalContent}
+            content={modalContent}
             hide={() => modalsToggleOpen('share')}
           />
         </Modal>
