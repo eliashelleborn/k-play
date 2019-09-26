@@ -24,12 +24,14 @@ const StyledAddToList = styled.div`
     width: 600px;
     height: 800px;
 
-  > div div button {
-    border: none;
-    background-color: transparent;
+    > div div button {
+      border: none;
+      background-color: transparent;
+    }
   }
 
-  > div, a {
+  > div,
+  a {
     -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar {
       display: none;

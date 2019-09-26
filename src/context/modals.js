@@ -9,6 +9,7 @@ const initialModals = {
   share: false,
   trackActions: false,
   createPlaylist: false,
+  rating: false,
   login: false
 };
 

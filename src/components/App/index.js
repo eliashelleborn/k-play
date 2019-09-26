@@ -19,12 +19,7 @@ import bglogo from '../../images/k-play-logo-02.png';
 import { useAuth } from '../../context/auth';
 import Loading from '../Loading';
 import CustomRouter from '../CustomRouter';
-import Modal from '../Modals';
-import AddToList from '../Modals/AddToList';
-import { useAppModals } from '../../context/modals';
-import TrackActions from '../Modals/TrackActions';
-import Share from '../Modals/Share';
-import AuthShield from '../Modals/AuthShield';
+import Modals from './Modals';
 
 const Background = styled.img`
   position: fixed;
@@ -52,11 +47,6 @@ const LoadingContainer = styled.div`
 
 const Layout = () => {
   const { authLoading } = useAuth();
-  const {
-    open: modalsOpen,
-    toggleOpen: modalsToggleOpen,
-    content: modalContent
-  } = useAppModals();
 
   return (
     <CustomRouter>
@@ -86,40 +76,7 @@ const Layout = () => {
 
         <Player />
 
-        {/* MODALS */}
-        <Modal
-          isShowing={modalsOpen.addToList}
-          hide={() => modalsToggleOpen('addToList')}
-        >
-          <AddToList
-            content={modalContent}
-            hide={() => modalsToggleOpen('addToList')}
-          />
-        </Modal>
-        <Modal
-          isShowing={modalsOpen.trackActions}
-          hide={() => modalsToggleOpen('trackActions')}
-        >
-          <TrackActions
-            trackInfo={modalContent}
-            hide={() => modalsToggleOpen('trackActions')}
-          />
-        </Modal>
-        <Modal
-          isShowing={modalsOpen.share}
-          hide={() => modalsToggleOpen('share')}
-        >
-          <Share
-            content={modalContent}
-            hide={() => modalsToggleOpen('share')}
-          />
-        </Modal>
-        <Modal
-          isShowing={modalsOpen.login}
-          hide={() => modalsToggleOpen('login')}
-        >
-          <AuthShield hide={() => modalsToggleOpen('login')} />
-        </Modal>
+        <Modals />
       </>
     </CustomRouter>
   );

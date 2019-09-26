@@ -14,28 +14,31 @@ const StyledTrackActions = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.space[3]}px;
 
-   ${({ theme }) => theme.mediaQueries.medium} {
-     display: flex;
-     flex-direction: column;
-     width: 600px;
-     padding-left: 100px;
-     height: 800px;
+  ${({ theme }) => theme.mediaQueries.medium} {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    padding-left: 100px;
+    height: 800px;
 
-     > div, h3, p {
-       width: 345px;
-       margin: auto;
-       margin-left: 24px;
-     }
-   }
+    > div,
+    h3,
+    p {
+      width: 345px;
+      margin: auto;
+      margin-left: 24px;
+    }
+  }
 
   > div {
-  -webkit-overflow-scrolling: touch;
-  &::-webkit-scrollbar {
-    display: none;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
-const Image = styled.div`
+export const Image = styled.div`
   width: 100%;
   padding-bottom: 20px;
   position: relative;
@@ -49,6 +52,7 @@ const Image = styled.div`
 const Item = styled(BaseItem)`
   justify-content: flex-start;
   padding: ${({ theme }) => theme.space[4]}px 0;
+  cursor: pointer;
 `;
 
 const Close = styled.button`
@@ -59,13 +63,14 @@ const Close = styled.button`
   -webkit-tap-highlight-color: transparent;
   margin-top: auto;
   padding: ${({ theme }) => theme.space[3]}px 0;
+  cursor: pointer;
 
   ${({ theme }) => theme.mediaQueries.medium} {
     padding-right: 70px;
   }
 `;
 
-const ContentType = styled.div`
+export const ContentType = styled.div`
   background-color: white;
   width: 47px;
   height: 47px;
@@ -87,7 +92,7 @@ const TrackActions = ({ trackInfo, hide }) => {
     <StyledTrackActions>
       <Image>
         <ContentType>
-          {trackInfo.contentType === 'podcast' ? <Podcast /> : <Video />}
+          {trackInfo.type === 'PODD' ? <Podcast /> : <Video />}
         </ContentType>
         <img src={trackInfo.image} alt="" />
       </Image>
@@ -118,7 +123,11 @@ const TrackActions = ({ trackInfo, hide }) => {
           </Text>
         </Item>
 
-        <Item onClick={hide}>
+        <Item
+          onClick={() => {
+            toggleOpen('rating');
+          }}
+        >
           <Rate />
           <Text m="0" ml="3">
             Betygsätt
