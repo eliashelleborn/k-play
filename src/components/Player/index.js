@@ -33,11 +33,14 @@ const StyledPlayer = styled(motion.div)`
   flex-direction: column;
   z-index: 75;
   align-items: center;
+
   justify-content: center;
+
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
   opacity: 0;
   transition: visibility 0.3s linear;
+
   ${({ theme }) => theme.mediaQueries.large} {
     padding: 0px 100px;
     margin: auto;
@@ -49,6 +52,7 @@ const ControlsContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+
   ${({ theme }) => theme.mediaQueries.desktop} {
     justify-content: flex-start;
   }
@@ -60,14 +64,17 @@ const MediaWrapper = styled.div`
   max-width: 960px;
   max-height: 500px;
   flex: 1;
+
   display: flex;
   flex-direction: column;
+
   ${({ theme }) => theme.mediaQueries.desktop} {
     display: flex;
     flex-direction: row;
     width: 100%;
     max-height: 300px;
   }
+
   > div:nth-child(1) {
     ${({ theme }) => theme.mediaQueries.desktop} {
       margin: 0;
@@ -75,6 +82,7 @@ const MediaWrapper = styled.div`
       box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.1);
     }
   }
+
   > div:nth-child(2) {
     ${({ theme }) => theme.mediaQueries.desktop} {
       flex: 1;
@@ -88,6 +96,7 @@ const DesktopControls = styled.div`
   height: 100%;
   max-width: 960px;
   margin: auto;
+
   ${({ theme }) => theme.mediaQueries.desktop} {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -96,12 +105,14 @@ const DesktopControls = styled.div`
     width: 100%;
     height: 50px;
   }
+
   > div:nth-child(1) {
     ${({ theme }) => theme.mediaQueries.desktop} {
       width: 460px;
       padding: 0;
     }
   }
+
   > div:nth-child(2) {
     ${({ theme }) => theme.mediaQueries.desktop} {
       width: 460px;

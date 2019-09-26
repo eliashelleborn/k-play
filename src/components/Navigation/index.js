@@ -14,9 +14,13 @@ const StyledNavigation = styled.nav`
   padding: 0 24px 0 16px;
   display: flex;
   align-items: center;
-  z-index: 100;
+  z-index: 80;
   position: fixed;
   width: 100%;
+
+  a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
 
   ${({ theme }) => theme.mediaQueries.desktop} {
     padding: 0 64px;
@@ -69,10 +73,11 @@ const HamburgerWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
 const StyledHamburger = styled(Hamburger)`
-  z-index: 200;
+  z-index: 90;
   transition: 0.3s;
   position: fixed;
   display: initial;

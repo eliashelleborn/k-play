@@ -172,7 +172,7 @@ const Playlist = ({ match, history }) => {
                       });
                       dispatch({
                         type: PLAYER_SET_PREVIOUS,
-                        payload: tracks.slice(0, i)
+                        payload: tracks.slice(0, i).reverse()
                       });
                     }}
                     track={t}

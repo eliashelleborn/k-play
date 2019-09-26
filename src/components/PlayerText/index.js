@@ -1,39 +1,93 @@
 import React from 'react';
-import { Box } from '../Util';
-import ListPlayerText from '../ListPlayerText';
-import Image from '../../images/Player-text-img.png';
+import styled from 'styled-components';
+import { Plus, More } from '../Icons';
 
-const playerText = [
-  {
-    title: 'Dansare - oavsett villkor?',
-    subtitle: 'I samarbete med Folkteatern.',
-    arranged: 'Arrangerades av: Teaterförbundet Dansavdelning',
-    date: 'Inspelad 2010-05-15',
-    description: 'Hur påverkar rådande villkor verksamma aktörer? Hur ser vardagen ut? Vilka konkreta åtgärderf skulle hjälpa? Hur bråttom är det?',
-    image: Image,
-    text: 'Teaterförbundets Dansavdelning lyfter fram aktörer från den fria dansscenen, vars situation är som mest prekär. Scenkonstbiennalen är ett viktigt tillfälle för dessa röster att höras, för att sprida viktig kunskap från fältet. Seminariet är en handuträckning att vara med i samtalet om dansens framtid. Vi behöver prata om villkoren för danskonstnärernas verksamheter, och om dansens betydelse och omätbara värde. Hur kan Dans fortsätta vara en vital konstform, och samtidigt en konstform med skäliga villkor och värdiga arbetsförhållnden?',
-    key: 0
+const StyledPlayerText = styled.div`
+  margin: 0 auto;
+  padding: 24px 16px;
+  max-width: 960px;
+`;
+
+const TitleContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  > p {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 6px 0;
   }
-];
 
-const PlayerText = () => {
+  button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+  }
+`;
+
+const Subtitle = styled.p`
+  font-size: 16px;
+  color: #aeaeae;
+  line-height: 26px;
+`;
+
+const Text = styled.p`
+  font-size: 16px;
+  line-height: 26px;
+  color: #363636;
+
+  &:nth-child(3) {
+    margin-bottom: 0px;
+  }
+  &:nth-child(4) {
+    margin: 0 0 24px 0;
+  }
+`;
+
+const ImageContainer = styled.div`
+  margin: 24px 0px;
+  position: relative;
+
+  > img {
+    width: 100%;
+  }
+`;
+
+const PlayerText = ({
+  title,
+  subtitle,
+  date,
+  description,
+  image,
+  text,
+  onAddToList,
+  onMore
+}) => {
   return (
-    <div>
-    <Box>
-      {playerText.map(p => (
-        <ListPlayerText
-          key={p.key}
-          title={p.title}
-          subtitle={p.subtitle}
-          arranged={p.arranged}
-          date={p.date}
-          description={p.description}
-          image={p.image}
-          text={p.text}
-        />
-      ))}
-    </Box>
-    </div>
+    <StyledPlayerText>
+      <TitleContent>
+        <p>{title}</p>
+        <button type="button" onClick={onAddToList}>
+          <Plus color="#EC733F" width="24" />
+        </button>
+        <button type="button" onClick={onMore}>
+          <More />
+        </button>
+      </TitleContent>
+
+      <Subtitle>{subtitle}</Subtitle>
+      <Text>{date}</Text>
+      <Text>{description}</Text>
+      {image && (
+        <ImageContainer>
+          <img src={image} alt="" />
+        </ImageContainer>
+      )}
+
+      <Text> {text} </Text>
+    </StyledPlayerText>
   );
 };
 
