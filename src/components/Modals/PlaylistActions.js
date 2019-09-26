@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Heading, Text } from '../Typography';
 import { List, Item as BaseItem } from '../List';
 import { Share2, Remove, EditList } from '../Icons';
+import { useAppModals } from '../../context/modals';
 
 const StyledPlaylistActions = styled.div`
   height: 100%;
@@ -80,6 +81,7 @@ const Close = styled.button`
 `;
 
 const PlaylistActions = ({ playlist, hide, onRemove }) => {
+  const { toggleOpen } = useAppModals();
   return (
     <StyledPlaylistActions>
       <DesktopMode>
@@ -93,8 +95,12 @@ const PlaylistActions = ({ playlist, hide, onRemove }) => {
           <Text m="0" mt="1">
             {playlist.tracksNum} poddar/videos
           </Text>
-          <List onClick={hide}>
-            <Item>
+          <List>
+            <Item
+              onClick={() => {
+                toggleOpen('share');
+              }}
+            >
               <Share2 />
               <Text m="0" ml="3">
                 Dela lista
@@ -103,7 +109,7 @@ const PlaylistActions = ({ playlist, hide, onRemove }) => {
             <Item>
               <EditList />
               <Text m="0" ml="3">
-                Redigera listnamn
+                Redigera lista
               </Text>
             </Item>
             <Item onClick={onRemove}>
@@ -114,8 +120,8 @@ const PlaylistActions = ({ playlist, hide, onRemove }) => {
             </Item>
           </List>
         </div>
-        </DesktopMode>
-        <Close onClick={hide}>Stäng</Close>
+      </DesktopMode>
+      <Close onClick={hide}>Stäng</Close>
     </StyledPlaylistActions>
   );
 };

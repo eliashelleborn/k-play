@@ -96,7 +96,6 @@ const DesktopMenu = styled.div`
   padding-bottom: 65px;
 `;
 
-
 const Navigation = () => {
   const { location, history } = useRouter();
   const {
@@ -173,7 +172,7 @@ const Navigation = () => {
     <div>
       {showMenu && <Menu close={() => setShowMenu(false)} />}
       <DesktopMenu>
-      <Menu />
+        <Menu />
       </DesktopMenu>
 
       <StyledNavigation>

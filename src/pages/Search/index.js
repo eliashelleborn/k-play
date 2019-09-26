@@ -49,26 +49,26 @@ const StyledBox = styled(Box)`
   }
 `;
 
-const StyledListCard = styled(ListCard)`
+/* const StyledListCard = styled(ListCard)`
   ${({ theme }) => theme.mediaQueries.large} {
     margin: 48px;
   }
-`;
+`; */
 
 const DesktopTrack = styled.div`
-> div div div svg, div div div:nth-child(1) {
-  cursor: pointer;
-}
+  > div div div svg,
+  div div div:nth-child(1) {
+    cursor: pointer;
+  }
   ${({ theme }) => theme.mediaQueries.large} {
     margin-left: 48px;
     max-width: 810px;
 
-    > div div p{
+    > div div p {
       text-align: left;
     }
   }
 `;
-
 
 const Search = () => {
   const [typeFilter, setTypeFilter] = useState('ALL');
@@ -123,18 +123,18 @@ const Search = () => {
           <Loading color="#363636" />
         </LoadingOverlay>
         {selectedCategory || input !== '' ? (
-        <DesktopTrack>
-          <Box>
-            {media.length > 0
-              ? media.map(m => <Track key={m.id} track={m} />)
-              : !searchLoading && (
-                  <Box px="3" pt="5">
-                    <Text textAlign="center" m="0">
-                      0 resultat
-                    </Text>
-                  </Box>
-                )}
-          </Box>
+          <DesktopTrack>
+            <Box>
+              {media.length > 0
+                ? media.map(m => <Track key={m.id} track={m} />)
+                : !searchLoading && (
+                    <Box px="3" pt="5">
+                      <Text textAlign="center" m="0">
+                        0 resultat
+                      </Text>
+                    </Box>
+                  )}
+            </Box>
           </DesktopTrack>
         ) : (
           <StyledGrid px="3" gridGap="2" gridTemplateColumns="1fr 1fr">

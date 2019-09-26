@@ -10,7 +10,7 @@ const StyledHomeCard = styled.div`
   height: auto;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
     margin: 18px 12px 8px;
 
     &:first-child {
@@ -86,7 +86,6 @@ const Tint = styled.div`
       top: 50%;
     }
   }
-
 `;
 
 const Description = styled.div`
@@ -112,9 +111,10 @@ const MainContent = styled.div`
     margin: 0 16px 4px;
   }
 
-  > div:nth-child(1),
-  div:nth-child(2),
-  div:nth-child(3) {
+  > button:nth-child(1),
+  button:nth-child(2),
+  button:nth-child(3) {
+    padding: 0;
     border-right: 1px solid #f3f3f3;
     height: 30px;
     width: 18%;
@@ -128,8 +128,8 @@ const MainContent = styled.div`
     }
   }
 
-  > div:nth-child(2),
-  div:nth-child(3) {
+  > button:nth-child(2),
+  button:nth-child(3) {
     ${({ theme }) => theme.mediaQueries.desktop} {
       padding-left: 4px;
     }
@@ -185,15 +185,15 @@ const ListHomeCard = ({
       </Description>
 
       <MainContent>
-        <div>
+        <button type="button">
           <Plus color="#363636" />
-        </div>
-        <div>
+        </button>
+        <button type="button">
           <More />
-        </div>
-        <div onClick={play}>
+        </button>
+        <button type="button" onClick={play}>
           <Play color="#363636" />
-        </div>
+        </button>
         <CornerContent>
           <p>{subject}</p>
           <p>{episodes} avsnitt </p>

@@ -79,29 +79,29 @@ const SearchInput = ({
 }) => {
   return (
     <div>
-    <DesktopSearchText>
-      <p> Sök </p>
-    </DesktopSearchText>
-    <StyledSearchInput>
-      {category && (
-        <Category>
-          <div>
-            {category}
-            <button type="button" onClick={removeCategory}>
-              <Close />
-            </button>
-          </div>
-        </Category>
-      )}
+      <DesktopSearchText>
+        <p> Sök </p>
+      </DesktopSearchText>
+      <StyledSearchInput>
+        {category && (
+          <Category>
+            <div>
+              {category}
+              <button type="button" onClick={removeCategory}>
+                <Close />
+              </button>
+            </div>
+          </Category>
+        )}
 
-      <input type="text" value={value} onChange={onChange} />
-      <button type="button">
-        <Search />
-      </button>
-      <button type="button" onClick={openSort}>
-        <Filter />
-      </button>
-    </StyledSearchInput>
+        <input type="text" value={value} onChange={onChange} />
+        <button type="button">
+          <Search />
+        </button>
+        <button type="button" onClick={openSort}>
+          <Filter />
+        </button>
+      </StyledSearchInput>
     </div>
   );
 };

@@ -49,7 +49,6 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-
 const Login = () => {
   const { history } = useRouter();
   const [email, setEmail] = useState('');

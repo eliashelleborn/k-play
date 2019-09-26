@@ -94,17 +94,28 @@ const Share = ({ hide, content }) => {
           <img src={content.image} alt="" />
           <div>
             <Heading as="h3" m="0" fontSize="20px" fontWeight="500">
-              {content.title}
+              {content.title || content.name}
             </Heading>
-            <Text m="0" mt="1" fontSize="16px" color="hideGrey">
-              {content.subtitle}
-            </Text>
+            {content.subtitle && (
+              <Text m="0" mt="1" fontSize="16px" color="hideGrey">
+                {content.subtitle}
+              </Text>
+            )}
           </div>
         </Info>
       )}
 
       <List>
-        <StyledItem>
+        <StyledItem
+          onClick={() =>
+            window.open(
+              `https://www.facebook.com/sharer/sharer.php?u=https://kplay-g2.netlify.com/${(content.title
+                ? 'play/'
+                : 'spellista/') + content.id}`,
+              '_blank'
+            )
+          }
+        >
           <div>
             <FacebookShare />
             <Text m="0" ml="3">

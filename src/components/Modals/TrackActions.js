@@ -85,12 +85,11 @@ const TrackActions = ({ trackInfo, hide }) => {
 
   return (
     <StyledTrackActions>
-
       <Image>
         <ContentType>
-        {trackInfo.contentType === 'podcast' ? <Podcast /> : <Video />}
+          {trackInfo.contentType === 'podcast' ? <Podcast /> : <Video />}
         </ContentType>
-      <img src={trackInfo.image} alt="" />
+        <img src={trackInfo.image} alt="" />
       </Image>
 
       <Heading as="h3" fontWeight="500" m="0">
@@ -101,7 +100,7 @@ const TrackActions = ({ trackInfo, hide }) => {
       </Text>
 
       <List>
-        <Item onClick={hide}>
+        <Item onClick={() => toggleOpen('share')}>
           <Share />
           <Text m="0" ml="3">
             Dela

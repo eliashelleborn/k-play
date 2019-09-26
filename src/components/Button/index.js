@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   box-shadow: 0px 4px 8px rgba(54, 54, 54, 0.08);
   display: flex;
   align-items: center;
-  justify-content: ${props => (props.withIcon ? 'flex-start' : 'center')};
+  justify-content: ${props => (props.icon ? 'flex-start' : 'center')};
   cursor: pointer;
   padding-right: ${({ theme }) => theme.space[3]}px;
   padding-left: ${({ theme }) => theme.space[3]}px;
@@ -52,7 +52,7 @@ const Icon = styled.div`
 
 const Button = ({ children, icon, ...rest }) => {
   return (
-    <StyledButton withIcon={!!icon} {...rest}>
+    <StyledButton {...rest} icon={icon}>
       {icon && <Icon>{icon}</Icon>}
       {children}
     </StyledButton>

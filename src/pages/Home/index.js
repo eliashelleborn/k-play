@@ -1,13 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { color } from 'styled-system';
 import BannerImage from '../../images/banner-1-home.png';
 import BannerImage2 from '../../images/banner-2-home.png';
 import BannerImage3 from '../../images/banner-2-home2.png';
 import ListHomeCard from '../../components/ListHomeCard';
 import Banner from '../../components/Banner';
-import Button from '../../components/Button';
 import { useAuth } from '../../context/auth';
 import { Text } from '../../components/Typography';
 import {
@@ -236,7 +234,6 @@ const Home = () => {
             justifyContent="space-between"
             px="3"
           >
-
             <Text
               m="0"
               fontSize="32px"
@@ -245,12 +242,9 @@ const Home = () => {
               fontWeight="600"
               lineHeight="32px"
             >
-            {authUser ? (
-              'Välkommen tillbaka Josefine'
-            ) : (
-              'Podd- och webbcasts om scenkonst, media och musik'
-            )}
-
+              {authUser
+                ? 'Välkommen tillbaka Josefine'
+                : 'Podd- och webbcasts om scenkonst, media och musik'}
             </Text>
           </StyledBanner>
         </div>
@@ -317,10 +311,11 @@ const Home = () => {
       {authUser ? (
         <div>
           <StyledBanner2 tint="rgba(0, 0, 0, 0.1)" image={BannerImage3} px="3">
-            <BannerText2>
-              Tips om kurser
-            </BannerText2>
-            <BannerText3>Tipsa om kurser på KA Klippverktyget (funktioner). Dela till kollegor/studenter</BannerText3>
+            <BannerText2>Tips om kurser</BannerText2>
+            <BannerText3>
+              Tipsa om kurser på KA Klippverktyget (funktioner). Dela till
+              kollegor/studenter
+            </BannerText3>
           </StyledBanner2>
         </div>
       ) : (

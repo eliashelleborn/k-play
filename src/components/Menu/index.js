@@ -168,13 +168,15 @@ const Menu = ({ close }) => {
           {authUser && <Night />}
         </MenuIcons>
         <MenuIcons>
-
-          {authUser &&
+          {authUser && (
             <ProfileIcon>
-              <img src="https://i.pinimg.com/originals/dc/55/a0/dc55a0fec14d93d9cf6fa32c32f7c7f2.jpg" alt="profile icon" />
+              <img
+                src="https://i.pinimg.com/originals/dc/55/a0/dc55a0fec14d93d9cf6fa32c32f7c7f2.jpg"
+                alt="profile icon"
+              />
               <StyledNavLink to="/"> Josefine </StyledNavLink>
             </ProfileIcon>
-          }
+          )}
 
           <StyledNavLink onClick={close} to="/">
             Start

@@ -50,7 +50,7 @@ const Info = styled.div`
   min-width: 0;
 
   ${({ theme }) => theme.mediaQueries.large} {
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
     height: 125px;
     padding-left: ${({ theme }) => theme.space[4]}px;
     > h5 {
@@ -104,7 +104,7 @@ const Track = ({ track, onPlay }) => {
     <StyledTrack>
       <Cover
         onClick={() => {
-          onPlay && onPlay()
+          if (onPlay) onPlay();
           dispatch({ type: PLAYER_OPEN });
           dispatch({ type: PLAYER_EXPAND });
           dispatch({

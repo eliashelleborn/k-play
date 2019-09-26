@@ -36,7 +36,6 @@ const StyledPlayer = styled(motion.div)`
   opacity: 0;
   transition: visibility 0.3s linear;
 
-
   ${({ theme }) => theme.mediaQueries.large} {
     padding: 0px 100px;
     margin: auto;
@@ -118,7 +117,6 @@ const DesktopControls = styled.div`
     }
   }
 `;
-
 
 const Player = () => {
   const {
@@ -204,7 +202,6 @@ const Player = () => {
   return (
     <>
       <StyledPlayer animate={anim} open={open && !minimized}>
-
         <MediaWrapper>
           <Box px="3" my="3">
             <Heading fontSize="24px" fontWeight="400" m="0" mb="3">

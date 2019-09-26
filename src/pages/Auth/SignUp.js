@@ -55,7 +55,6 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-
 const SignUp = () => {
   const { history } = useRouter();
   const [email, setEmail] = useState('');
@@ -102,7 +101,12 @@ const SignUp = () => {
         >
           Sign in with Google
         </StyledButton>
-        <StyledButton icon={<LinkedIn />} color="white" bg="#0077B5" fontSize="14px">
+        <StyledButton
+          icon={<LinkedIn />}
+          color="white"
+          bg="#0077B5"
+          fontSize="14px"
+        >
           Sign in with LinkedIn
         </StyledButton>
       </ButtonWrapper>
