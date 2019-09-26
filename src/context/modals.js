@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from './auth';
 
 const ModalsContext = React.createContext();
 
@@ -8,11 +9,14 @@ const initialModals = {
   share: false,
   trackActions: false,
   createPlaylist: false,
-  login: true
+  login: false
 };
+
+const requiresAuth = ['addToList', 'createPlaylist'];
 
 const ModalsProvider = ({ children }) => {
   const [open, setOpen] = useState(initialModals);
+  const { authUser } = useAuth();
   const [content, setContent] = useState({
     url: 'https://www.youtube.com/watch?v=yGkn5KYk6sg',
     duration: 1381,
@@ -27,10 +31,17 @@ const ModalsProvider = ({ children }) => {
   });
 
   const toggleOpen = modal => {
-    setOpen({
-      ...initialModals,
-      [modal]: !open[modal]
-    });
+    if (!authUser && requiresAuth.includes(modal)) {
+      setOpen({
+        ...initialModals,
+        login: !open.auth
+      });
+    } else {
+      setOpen({
+        ...initialModals,
+        [modal]: !open[modal]
+      });
+    }
   };
 
   return (

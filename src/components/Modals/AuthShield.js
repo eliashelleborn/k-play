@@ -6,7 +6,7 @@ import Button from '../Button';
 const StyledAuthShield = styled.div`
   text-align: center;
   margin: 0 16px;
-  padding: 24px 46px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,6 +17,7 @@ const StyledAuthShield = styled.div`
     font-weight: 600;
     font-size: 20px;
     line-height: 28px;
+    max-width: 300px;
   }
 
   button,
@@ -35,8 +36,8 @@ const Back = styled.button`
 const AuthShield = ({ hide }) => {
   return (
     <StyledAuthShield>
-      <p>För att kunna spara behöver du vara inloggad.</p>
-      <Button mb="3" as={Link} to="/auth">
+      <p>För att komma åt denna funktion behöver du vara inloggad.</p>
+      <Button onClick={hide} mb="3" as={Link} to="/auth">
         Logga in
       </Button>
       <Back onClick={hide} type="button">

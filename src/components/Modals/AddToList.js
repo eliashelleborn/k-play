@@ -102,6 +102,7 @@ const AddToList = ({ hide, content }) => {
         )}
         {playlists.map(p => (
           <Item
+            key={p.id}
             onClick={() => {
               addTrack(p.id, content.id, content.snippet);
               hide();
