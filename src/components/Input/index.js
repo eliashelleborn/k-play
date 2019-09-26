@@ -9,6 +9,7 @@ const StyledInput = styled.div`
   position: relative;
   display: flex;
   font-family: Barlow;
+  background-color: #fff;
   input {
     height: 100%;
     width: 100%;

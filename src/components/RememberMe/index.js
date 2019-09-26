@@ -7,6 +7,7 @@ const StyledRememberMe = styled.div`
   display: flex;
   align-items: center;
   padding: ${({ theme }) => theme.space[3]}px;
+  background-color: #fff;
 `;
 
 const RememberMe = ({ value, onChange }) => {

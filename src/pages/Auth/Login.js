@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
@@ -18,7 +18,6 @@ import firebase from '../../firebase';
 import useRouter from '../../hooks/useRouter';
 
 const StyledBox = styled(Box)`
-  background-color: white;
   max-width: 343px;
   margin: auto;
 
@@ -42,7 +41,6 @@ const ButtonWrapper = styled.div`
   margin: auto;
 
   ${({ theme }) => theme.mediaQueries.medium} {
-    background-color: white;
     max-width: 543px;
     padding: 50px 100px 20px;
     margin: auto;
@@ -70,6 +68,10 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (error) console.log(`Login Error: ${error}`);
+  }, [error]);
 
   return (
     <div>
@@ -129,8 +131,6 @@ const Login = () => {
               Klicka här
             </Link>
           </Text>
-
-          {error && <p>{error.message}</p>}
         </form>
       </StyledBox>
     </div>
