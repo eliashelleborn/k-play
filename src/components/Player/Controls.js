@@ -8,6 +8,12 @@ const StyledControls = styled.div`
   justify-content: space-between;
   margin: ${({ theme }) => theme.space[3]}px 0;
   padding: 0 ${({ theme }) => theme.space[3]}px;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    justify-content: center;
+    width: 400px;
+    margin: 30px auto;
+  }
 `;
 
 const Button = styled.button`

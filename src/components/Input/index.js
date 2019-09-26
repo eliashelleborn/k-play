@@ -18,6 +18,10 @@ const StyledInput = styled.div`
     outline: none;
     font-family: Barlow;
     -webkit-tap-highlight-color: none;
+
+    ${({ theme }) => theme.mediaQueries.medium} {
+      width: 300px;
+    }
   }
 
   input:-webkit-autofill,

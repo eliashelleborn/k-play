@@ -118,8 +118,12 @@ const Box = styled.div`
   }
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled.button`
   width: 150px;
+  height: 43px;
+  background-color: ${({ theme }) => theme.colors.orange};
+  border-radius: 3px;
+  margin: 8px auto;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
     width: 230px;
@@ -327,8 +331,8 @@ const Home = () => {
               Upplev mer via <em> ditt </em> <span> K-play </span>{' '}
             </BannerText2>
             <BannerText3> Skapa, spara, tyck till och dela! </BannerText3>
-            <StyledButton m="10px auto 0px">
-              <NavLink to="/auth/skapa-konto"> Skapa konto </NavLink>
+            <StyledButton>
+              <NavLink to="/auth"> Skapa konto </NavLink>
             </StyledButton>
           </StyledBanner2>
         </div>

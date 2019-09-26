@@ -12,7 +12,7 @@ const StyledSearchInput = styled.div`
 
   ${({ theme }) => theme.mediaQueries.large} {
     width: 422px;
-    margin: 42px 0 80px 64px;
+    margin: 42px 0 40px 48px;
   }
 
   input {
@@ -65,7 +65,7 @@ const DesktopSearchText = styled.div`
     > p {
       font-size: 56px;
       font-weight: 600;
-      margin: 48px 0 0 64px;
+      margin: 48px 0 0 48px;
     }
   }
 `;
