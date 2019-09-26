@@ -10,6 +10,16 @@ const StyledStart = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  max-width: 670px;
+  margin: 100px auto;
+
+  > a {
+    max-width: 340px;
+  }
+  > p {
+    margin-bottom: 40px;
+  }
 `;
 
 const ButtonDivider = styled.div`
@@ -18,6 +28,7 @@ const ButtonDivider = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  max-width: 340px;
 
   div {
     flex: 1;

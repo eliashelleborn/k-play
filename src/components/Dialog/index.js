@@ -8,6 +8,7 @@ const StyledDialog = styled.div`
   width: 100%;
   margin: 0 16px;
   position: relative;
+  max-width: 400px;
 `;
 const Buttons = styled.div`
   display: flex;

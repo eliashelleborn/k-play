@@ -16,6 +16,13 @@ const SettingsWrapper = styled.div`
   height: calc(100vh - 100px);
   align-items: space-between;
   justify-content: space-between;
+  max-width: 530px;
+  margin: auto;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    padding: 30px 30px;
+    justify-content: center;
+  }
 `;
 
 const StyledHeading = styled(Heading)`
@@ -25,6 +32,12 @@ const StyledHeading = styled(Heading)`
 
 const StyledButton = styled(Button)`
   box-shadow: none;
+  max-width: 360px;
+  margin: 16px auto;
+
+  ${({ theme }) => theme.mediaQueries.medium} {
+    margin: 16px auto;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -43,6 +56,10 @@ const InputWrapper = styled.div`
   }
   &:last-child {
     border-bottom: 1px solid #f3f3f3;
+
+    ${({ theme }) => theme.mediaQueries.medium} {
+      margin-bottom: 40px;
+    }
   }
 `;
 

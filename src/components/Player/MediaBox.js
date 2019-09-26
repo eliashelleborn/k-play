@@ -9,7 +9,12 @@ const StyledMediaBox = styled.div`
   width: 100%;
   flex: 1;
   max-height: 300px;
+  min-height: 220px;
   position: ${props => (props.minimized ? 'absolute' : 'relative')};
+
+  ${({ theme }) => theme.mediaQueries.large} {
+    min-height: 350px;
+  }
 
   > div {
     top: 0;

@@ -14,7 +14,7 @@ const StyledNavigation = styled.nav`
   padding: 0 24px 0 16px;
   display: flex;
   align-items: center;
-  z-index: 2;
+  z-index: 100;
   position: fixed;
   width: 100%;
 
@@ -46,6 +46,7 @@ const HamburgerWrapper = styled.div`
   height: 65px;
   justify-content: flex-end;
   align-items: center;
+  cursor: pointer;
 `;
 
 const StyledHamburger = styled(Hamburger)`
@@ -57,6 +58,7 @@ const StyledHamburger = styled(Hamburger)`
 const Back = styled.div`
   border: none;
   background: none;
+  cursor: pointer;
 `;
 
 const Navigation = () => {

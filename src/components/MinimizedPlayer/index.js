@@ -31,8 +31,8 @@ const MediaPlayer = styled.div`
   display: block;
   width: 40vw;
   height: 40vw;
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 420px;
+  max-height: 240px;
   visibility: ${props => (props.mediaType === 'VIDEO' ? 'visible' : 'hidden')};
   pointer-events: none;
 `;
@@ -43,7 +43,6 @@ const Controls = styled.div`
   align-items: center;
   button {
     height: 100%;
-
     display: flex;
     align-items: center;
     border: none;
@@ -60,6 +59,10 @@ const Info = styled.div`
   min-width: 0;
   overflow: hidden;
   height: 100%;
+
+  ${({ theme }) => theme.mediaQueries.desktop} {
+    max-width: 260px;
+  }
   ${Text} {
     white-space: nowrap;
     flex: 1;

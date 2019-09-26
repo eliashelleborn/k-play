@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { Caption, Plus, More, Snippet } from '../Icons';
+import { Caption, Plus, More, Snippet, Share } from '../Icons';
 
 const StyledMiscControls = styled.div`
   margin: ${({ theme }) => theme.space[3]}px 0;
@@ -19,8 +19,19 @@ const StyledMiscControls = styled.div`
       border-right: 1px solid #f3f3f3;
       padding: 8px 0;
 
+      ${({ theme }) => theme.mediaQueries.desktop} {
+        padding: 0;
+      }
+
       &:last-child {
         border-right: none;
+      }
+      &:first-child {
+        display: none;
+
+        ${({ theme }) => theme.mediaQueries.desktop} {
+          display: initial;
+        }
       }
     }
   }
@@ -30,6 +41,9 @@ const MiscControls = ({ onCreateSnippet }) => {
   return (
     <StyledMiscControls>
       <div>
+        <button type="button">
+          <Share />
+        </button>
         <button type="button">
           <NavLink to="/player-text">
             <Caption />

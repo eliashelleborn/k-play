@@ -104,7 +104,7 @@ const Track = ({ track, onPlay }) => {
     <StyledTrack>
       <Cover
         onClick={() => {
-          onPlay();
+          onPlay && onPlay()
           dispatch({ type: PLAYER_OPEN });
           dispatch({ type: PLAYER_EXPAND });
           dispatch({
