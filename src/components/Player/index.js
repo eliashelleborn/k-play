@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAnimation, motion } from 'framer-motion';
+import Div100vh from 'react-div-100vh';
 import { Heading, Text } from '../Typography';
 import { Box } from '../Util';
 import MediaBox from './MediaBox';
@@ -25,7 +26,7 @@ const StyledPlayer = styled(motion.div)`
   position: fixed;
   bottom: 0;
   left: 0;
-  height: calc(100vh - 65px);
+  height: calc(100% - 65px);
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -62,6 +63,7 @@ const MediaWrapper = styled.div`
   height: 100%;
   max-width: 960px;
   max-height: 500px;
+  flex: 1;
 
   display: flex;
   flex-direction: column;
@@ -202,7 +204,7 @@ const Player = () => {
   if (!currentMedia) return null;
 
   return (
-    <>
+    <Div100vh>
       <StyledPlayer animate={anim} open={open && !minimized}>
         <MediaWrapper>
           <Box px="3" my="3">
@@ -292,7 +294,7 @@ const Player = () => {
           }}
         />
       </Modal>
-    </>
+    </Div100vh>
   );
 };
 
