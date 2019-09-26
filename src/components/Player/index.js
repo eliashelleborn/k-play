@@ -12,7 +12,8 @@ import {
   usePlayer,
   PLAYER_TOGGLE_PLAYING,
   PLAYER_NEXT,
-  PLAYER_PREVIOUS
+  PLAYER_PREVIOUS,
+  PLAYER_CLOSE
 } from '../../context/player';
 import MinimizedPlayer from '../MinimizedPlayer';
 import Modal from '../Modals';
@@ -229,7 +230,11 @@ const Player = () => {
         </MediaWrapper>
         <ControlsContainer>
           <DesktopControls>
-            <MiscControls onCreateSnippet={snippetModal.toggle} />
+            <MiscControls
+              hide={() => dispatch({ type: PLAYER_CLOSE })}
+              mediaId={currentMedia.id}
+              onCreateSnippet={snippetModal.toggle}
+            />
             <Progress
               snippet={currentMedia.snippet}
               duration={currentMedia.duration}
