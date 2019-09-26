@@ -25,7 +25,7 @@ const StyledMinimizedPlayer = styled(motion.div)`
   > ${Box} {
     background-color: ${({ theme }) => theme.colors.grey};
   }
-  z-index: 100;
+  z-index: 75;
   pointer-events: none;
 `;
 

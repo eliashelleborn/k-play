@@ -10,11 +10,13 @@ import {
 } from '../../context/player';
 import firebase from '../../firebase';
 import ListPlayerText from '../../components/PlayerText';
+import { useAppModals } from '../../context/modals';
 
 const Media = ({ match, location }) => {
   const { state, dispatch } = usePlayer();
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const appModals = useAppModals();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -62,6 +64,14 @@ const Media = ({ match, location }) => {
         subtitle={state.currentMedia.description}
         image={state.currentMedia.image}
         text={state.currentMedia.text}
+        onAddToList={() => {
+          appModals.setContent(state.currentMedia);
+          appModals.toggleOpen('addToList');
+        }}
+        onMore={() => {
+          appModals.setContent(state.currentMedia);
+          appModals.toggleOpen('trackActions');
+        }}
       />
     </div>
   );

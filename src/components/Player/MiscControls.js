@@ -47,7 +47,13 @@ const StyledMiscControls = styled.div`
   }
 `;
 
-const MiscControls = ({ onCreateSnippet, mediaId, hide }) => {
+const MiscControls = ({
+  onCreateSnippet,
+  mediaId,
+  hide,
+  onAddToList,
+  onMore
+}) => {
   return (
     <StyledMiscControls>
       <div>
@@ -64,11 +70,11 @@ const MiscControls = ({ onCreateSnippet, mediaId, hide }) => {
           <Snippet />
           <span>Spara stycke</span>
         </button>
-        <button type="button">
+        <button onClick={onAddToList} type="button">
           <Plus height="28px" color="#363636" />
           <span>Lägg till</span>
         </button>
-        <button type="button">
+        <button onClick={onMore} type="button">
           <More />
           <span>Mer</span>
         </button>

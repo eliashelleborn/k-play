@@ -13,7 +13,7 @@ import {
   PLAYER_TOGGLE_PLAYING,
   PLAYER_NEXT,
   PLAYER_PREVIOUS,
-  PLAYER_CLOSE
+  PLAYER_MINIMIZE
 } from '../../context/player';
 import MinimizedPlayer from '../MinimizedPlayer';
 import Modal from '../Modals';
@@ -30,7 +30,7 @@ const StyledPlayer = styled(motion.div)`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  z-index: 90;
+  z-index: 75;
   align-items: center;
 
   justify-content: center;
@@ -233,9 +233,17 @@ const Player = () => {
         <ControlsContainer>
           <DesktopControls>
             <MiscControls
-              hide={() => dispatch({ type: PLAYER_CLOSE })}
+              hide={() => dispatch({ type: PLAYER_MINIMIZE })}
               mediaId={currentMedia.id}
               onCreateSnippet={snippetModal.toggle}
+              onAddToList={() => {
+                appModals.setContent(currentMedia);
+                appModals.toggleOpen('addToList');
+              }}
+              onMore={() => {
+                appModals.setContent(currentMedia);
+                appModals.toggleOpen('trackActions');
+              }}
             />
             <Progress
               snippet={currentMedia.snippet}

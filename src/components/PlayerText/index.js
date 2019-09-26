@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { Plus, More } from '../Icons';
 
 const StyledPlayerText = styled.div`
-  margin: 24px 16px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  max-width: 960px;
 `;
 
 const TitleContent = styled.div`
@@ -53,17 +55,24 @@ const ImageContainer = styled.div`
   }
 `;
 
-const PlayerText = ({ title, subtitle, date, description, image, text }) => {
-  console.log(description);
-
+const PlayerText = ({
+  title,
+  subtitle,
+  date,
+  description,
+  image,
+  text,
+  onAddToList,
+  onMore
+}) => {
   return (
     <StyledPlayerText>
       <TitleContent>
         <p>{title}</p>
-        <button type="button">
+        <button type="button" onClick={onAddToList}>
           <Plus color="#EC733F" width="24" />
         </button>
-        <button type="button">
+        <button type="button" onClick={onMore}>
           <More />
         </button>
       </TitleContent>
