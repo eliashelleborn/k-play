@@ -146,7 +146,7 @@ const Playlist = ({ match, history }) => {
             }}
             name={playlist.name}
             context="Mina Listor"
-            image="https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+            image={playlist.image}
           />
 
           <ContentWrapper>
@@ -191,10 +191,9 @@ const Playlist = ({ match, history }) => {
           <Modal isShowing={actionsModal.isShowing} hide={actionsModal.toggle}>
             <PlaylistActions
               playlist={{
-                name: 'Favoriter',
+                name: playlist.name,
                 tracksNum: tracks.length,
-                image:
-                  'https://images.unsplash.com/photo-1568621779193-e6e6c9ab80f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
+                image: playlist.image
               }}
               isShowing={actionsModal.isShowing}
               hide={actionsModal.toggle}
