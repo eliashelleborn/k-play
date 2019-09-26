@@ -245,6 +245,7 @@ const Player = () => {
             minimized={minimized}
             open={open}
             ref={playerRef}
+            description={currentMedia.description || currentMedia.subtitle}
             url={currentMedia.url}
             type={currentMedia.type}
             playing={ready.main && ready.minimized && playing}

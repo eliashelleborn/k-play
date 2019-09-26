@@ -95,7 +95,18 @@ const drawerVariants = {
 
 const MediaBox = forwardRef(
   (
-    { playing, url, type, image, onReady, onProgress, open, onStart, onPause },
+    {
+      playing,
+      url,
+      type,
+      image,
+      description,
+      onReady,
+      onProgress,
+      open,
+      onStart,
+      onPause
+    },
     ref
   ) => {
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -133,12 +144,7 @@ const MediaBox = forwardRef(
                   </svg>
                 </button>
 
-                <Text m="0">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam, praesentium dolore consequuntur dicta esse pariatur
-                  placeat, dolorum eveniet voluptas non error fugiat molestiae
-                  aliquam eos aut minus. Distinctio, doloribus non!
-                </Text>
+                <Text m="0">{description}</Text>
               </Drawer>
             )}
           </Overlay>
