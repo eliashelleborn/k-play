@@ -171,7 +171,7 @@ const MediaBox = forwardRef(
             onProgress={onProgress}
             onStart={onStart}
           />
-          {false === 'PODD' && <img src={image} alt="" />}
+          {type === 'PODD' && <img src={image} alt="" />}
         </div>
       </StyledMediaBox>
     );
