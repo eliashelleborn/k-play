@@ -20,6 +20,7 @@ import Loading from '../Loading';
 import CustomRouter from '../CustomRouter';
 import Modals from './Modals';
 import Media from '../../pages/Media';
+import ScrollRestoration from '../Util/ScrollRestoration';
 
 const Background = styled.img`
   position: fixed;
@@ -50,7 +51,7 @@ const Layout = () => {
 
   return (
     <CustomRouter>
-      <>
+      <ScrollRestoration>
         <Background src={bglogo} />
         <Navigation />
         {authLoading && (
@@ -77,7 +78,7 @@ const Layout = () => {
         <Player />
 
         <Modals />
-      </>
+      </ScrollRestoration>
     </CustomRouter>
   );
 };
