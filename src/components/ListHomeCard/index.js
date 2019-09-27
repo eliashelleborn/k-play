@@ -173,12 +173,12 @@ const ListHomeCard = ({
   title,
   subtitle,
   description,
-  contentType,
+  type,
   subject,
   episodes,
   play
 }) => {
-  const CategoryIcon = contentType === 'PODD' ? <Podcast /> : <Video />;
+  const CategoryIcon = type === 'PODD' ? <Podcast /> : <Video />;
 
   return (
     <StyledHomeCard>
