@@ -55,7 +55,7 @@ const ImageContainer = styled.div`
   }
 `;
 
-const PlayerText = ({
+const ListPlayerText = ({
   title,
   subtitle,
   date,
@@ -91,4 +91,4 @@ const PlayerText = ({
   );
 };
 
-export default PlayerText;
+export default ListPlayerText;

@@ -15,7 +15,7 @@ const SettingsWrapper = styled.div`
   height: calc(100vh - 100px);
   align-items: space-between;
   justify-content: space-between;
-  max-width: 343px;
+  max-width: 100%;
   margin: auto;
 
   ${({ theme }) => theme.mediaQueries.medium} {

@@ -75,7 +75,7 @@ const CloseButton = styled.button`
   -webkit-tap-highlight-color: transparent;
   padding: 16px;
   position: absolute;
-  left: 16px;
+  left: 0px;
   top: 20px;
 `;
 
