@@ -102,7 +102,7 @@ const Description = styled.div`
   overflow: hidden;
 
   ${({ theme }) => theme.mediaQueries.desktop} {
-      max-height: 52px;
+    max-height: 52px;
   }
   > p {
     ${({ theme }) => theme.mediaQueries.desktop} {
