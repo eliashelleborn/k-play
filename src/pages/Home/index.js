@@ -150,7 +150,7 @@ const homelists = [
     episodes: "#75",
     image: "https://images.unsplash.com/photo-1561212044-bac5ef688a07?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80",
     subject: "Konst",
-    key: 7
+    key: 7,
   },
   {
     contentType: "VIDEO",

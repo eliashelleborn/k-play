@@ -24,7 +24,9 @@ const StyledMenu = styled.div`
   z-index: 85;
   width: 100%;
   height: 100vh;
-  /* transition: 0.3s; */
+
+  transition: 2s;
+  /* opacity: 1; */
 
   ${({ theme }) => theme.mediaQueries.desktop} {
     height: 65px;

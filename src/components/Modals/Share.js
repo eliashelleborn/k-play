@@ -32,7 +32,7 @@ const StyledShare = styled.div`
 
 const Info = styled.div`
   display: flex;
-  padding: ${({ theme }) => theme.space[5]}px 0;
+  padding: ${({ theme }) => theme.space[3]}px 0;
 
   img {
     width: 20vw;
@@ -56,7 +56,7 @@ const CloseButton = styled.button`
   -webkit-tap-highlight-color: transparent;
   padding: 16px;
   position: absolute;
-  left: 16px;
+  left: 0px;
   top: 20px;
 `;
 
@@ -69,6 +69,11 @@ const StyledItem = styled(Item)`
     display: flex;
     align-items: center;
     margin-left: 16px;
+
+    > div {
+      border-radius: 50%;
+      box-shadow: 0px 0px 4px rgba(0,0,0, .1)
+    }
   }
 `;
 
@@ -82,7 +87,8 @@ const Share = ({ hide, content }) => {
         as="h2"
         textAlign="center"
         m="0"
-        p="3"
+        pt="3"
+        pb="3"
         fontSize="20px"
         fontWeight="normal"
       >
@@ -128,7 +134,9 @@ const Share = ({ hide, content }) => {
         </StyledItem>
         <StyledItem>
           <div>
-            <Messenger />
+            <div>
+              <Messenger />
+            </div>
             <Text m="0" ml="3">
               Messenger
             </Text>

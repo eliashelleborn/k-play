@@ -1,13 +1,10 @@
 import React from 'react';
 
-const Hamburger = ({ color, ...props }) => (
-  <svg width={24} height={17} viewBox="0 0 24 17" {...props}>
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M0 16.25H24V13.5417H0V16.25ZM0 9.47917H24V6.77083H0V9.47917ZM0 0V2.70833H24V0H0Z"
-      fill={color}
-    />
+const Hamburger = ({ color, transform1, transform2, transform3, opacity, ...props }) => (
+  <svg width="24" height="27" viewBox="0 0 24 17" fill="none" {...props}>
+    <rect style={{transition: "0.25s", opacity:opacity, transform:transform3}} y="14" width="19" height="2.5" fill={color}/>
+    <rect style={{transition: "0.25s", transformOrigin: "top left", transform:transform1}} y="7" width="24" height="2.5" fill={color}/>
+    <rect style={{transition: "0.25s", transformOrigin: "top right", transform:transform2}} width="24" height="2.5" fill={color}/>
   </svg>
 );
 

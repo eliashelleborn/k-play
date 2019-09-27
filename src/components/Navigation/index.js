@@ -207,6 +207,10 @@ const Navigation = () => {
         <StyledHamburger
           onClick={() => setShowMenu(!showMenu)}
           color={showMenu ? '#ffffff' : '#363636'}
+          opacity={showMenu ? '0' : '1'}
+          transform3={showMenu ? 'translateY(-8px)' : 'translateY(0px)'}
+          transform1={showMenu ? 'translate(-4px, 9.5px) rotate(-45deg)' : 'translate(0px, 0px) rotate(0deg)'}
+          transform2={showMenu ? 'translate(-4px, 14.5px) rotate(45deg)' : 'translate(0px, 0px) rotate(0deg)'}
         />
       </HamburgerWrapper>
     </div>
