@@ -129,8 +129,6 @@ const Player = () => {
   const anim = useAnimation();
 
   const handleStart = () => {
-    console.log('start');
-
     setCurrentTime(currentMedia.snippet ? currentMedia.snippet.start : 0);
     playerRef.current.seekTo(
       currentMedia.snippet ? currentMedia.snippet.start : 0,
@@ -207,6 +205,8 @@ const Player = () => {
   };
 
   if (!currentMedia) return null;
+
+  console.log(currentMedia);
 
   return (
     <Div100vh>
